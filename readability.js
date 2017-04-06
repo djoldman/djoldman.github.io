@@ -372,8 +372,10 @@ var readability = {
                  " <span id='readability-url'> http://lab.arc90.com/experiments/readability</span>",
              "</div>",
              "<div id='rdb-footer-right'>",
-                 //"<a href='http://www.twitter.com/arc90' class='footer-twitterLink'>Follow us on Twitter &raquo;</a>",
-                 //"<span class='version'>Readability version " + readability.version + "</span>",
+                 /*
+                 "<a href='http://www.twitter.com/arc90' class='footer-twitterLink'>Follow us on Twitter &raquo;</a>",
+                 "<span class='version'>Readability version " + readability.version + "</span>",
+                 */
              "</div>",
         "</div>"].join('');
 
