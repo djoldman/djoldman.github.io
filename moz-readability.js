@@ -2087,19 +2087,6 @@ Readability.prototype = {
       length: textContent.length,
       excerpt: metadata.excerpt,
     };
-  },
-
-  init: function() {
-    var loc = document.location;
-    var uri = {
-      spec: loc.href,
-      host: loc.host,
-      prePath: loc.protocol + "//" + loc.host,
-      scheme: loc.protocol.substr(0, loc.protocol.indexOf(":")),
-      pathBase: loc.protocol + "//" + loc.host + loc.pathname.substr(0, loc.pathname.lastIndexOf("/") + 1)
-    };
-    var article = new Readability(uri, document).parse();
-    console.log(article);
   }
 
 };
@@ -2108,4 +2095,14 @@ if (typeof module === "object") {
   module.exports = Readability;
 }
 
-Readability.init();
+  
+var loc = document.location;
+var uri = {
+  spec: loc.href,
+  host: loc.host,
+  prePath: loc.protocol + "//" + loc.host,
+  scheme: loc.protocol.substr(0, loc.protocol.indexOf(":")),
+  pathBase: loc.protocol + "//" + loc.host + loc.pathname.substr(0, loc.pathname.lastIndexOf("/") + 1)
+};
+var article = new Readability(uri, document).parse();
+console.log(article);
