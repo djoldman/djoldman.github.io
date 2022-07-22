@@ -1,12 +1,1680 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>?????????????????????????????????????</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-  </head>
-  <body>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>?????????????????????????????????????</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body onload='init()'>
+  <svg>
+  </svg>
+  <script>
+    const data = [
+    {
+        "Country Name": "Afghanistan",
+        "2001_income": null,
+        "2010_income": 493.2649,
+        "2019_income": 459.52277,
+        "2001_health": null,
+        "2010_health": 8.569672,
+        "2019_health": 13.242202
+    },
+    {
+        "Country Name": "Albania",
+        "2001_income": 1184.2448,
+        "2010_income": 3495.8442,
+        "2019_income": 4337.131,
+        "2001_health": 7.139524,
+        "2010_health": 4.745796,
+        "2019_health": null
+    },
+    {
+        "Country Name": "Algeria",
+        "2001_income": 1320.6609,
+        "2010_income": 3425.1921,
+        "2019_income": 3142.1965,
+        "2001_health": 3.837877,
+        "2010_health": 5.117172,
+        "2019_health": 6.243371
+    },
+    {
+        "Country Name": "Angola",
+        "2001_income": 261.99158,
+        "2010_income": 1755.1665,
+        "2019_income": 1690.7014,
+        "2001_health": 4.483516,
+        "2010_health": 2.6951,
+        "2019_health": 2.5333595
+    },
+    {
+        "Country Name": "Argentina",
+        "2001_income": 5997.87,
+        "2010_income": 8619.868,
+        "2019_income": 8273.355,
+        "2001_health": 8.371798,
+        "2010_health": 9.44547,
+        "2019_health": 9.510071
+    },
+    {
+        "Country Name": "Armenia",
+        "2001_income": 605.4062,
+        "2010_income": 2919.0256,
+        "2019_income": 4025.707,
+        "2001_health": 4.645627,
+        "2010_health": 9.235391,
+        "2019_health": 11.335264
+    },
+    {
+        "Country Name": "Australia",
+        "2001_income": 15465.412,
+        "2010_income": 40364.973,
+        "2019_income": 42360.8,
+        "2001_health": 7.696229,
+        "2010_health": 8.430842,
+        "2019_health": 9.910786
+    },
+    {
+        "Country Name": "Austria",
+        "2001_income": 20125.469,
+        "2010_income": 38980.734,
+        "2019_income": 40727.176,
+        "2001_health": 9.269429,
+        "2010_health": 10.221019,
+        "2019_health": 10.4340315
+    },
+    {
+        "Country Name": "Azerbaijan",
+        "2001_income": 462.99408,
+        "2010_income": 3870.322,
+        "2019_income": 3612.674,
+        "2001_health": 2.7559068,
+        "2010_health": 2.4899666,
+        "2019_health": 4.03829
+    },
+    {
+        "Country Name": "Bahamas, The",
+        "2001_income": 25044.951,
+        "2010_income": 25765.654,
+        "2019_income": 30034.938,
+        "2001_health": 3.924409,
+        "2010_health": 5.256739,
+        "2019_health": 5.749775
+    },
+    {
+        "Country Name": "Bahrain",
+        "2001_income": 10618.362,
+        "2010_income": 13718.718,
+        "2019_income": 17644.516,
+        "2001_health": 3.681042,
+        "2010_health": 3.8429148,
+        "2019_health": 4.011475
+    },
+    {
+        "Country Name": "Bangladesh",
+        "2001_income": 393.77936,
+        "2010_income": 774.48474,
+        "2019_income": 1916.369,
+        "2001_health": 2.0637505,
+        "2010_health": 2.6810105,
+        "2019_health": 2.483576
+    },
+    {
+        "Country Name": "Barbados",
+        "2001_income": 9794.562,
+        "2010_income": 13911.233,
+        "2019_income": 15516.738,
+        "2001_health": 5.525292,
+        "2010_health": 6.773987,
+        "2019_health": 6.299904
+    },
+    {
+        "Country Name": "Belarus",
+        "2001_income": 1069.0221,
+        "2010_income": 4993.1323,
+        "2019_income": 5563.949,
+        "2001_health": 5.708271,
+        "2010_health": 5.65694,
+        "2019_health": 5.8613396
+    },
+    {
+        "Country Name": "Belgium",
+        "2001_income": 19523.166,
+        "2010_income": 36300.586,
+        "2019_income": 38315.75,
+        "2001_health": 8.149888,
+        "2010_health": 10.233246,
+        "2019_health": 10.65605
+    },
+    {
+        "Country Name": "Belize",
+        "2001_income": 2633.18,
+        "2010_income": 2941.0923,
+        "2019_income": 3832.084,
+        "2001_health": 4.632415,
+        "2010_health": 5.681495,
+        "2019_health": 5.9668922
+    },
+    {
+        "Country Name": "Benin",
+        "2001_income": 424.35724,
+        "2010_income": 879.69617,
+        "2019_income": 1073.9768,
+        "2001_health": 3.2491002,
+        "2010_health": 2.9971044,
+        "2019_health": 2.3884292
+    },
+    {
+        "Country Name": "Bhutan",
+        "2001_income": 683.7392,
+        "2010_income": 1842.9594,
+        "2019_income": 2688.6802,
+        "2001_health": 5.0041995,
+        "2010_health": 3.5587947,
+        "2019_health": 3.607616
+    },
+    {
+        "Country Name": "Bolivia",
+        "2001_income": 826.2453,
+        "2010_income": 1592.8943,
+        "2019_income": 3012.1387,
+        "2001_health": 4.825222,
+        "2010_health": 5.2023053,
+        "2019_health": 6.92338
+    },
+    {
+        "Country Name": "Bosnia and Herzegovina",
+        "2001_income": 1525.771,
+        "2010_income": 4051.1318,
+        "2019_income": 5127.4175,
+        "2001_health": 7.277025,
+        "2010_health": 9.018883,
+        "2019_health": 9.049099
+    },
+    {
+        "Country Name": "Botswana",
+        "2001_income": 2834.3616,
+        "2010_income": 4631.167,
+        "2019_income": 5560.1445,
+        "2001_health": 6.1567163,
+        "2010_health": 6.194025,
+        "2019_health": 6.0483656
+    },
+    {
+        "Country Name": "Brazil",
+        "2001_income": 2545.8132,
+        "2010_income": 8674.471,
+        "2019_income": 6615.9136,
+        "2001_health": 8.549606,
+        "2010_health": 7.94516,
+        "2019_health": 9.591271
+    },
+    {
+        "Country Name": "Brunei Darussalam",
+        "2001_income": 12181.129,
+        "2010_income": 26282.385,
+        "2019_income": 24180.283,
+        "2001_health": 2.5499504,
+        "2010_health": 2.2782612,
+        "2019_health": 2.1603136
+    },
+    {
+        "Country Name": "Bulgaria",
+        "2001_income": 1546.3325,
+        "2010_income": 5619.9634,
+        "2019_income": 8187.539,
+        "2001_health": 6.8595877,
+        "2010_health": 7.1380057,
+        "2019_health": 7.126114
+    },
+    {
+        "Country Name": "Burkina Faso",
+        "2001_income": 249.22256,
+        "2010_income": 556.0451,
+        "2019_income": 693.7278,
+        "2001_health": 2.8883538,
+        "2010_health": 5.2395854,
+        "2019_health": 5.4649425
+    },
+    {
+        "Country Name": "Burundi",
+        "2001_income": 85.49232,
+        "2010_income": 144.70107,
+        "2019_income": 165.70952,
+        "2001_health": 6.404844,
+        "2010_health": 11.276376,
+        "2019_health": 7.9909143
+    },
+    {
+        "Country Name": "Cabo Verde",
+        "2001_income": 1103.3959,
+        "2010_income": 2726.439,
+        "2019_income": 3023.0955,
+        "2001_health": 4.752444,
+        "2010_health": 4.4755573,
+        "2019_health": 4.9362173
+    },
+    {
+        "Country Name": "Cambodia",
+        "2001_income": 287.01788,
+        "2010_income": 681.8885,
+        "2019_income": 1379.8787,
+        "2001_health": 7.0119233,
+        "2010_health": 6.911699,
+        "2019_health": 6.9890833
+    },
+    {
+        "Country Name": "Cameroon",
+        "2001_income": 542.8093,
+        "2010_income": 1064.7028,
+        "2019_income": 1239.8341,
+        "2001_health": 4.097513,
+        "2010_health": 3.7589147,
+        "2019_health": 3.5953953
+    },
+    {
+        "Country Name": "Canada",
+        "2001_income": 18877.896,
+        "2010_income": 38670.867,
+        "2019_income": 37808.88,
+        "2001_health": 8.624824,
+        "2010_health": 10.695854,
+        "2019_health": 10.844478
+    },
+    {
+        "Country Name": "Central African Republic",
+        "2001_income": 227.18663,
+        "2010_income": 444.1576,
+        "2019_income": 404.4656,
+        "2001_health": 3.955942,
+        "2010_health": 3.8270402,
+        "2019_health": 7.753009
+    },
+    {
+        "Country Name": "Chad",
+        "2001_income": 171.08147,
+        "2010_income": 651.6291,
+        "2019_income": 510.89694,
+        "2001_health": 5.293292,
+        "2010_health": 4.0602317,
+        "2019_health": 4.3536315
+    },
+    {
+        "Country Name": "Chile",
+        "2001_income": 3740.0867,
+        "2010_income": 9469.989,
+        "2019_income": 11471.222,
+        "2001_health": 7.151041,
+        "2010_health": 6.7748933,
+        "2019_health": 9.332724
+    },
+    {
+        "Country Name": "China",
+        "2001_income": 877.4274,
+        "2010_income": 3512.3757,
+        "2019_income": 7492.75,
+        "2001_health": 4.2532988,
+        "2010_health": 4.2306833,
+        "2019_health": 5.350278
+    },
+    {
+        "Country Name": "Colombia",
+        "2001_income": 1983.6544,
+        "2010_income": 5034.921,
+        "2019_income": 5295.0645,
+        "2001_health": 5.9423823,
+        "2010_health": 7.0713015,
+        "2019_health": 7.709436
+    },
+    {
+        "Country Name": "Comoros",
+        "2001_income": 621.31537,
+        "2010_income": 1187.2501,
+        "2019_income": 1240.8163,
+        "2001_health": 6.653229,
+        "2010_health": 4.9918156,
+        "2019_health": 5.1703033
+    },
+    {
+        "Country Name": "Congo, Dem. Rep.",
+        "2001_income": 98.781586,
+        "2010_income": 226.13226,
+        "2019_income": 480.53748,
+        "2001_health": 2.70775,
+        "2010_health": 3.8603559,
+        "2019_health": 3.5362608
+    },
+    {
+        "Country Name": "Congo, Rep.",
+        "2001_income": 126.5267,
+        "2010_income": 1092.9338,
+        "2019_income": 595.4552,
+        "2001_health": 2.1852968,
+        "2010_health": 1.8517288,
+        "2019_health": 2.0833108
+    },
+    {
+        "Country Name": "Costa Rica",
+        "2001_income": 3547.7358,
+        "2010_income": 7485.6074,
+        "2019_income": 11246.689,
+        "2001_health": 6.474104,
+        "2010_health": 8.029377,
+        "2019_health": 7.2739325
+    },
+    {
+        "Country Name": "Cote d'Ivoire",
+        "2001_income": 544.46704,
+        "2010_income": 1099.6936,
+        "2019_income": 2124.196,
+        "2001_health": 6.0177274,
+        "2010_health": 4.4158096,
+        "2019_health": 3.2986295
+    },
+    {
+        "Country Name": "Croatia",
+        "2001_income": 4306.9385,
+        "2010_income": 11146.212,
+        "2019_income": 12778.651,
+        "2001_health": 7.2349987,
+        "2010_health": 8.088702,
+        "2019_health": 6.9786177
+    },
+    {
+        "Country Name": "Cuba",
+        "2001_income": 2455.6934,
+        "2010_income": 4835.703,
+        "2019_income": null,
+        "2001_health": 6.9820976,
+        "2010_health": 10.688083,
+        "2019_health": 11.340205
+    },
+    {
+        "Country Name": "Cyprus",
+        "2001_income": 11974.136,
+        "2010_income": 26815.412,
+        "2019_income": 24379.72,
+        "2001_health": 5.3394046,
+        "2010_health": 6.517671,
+        "2019_health": 7.0090322
+    },
+    {
+        "Country Name": "Czech Republic",
+        "2001_income": 5013.7734,
+        "2010_income": 14230.865,
+        "2019_income": 17468.262,
+        "2001_health": 5.862954,
+        "2010_health": 6.875304,
+        "2019_health": 7.8347073
+    },
+    {
+        "Country Name": "Denmark",
+        "2001_income": 24861.988,
+        "2010_income": 48006.395,
+        "2019_income": 51344.035,
+        "2001_health": 8.448326,
+        "2010_health": 10.333159,
+        "2019_health": 9.955831
+    },
+    {
+        "Country Name": "Djibouti",
+        "2001_income": 767.4789,
+        "2010_income": 1073.6921,
+        "2019_income": 2921.3389,
+        "2001_health": 2.8072207,
+        "2010_health": 3.0615036,
+        "2019_health": 1.7982678
+    },
+    {
+        "Country Name": "Dominica",
+        "2001_income": 4200.953,
+        "2010_income": 5819.257,
+        "2019_income": 7097.6797,
+        "2001_health": 4.645018,
+        "2010_health": 5.157119,
+        "2019_health": 5.4600663
+    },
+    {
+        "Country Name": "Dominican Republic",
+        "2001_income": 2782.578,
+        "2010_income": 5112.587,
+        "2019_income": 7424.789,
+        "2001_health": 4.881833,
+        "2010_health": 5.5794,
+        "2019_health": 5.929142
+    },
+    {
+        "Country Name": "Ecuador",
+        "2001_income": 1448.548,
+        "2010_income": 3641.2217,
+        "2019_income": 4715.532,
+        "2001_health": 3.7533655,
+        "2010_health": 6.116579,
+        "2019_health": 7.818247
+    },
+    {
+        "Country Name": "Egypt, Arab Rep.",
+        "2001_income": 1254.6626,
+        "2010_income": 2253.5408,
+        "2019_income": 2614.4666,
+        "2001_health": 5.4003034,
+        "2010_health": 4.153195,
+        "2019_health": 4.7399735
+    },
+    {
+        "Country Name": "El Salvador",
+        "2001_income": 1887.7751,
+        "2010_income": 2585.837,
+        "2019_income": 3377.8376,
+        "2001_health": 8.824674,
+        "2010_health": 8.236292,
+        "2019_health": 7.1657844
+    },
+    {
+        "Country Name": "Equatorial Guinea",
+        "2001_income": null,
+        "2010_income": 2370.6465,
+        "2019_income": 2443.1316,
+        "2001_health": 2.2035275,
+        "2010_health": 1.8185656,
+        "2019_health": 3.1350367
+    },
+    {
+        "Country Name": "Eritrea",
+        "2001_income": 269.2581,
+        "2010_income": 438.92218,
+        "2019_income": null,
+        "2001_health": 5.9193163,
+        "2010_health": 4.92946,
+        "2019_health": 4.458767
+    },
+    {
+        "Country Name": "Estonia",
+        "2001_income": 3745.0022,
+        "2010_income": 11359.179,
+        "2019_income": 19446.143,
+        "2001_health": 4.777083,
+        "2010_health": 6.27124,
+        "2019_health": 6.730449
+    },
+    {
+        "Country Name": "Eswatini",
+        "2001_income": 1399.5956,
+        "2010_income": 3353.4695,
+        "2019_income": 2907.3953,
+        "2001_health": 5.138953,
+        "2010_health": 8.591258,
+        "2019_health": 6.7806907
+    },
+    {
+        "Country Name": "Ethiopia",
+        "2001_income": 91.08014,
+        "2010_income": 253.792,
+        "2019_income": 730.7278,
+        "2001_health": 4.723167,
+        "2010_health": 5.4663725,
+        "2019_health": 3.238086
+    },
+    {
+        "Country Name": "Fiji",
+        "2001_income": 1779.518,
+        "2010_income": 3192.519,
+        "2019_income": 4843.637,
+        "2001_health": 2.9054732,
+        "2010_health": 3.416641,
+        "2019_health": 3.81607
+    },
+    {
+        "Country Name": "Finland",
+        "2001_income": 20684.982,
+        "2010_income": 38271.336,
+        "2019_income": 39705.33,
+        "2001_health": 7.250904,
+        "2010_health": 9.142028,
+        "2019_health": 9.153483
+    },
+    {
+        "Country Name": "France",
+        "2001_income": 19354.959,
+        "2010_income": 34362.64,
+        "2019_income": 33963.605,
+        "2001_health": 9.705627,
+        "2010_health": 11.225602,
+        "2019_health": 11.057472
+    },
+    {
+        "Country Name": "Gabon",
+        "2001_income": 2117.0732,
+        "2010_income": 4333.1157,
+        "2019_income": 4527.791,
+        "2001_health": 3.1524646,
+        "2010_health": 2.4755678,
+        "2019_health": 2.768362
+    },
+    {
+        "Country Name": "Gambia, The",
+        "2001_income": 396.58862,
+        "2010_income": 661.7795,
+        "2019_income": 591.1331,
+        "2001_health": 5.7073483,
+        "2010_health": 5.0898247,
+        "2019_health": 3.8217108
+    },
+    {
+        "Country Name": "Georgia",
+        "2001_income": 694.21027,
+        "2010_income": 2713.7786,
+        "2019_income": 3821.7288,
+        "2001_health": 7.169509,
+        "2010_health": 9.073412,
+        "2019_health": 6.6574426
+    },
+    {
+        "Country Name": "Germany",
+        "2001_income": 19430.545,
+        "2010_income": 34850.28,
+        "2019_income": 39679.62,
+        "2001_health": 9.920462,
+        "2010_health": 11.095578,
+        "2019_health": 11.697249
+    },
+    {
+        "Country Name": "Ghana",
+        "2001_income": 204.55515,
+        "2010_income": 1032.0557,
+        "2019_income": 1751.127,
+        "2001_health": 3.1725295,
+        "2010_health": 4.2511725,
+        "2019_health": 3.4185886
+    },
+    {
+        "Country Name": "Greece",
+        "2001_income": null,
+        "2010_income": 21620.414,
+        "2019_income": 16142.629,
+        "2001_health": 7.9878397,
+        "2010_health": 9.596623,
+        "2019_health": 7.837886
+    },
+    {
+        "Country Name": "Guatemala",
+        "2001_income": 1395.7806,
+        "2010_income": 2395.9863,
+        "2019_income": 3973.2751,
+        "2001_health": 6.0701585,
+        "2010_health": 6.1248713,
+        "2019_health": 6.2116103
+    },
+    {
+        "Country Name": "Guinea",
+        "2001_income": 281.89032,
+        "2010_income": 552.78564,
+        "2019_income": 857.3308,
+        "2001_health": 4.8888144,
+        "2010_health": 3.4273498,
+        "2019_health": 3.9838996
+    },
+    {
+        "Country Name": "Guinea-Bissau",
+        "2001_income": 255.11847,
+        "2010_income": 437.27048,
+        "2019_income": 655.0614,
+        "2001_health": 6.7083225,
+        "2010_health": 6.261166,
+        "2019_health": 8.349761
+    },
+    {
+        "Country Name": "Guyana",
+        "2001_income": 764.3844,
+        "2010_income": 3863.254,
+        "2019_income": 6052.929,
+        "2001_health": 3.0550678,
+        "2010_health": 4.218977,
+        "2019_health": 4.9304867
+    },
+    {
+        "Country Name": "Haiti",
+        "2001_income": 721.3615,
+        "2010_income": 1132.8516,
+        "2019_income": 1238.097,
+        "2001_health": 3.7308817,
+        "2010_health": 4.6258326,
+        "2019_health": 4.72809
+    },
+    {
+        "Country Name": "Honduras",
+        "2001_income": 1009.6004,
+        "2010_income": 1651.0087,
+        "2019_income": 2238.7246,
+        "2001_health": 5.929983,
+        "2010_health": 8.725364,
+        "2019_health": 7.283918
+    },
+    {
+        "Country Name": "Hungary",
+        "2001_income": 3991.097,
+        "2010_income": 10184.043,
+        "2019_income": 13604.134,
+        "2001_health": 6.8261476,
+        "2010_health": 7.463198,
+        "2019_health": 6.3500223
+    },
+    {
+        "Country Name": "Iceland",
+        "2001_income": null,
+        "2010_income": null,
+        "2019_income": 57512.777,
+        "2001_health": 8.785464,
+        "2010_health": 8.361731,
+        "2019_health": 8.63868
+    },
+    {
+        "Country Name": "India",
+        "2001_income": 395.27405,
+        "2010_income": 1170.0771,
+        "2019_income": 1837.6222,
+        "2001_health": 4.262781,
+        "2010_health": 3.272119,
+        "2019_health": 3.0141468
+    },
+    {
+        "Country Name": "Indonesia",
+        "2001_income": 542.32117,
+        "2010_income": 2338.7158,
+        "2019_income": 3274.8306,
+        "2001_health": 2.118502,
+        "2010_health": 2.7908783,
+        "2019_health": 2.9049358
+    },
+    {
+        "Country Name": "Iran, Islamic Rep.",
+        "2001_income": 1479.9889,
+        "2010_income": 5476.618,
+        "2019_income": 2338.0737,
+        "2001_health": 5.400865,
+        "2010_health": 6.693823,
+        "2019_health": 6.7106166
+    },
+    {
+        "Country Name": "Iraq",
+        "2001_income": 1143.3988,
+        "2010_income": 3736.0195,
+        "2019_income": 4550.333,
+        "2001_health": null,
+        "2010_health": 3.230556,
+        "2019_health": 4.476715
+    },
+    {
+        "Country Name": "Ireland",
+        "2001_income": 20882.816,
+        "2010_income": 33741.12,
+        "2019_income": 43023.867,
+        "2001_health": 6.396646,
+        "2010_health": 10.506325,
+        "2019_health": 6.679315
+    },
+    {
+        "Country Name": "Israel",
+        "2001_income": 16599.361,
+        "2010_income": 25993.594,
+        "2019_income": 37969.91,
+        "2001_health": 7.2098308,
+        "2010_health": 7.0166388,
+        "2019_health": 7.461319
+    },
+    {
+        "Country Name": "Italy",
+        "2001_income": 17377.73,
+        "2010_income": 29579.79,
+        "2019_income": 27981.94,
+        "2001_health": 7.7376084,
+        "2010_health": 8.91602,
+        "2019_health": 8.668569
+    },
+    {
+        "Country Name": "Jamaica",
+        "2001_income": 2999.9043,
+        "2010_income": 4141.918,
+        "2019_income": 4819.3516,
+        "2001_health": 5.1565294,
+        "2010_health": 5.2950687,
+        "2019_health": 6.097483
+    },
+    {
+        "Country Name": "Japan",
+        "2001_income": 26385.121,
+        "2010_income": 34447.156,
+        "2019_income": 31802.998,
+        "2001_health": 7.2394795,
+        "2010_health": 9.063006,
+        "2019_health": 10.743725
+    },
+    {
+        "Country Name": "Jordan",
+        "2001_income": 1582.5422,
+        "2010_income": 3425.4832,
+        "2019_income": 4164.817,
+        "2001_health": 9.585492,
+        "2010_health": 8.170257,
+        "2019_health": 7.5824695
+    },
+    {
+        "Country Name": "Kazakhstan",
+        "2001_income": 1009.1064,
+        "2010_income": 5735.8438,
+        "2019_income": 6758.672,
+        "2001_health": 3.47097,
+        "2010_health": 2.7364135,
+        "2019_health": 2.7874568
+    },
+    {
+        "Country Name": "Kenya",
+        "2001_income": 319.14694,
+        "2010_income": 781.6828,
+        "2019_income": 1565.6095,
+        "2001_health": 4.8036914,
+        "2010_health": 6.1167526,
+        "2019_health": 4.591827
+    },
+    {
+        "Country Name": "Kiribati",
+        "2001_income": 1198.7109,
+        "2010_income": 2071.5889,
+        "2019_income": 3038.5393,
+        "2001_health": 12.329345,
+        "2010_health": 9.207247,
+        "2019_health": 10.264144
+    },
+    {
+        "Country Name": "Korea, Rep.",
+        "2001_income": 9483.015,
+        "2010_income": 18945.783,
+        "2019_income": 25837.01,
+        "2001_health": 4.427623,
+        "2010_health": 5.917344,
+        "2019_health": 8.1641655
+    },
+    {
+        "Country Name": "Kuwait",
+        "2001_income": 16093.605,
+        "2010_income": 34975.56,
+        "2019_income": 30481.654,
+        "2001_health": 3.188388,
+        "2010_health": 2.6787992,
+        "2019_health": 5.496012
+    },
+    {
+        "Country Name": "Kyrgyz Republic",
+        "2001_income": 252.55672,
+        "2010_income": 674.1018,
+        "2019_income": 1069.2402,
+        "2001_health": 4.277033,
+        "2010_health": 6.950272,
+        "2019_health": 4.494541
+    },
+    {
+        "Country Name": "Lao PDR",
+        "2001_income": 256.53137,
+        "2010_income": 787.141,
+        "2019_income": 1985.9845,
+        "2001_health": 4.290317,
+        "2010_health": 2.9115524,
+        "2019_health": 2.5985236
+    },
+    {
+        "Country Name": "Latvia",
+        "2001_income": 2656.414,
+        "2010_income": 8651.941,
+        "2019_income": 13820.141,
+        "2001_health": 5.7776227,
+        "2010_health": 6.119527,
+        "2019_health": 6.578142
+    },
+    {
+        "Country Name": "Lebanon",
+        "2001_income": 3787.4429,
+        "2010_income": 6399.673,
+        "2019_income": 5995.894,
+        "2001_health": 10.565923,
+        "2010_health": 7.43862,
+        "2019_health": 8.646615
+    },
+    {
+        "Country Name": "Lesotho",
+        "2001_income": 537.8775,
+        "2010_income": 1235.2941,
+        "2019_income": 1067.559,
+        "2001_health": 7.277459,
+        "2010_health": 8.419619,
+        "2019_health": 11.269464
+    },
+    {
+        "Country Name": "Liberia",
+        "2001_income": 157.17972,
+        "2010_income": 279.97638,
+        "2019_income": 355.11194,
+        "2001_health": 3.4985893,
+        "2010_health": 8.946447,
+        "2019_health": 8.4700575
+    },
+    {
+        "Country Name": "Libya",
+        "2001_income": null,
+        "2010_income": 8558.841,
+        "2019_income": 6394.2065,
+        "2001_health": 4.051628,
+        "2010_health": 3.5854113,
+        "2019_health": null
+    },
+    {
+        "Country Name": "Lithuania",
+        "2001_income": 2952.1943,
+        "2010_income": 10176.001,
+        "2019_income": 16442.828,
+        "2001_health": 6.013396,
+        "2010_health": 6.814623,
+        "2019_health": 7.0060043
+    },
+    {
+        "Country Name": "Luxembourg",
+        "2001_income": 37764.74,
+        "2010_income": 63146.047,
+        "2019_income": 61496.242,
+        "2001_health": 6.410923,
+        "2010_health": 7.0315824,
+        "2019_health": 5.37076
+    },
+    {
+        "Country Name": "Madagascar",
+        "2001_income": 284.64603,
+        "2010_income": 370.29147,
+        "2019_income": 429.8789,
+        "2001_health": 4.7572556,
+        "2010_health": 4.6510034,
+        "2019_health": 3.6872838
+    },
+    {
+        "Country Name": "Malawi",
+        "2001_income": 115.81992,
+        "2010_income": 373.9534,
+        "2019_income": 516.61304,
+        "2001_health": 2.3850858,
+        "2010_health": 7.241383,
+        "2019_health": 7.3934116
+    },
+    {
+        "Country Name": "Malaysia",
+        "2001_income": 2499.2224,
+        "2010_income": 6383.6826,
+        "2019_income": 8035.782,
+        "2001_health": 2.6753974,
+        "2010_health": 3.164743,
+        "2019_health": 3.825142
+    },
+    {
+        "Country Name": "Maldives",
+        "2001_income": 2637.4258,
+        "2010_income": 5464.5347,
+        "2019_income": 8278.864,
+        "2001_health": 8.21365,
+        "2010_health": 8.487591,
+        "2019_health": 8.040011
+    },
+    {
+        "Country Name": "Mali",
+        "2001_income": 264.2935,
+        "2010_income": 593.7085,
+        "2019_income": 785.59283,
+        "2001_health": 4.519514,
+        "2010_health": 4.6786504,
+        "2019_health": 3.8938985
+    },
+    {
+        "Country Name": "Mauritania",
+        "2001_income": 579.6362,
+        "2010_income": 1296.8174,
+        "2019_income": 1543.779,
+        "2001_health": 3.5718467,
+        "2010_health": 2.636194,
+        "2019_health": 3.3032973
+    },
+    {
+        "Country Name": "Mauritius",
+        "2001_income": 3432.5945,
+        "2010_income": 6661.4277,
+        "2019_income": 11064.162,
+        "2001_health": 2.9608464,
+        "2010_health": 4.579821,
+        "2019_health": 6.199437
+    },
+    {
+        "Country Name": "Mexico",
+        "2001_income": 6278.148,
+        "2010_income": 7343.1396,
+        "2019_income": 7751.096,
+        "2001_health": 4.820358,
+        "2010_health": 5.736889,
+        "2019_health": 5.4330525
+    },
+    {
+        "Country Name": "Micronesia, Fed. Sts.",
+        "2001_income": 2110.1387,
+        "2010_income": 2730.855,
+        "2019_income": 3691.4607,
+        "2001_health": 8.4526005,
+        "2010_health": 13.106245,
+        "2019_health": 11.4420805
+    },
+    {
+        "Country Name": "Moldova",
+        "2001_income": 402.84918,
+        "2010_income": 2290.6252,
+        "2019_income": 4129.84,
+        "2001_health": 6.234497,
+        "2010_health": 10.131128,
+        "2019_health": 6.377946
+    },
+    {
+        "Country Name": "Mongolia",
+        "2001_income": 451.4101,
+        "2010_income": 1860.4343,
+        "2019_income": 3279.077,
+        "2001_health": 4.3172245,
+        "2010_health": 3.7394562,
+        "2019_health": 3.7660782
+    },
+    {
+        "Country Name": "Montenegro",
+        "2001_income": null,
+        "2010_income": 5838.2915,
+        "2019_income": 7964.855,
+        "2001_health": null,
+        "2010_health": null,
+        "2019_health": 8.329832
+    },
+    {
+        "Country Name": "Morocco",
+        "2001_income": 1171.1289,
+        "2010_income": 2443.2463,
+        "2019_income": 2785.5317,
+        "2001_health": 4.129816,
+        "2010_health": 5.8640885,
+        "2019_health": 5.308451
+    },
+    {
+        "Country Name": "Mozambique",
+        "2001_income": 228.62355,
+        "2010_income": 388.54916,
+        "2019_income": 385.2019,
+        "2001_health": 2.9549882,
+        "2010_health": 5.447264,
+        "2019_health": 7.8335114
+    },
+    {
+        "Country Name": "Myanmar",
+        "2001_income": 9459.101,
+        "2010_income": 127815.75,
+        "2019_income": 1118.391,
+        "2001_health": 2.1488192,
+        "2010_health": 1.9558595,
+        "2019_health": 4.678564
+    },
+    {
+        "Country Name": "Namibia",
+        "2001_income": 1720.454,
+        "2010_income": 4430.343,
+        "2019_income": 4278.3936,
+        "2001_health": 9.53212,
+        "2010_health": 9.727814,
+        "2019_health": 8.497005
+    },
+    {
+        "Country Name": "Nepal",
+        "2001_income": 238.33827,
+        "2010_income": 568.11346,
+        "2019_income": 1123.2434,
+        "2001_health": 3.8038623,
+        "2010_health": 4.3516626,
+        "2019_health": 4.445151
+    },
+    {
+        "Country Name": "Netherlands",
+        "2001_income": 22439.496,
+        "2010_income": 42037.695,
+        "2019_income": 43978.934,
+        "2001_health": 8.059466,
+        "2010_health": 10.155155,
+        "2019_health": 10.130311
+    },
+    {
+        "Country Name": "New Zealand",
+        "2001_income": 11095.131,
+        "2010_income": 26704.65,
+        "2019_income": 35330.55,
+        "2001_health": 7.578936,
+        "2010_health": 9.592775,
+        "2019_health": 9.741177
+    },
+    {
+        "Country Name": "Nicaragua",
+        "2001_income": 888.2423,
+        "2010_income": 1301.1263,
+        "2019_income": 1661.4893,
+        "2001_health": 5.4845977,
+        "2010_health": 7.7101917,
+        "2019_health": 8.403926
+    },
+    {
+        "Country Name": "Niger",
+        "2001_income": 212.3811,
+        "2010_income": 497.86386,
+        "2019_income": 555.8616,
+        "2001_health": 4.758148,
+        "2010_health": 5.021605,
+        "2019_health": 5.6686306
+    },
+    {
+        "Country Name": "Nigeria",
+        "2001_income": 470.00745,
+        "2010_income": 1778.9502,
+        "2019_income": 1812.4855,
+        "2001_health": 3.1894696,
+        "2010_health": 3.2965329,
+        "2019_health": 3.0266604
+    },
+    {
+        "Country Name": "North Macedonia",
+        "2001_income": 1467.6354,
+        "2010_income": 3525.2412,
+        "2019_income": 4911.928,
+        "2001_health": 8.381592,
+        "2010_health": 6.7136965,
+        "2019_health": 7.2541
+    },
+    {
+        "Country Name": "Norway",
+        "2001_income": 29524.092,
+        "2010_income": 68413.03,
+        "2019_income": 60089.465,
+        "2001_health": 8.022024,
+        "2010_health": 8.905532,
+        "2019_health": 10.521347
+    },
+    {
+        "Country Name": "Oman",
+        "2001_income": 4811.873,
+        "2010_income": 9744.318,
+        "2019_income": 9994.331,
+        "2001_health": 3.083152,
+        "2010_health": 2.8207152,
+        "2019_health": 4.0719023
+    },
+    {
+        "Country Name": "Pakistan",
+        "2001_income": 476.2276,
+        "2010_income": 895.9355,
+        "2019_income": 1189.6569,
+        "2001_health": 2.7066712,
+        "2010_health": 2.596758,
+        "2019_health": 3.3799272
+    },
+    {
+        "Country Name": "Panama",
+        "2001_income": 3526.7937,
+        "2010_income": 6978.103,
+        "2019_income": 13273.542,
+        "2001_health": 6.8341074,
+        "2010_health": 7.085097,
+        "2019_health": 7.584058
+    },
+    {
+        "Country Name": "Papua New Guinea",
+        "2001_income": 364.14838,
+        "2010_income": 1306.4596,
+        "2019_income": 2252.947,
+        "2001_health": 2.3006382,
+        "2010_health": 2.1075602,
+        "2019_health": 2.300361
+    },
+    {
+        "Country Name": "Paraguay",
+        "2001_income": 1198.2322,
+        "2010_income": 3669.2397,
+        "2019_income": 4806.8687,
+        "2001_health": 5.6081576,
+        "2010_health": 5.47032,
+        "2019_health": 7.17281
+    },
+    {
+        "Country Name": "Peru",
+        "2001_income": 1719.5385,
+        "2010_income": 4160.2114,
+        "2019_income": 5963.9077,
+        "2001_health": 4.72161,
+        "2010_health": 4.7154875,
+        "2019_health": 5.215069
+    },
+    {
+        "Country Name": "Philippines",
+        "2001_income": 998.8778,
+        "2010_income": 2191.296,
+        "2019_income": 3479.258,
+        "2001_health": 2.847759,
+        "2010_health": 4.131079,
+        "2019_health": 4.0767665
+    },
+    {
+        "Country Name": "Poland",
+        "2001_income": 4251.5093,
+        "2010_income": 10593.34,
+        "2019_income": 13288.597,
+        "2001_health": 5.6672144,
+        "2010_health": 6.412233,
+        "2019_health": 6.446825
+    },
+    {
+        "Country Name": "Portugal",
+        "2001_income": 9710.656,
+        "2010_income": 17930.37,
+        "2019_income": 18594.602,
+        "2001_health": 8.627515,
+        "2010_health": 10.032505,
+        "2019_health": 9.53146
+    },
+    {
+        "Country Name": "Qatar",
+        "2001_income": 19947.023,
+        "2010_income": 42296.703,
+        "2019_income": 45997.242,
+        "2001_health": 2.3197093,
+        "2010_health": 1.8701777,
+        "2019_health": 2.9106288
+    },
+    {
+        "Country Name": "Romania",
+        "2001_income": 1410.3483,
+        "2010_income": 6586.959,
+        "2019_income": 10864.115,
+        "2001_health": 4.3759813,
+        "2010_health": 5.7661424,
+        "2019_health": 5.744478
+    },
+    {
+        "Country Name": "Russian Federation",
+        "2001_income": 1563.5575,
+        "2010_income": 8429.681,
+        "2019_income": 8787.257,
+        "2001_health": 5.242848,
+        "2010_health": 4.9711185,
+        "2019_health": 5.6484914
+    },
+    {
+        "Country Name": "Rwanda",
+        "2001_income": 200.73795,
+        "2010_income": 497.4119,
+        "2019_income": 660.63885,
+        "2001_health": 3.892501,
+        "2010_health": 8.053133,
+        "2019_health": 6.4106674
+    },
+    {
+        "Country Name": "Samoa",
+        "2001_income": null,
+        "2010_income": 3042.6228,
+        "2019_income": 3658.2341,
+        "2001_health": 3.9334745,
+        "2010_health": 5.2918906,
+        "2019_health": 6.363094
+    },
+    {
+        "Country Name": "Sao Tome and Principe",
+        "2001_income": 422.5486,
+        "2010_income": 993.607,
+        "2019_income": 1445.7532,
+        "2001_health": 10.831803,
+        "2010_health": 6.844649,
+        "2019_health": 5.5297623
+    },
+    {
+        "Country Name": "Saudi Arabia",
+        "2001_income": 7031.634,
+        "2010_income": 15683.294,
+        "2019_income": 19115.29,
+        "2001_health": 4.4617357,
+        "2010_health": 3.647856,
+        "2019_health": 5.6882877
+    },
+    {
+        "Country Name": "Senegal",
+        "2001_income": 573.5079,
+        "2010_income": 1130.9971,
+        "2019_income": 1251.7573,
+        "2001_health": 3.6791654,
+        "2010_health": 4.027642,
+        "2019_health": 4.1322694
+    },
+    {
+        "Country Name": "Serbia",
+        "2001_income": null,
+        "2010_income": 4662.551,
+        "2019_income": 5939.7554,
+        "2001_health": 6.860616,
+        "2010_health": 9.520717,
+        "2019_health": 8.672065
+    },
+    {
+        "Country Name": "Seychelles",
+        "2001_income": 6570.399,
+        "2010_income": 8957.383,
+        "2019_income": 13432.965,
+        "2001_health": 5.3962812,
+        "2010_health": 4.829087,
+        "2019_health": 5.1902914
+    },
+    {
+        "Country Name": "Sierra Leone",
+        "2001_income": 191.53268,
+        "2010_income": 346.3975,
+        "2019_income": 449.48535,
+        "2001_health": 10.972512,
+        "2010_health": 10.94338,
+        "2019_health": 8.749766
+    },
+    {
+        "Country Name": "Singapore",
+        "2001_income": 18130.244,
+        "2010_income": 40443.367,
+        "2019_income": 46659.273,
+        "2001_health": 3.1630266,
+        "2010_health": 3.2026536,
+        "2019_health": 4.081529
+    },
+    {
+        "Country Name": "Slovak Republic",
+        "2001_income": 4165.372,
+        "2010_income": 13397.931,
+        "2019_income": 15704.346,
+        "2001_health": 5.3315053,
+        "2010_health": 7.7311807,
+        "2019_health": 6.9586463
+    },
+    {
+        "Country Name": "Slovenia",
+        "2001_income": 8430.824,
+        "2010_income": 18483.193,
+        "2019_income": 20735.834,
+        "2001_health": 7.8760242,
+        "2010_health": 8.565033,
+        "2019_health": 8.523865
+    },
+    {
+        "Country Name": "Solomon Islands",
+        "2001_income": 874.92535,
+        "2010_income": 1357.8171,
+        "2019_income": 2079.8289,
+        "2001_health": 6.6053877,
+        "2010_health": 8.38949,
+        "2019_health": 4.773624
+    },
+    {
+        "Country Name": "South Africa",
+        "2001_income": 2434.3455,
+        "2010_income": 6650.3013,
+        "2019_income": 5430.342,
+        "2001_health": 7.939017,
+        "2010_health": 8.66597,
+        "2019_health": 9.109355
+    },
+    {
+        "Country Name": "Spain",
+        "2001_income": 13202.566,
+        "2010_income": 25461.533,
+        "2019_income": 25106.178,
+        "2001_health": 6.7689576,
+        "2010_health": 9.118575,
+        "2019_health": 9.132132
+    },
+    {
+        "Country Name": "Sri Lanka",
+        "2001_income": 773.3107,
+        "2010_income": 2596.6604,
+        "2019_income": 3460.7593,
+        "2001_health": 4.1932387,
+        "2010_health": 3.8674545,
+        "2019_health": 4.079797
+    },
+    {
+        "Country Name": "St. Lucia",
+        "2001_income": 4623.319,
+        "2010_income": 6965.3823,
+        "2019_income": 8963.524,
+        "2001_health": 5.1171446,
+        "2010_health": 5.0379777,
+        "2019_health": 4.3246074
+    },
+    {
+        "Country Name": "St. Vincent and the Grenadines",
+        "2001_income": 3655.7153,
+        "2010_income": 5236.4795,
+        "2019_income": 6093.853,
+        "2001_health": 4.3007455,
+        "2010_health": 4.5512924,
+        "2019_health": 4.7529125
+    },
+    {
+        "Country Name": "Sudan",
+        "2001_income": null,
+        "2010_income": null,
+        "2019_income": 520.1203,
+        "2001_health": 3.3645685,
+        "2010_health": 5.058102,
+        "2019_health": 4.573566
+    },
+    {
+        "Country Name": "Suriname",
+        "2001_income": 1190.0997,
+        "2010_income": 5647.7256,
+        "2019_income": 4804.492,
+        "2001_health": 4.095414,
+        "2010_health": 5.0304246,
+        "2019_health": 9.736996
+    },
+    {
+        "Country Name": "Sweden",
+        "2001_income": 22859.473,
+        "2010_income": 45196.758,
+        "2019_income": 44566.12,
+        "2001_health": 7.9003296,
+        "2010_health": 8.319638,
+        "2019_health": 10.867493
+    },
+    {
+        "Country Name": "Switzerland",
+        "2001_income": 32514.29,
+        "2010_income": 63838.758,
+        "2019_income": 63331.66,
+        "2001_health": 9.439194,
+        "2010_health": 9.941597,
+        "2019_health": 11.291481
+    },
+    {
+        "Country Name": "Syrian Arab Republic",
+        "2001_income": 4356.4126,
+        "2010_income": 10210.434,
+        "2019_income": 1221.773,
+        "2001_health": 4.493672,
+        "2010_health": 3.2764416,
+        "2019_health": null
+    },
+    {
+        "Country Name": "Tajikistan",
+        "2001_income": null,
+        "2010_income": 780.24493,
+        "2019_income": 903.97955,
+        "2001_health": 4.578026,
+        "2010_health": 5.735434,
+        "2019_health": 7.1052938
+    },
+    {
+        "Country Name": "Tanzania",
+        "2001_income": 335.5873,
+        "2010_income": 593.5273,
+        "2019_income": 979.383,
+        "2001_health": 4.2355175,
+        "2010_health": 5.223922,
+        "2019_health": 3.8276932
+    },
+    {
+        "Country Name": "Thailand",
+        "2001_income": 1463.0961,
+        "2010_income": 4023.2131,
+        "2019_income": 6084.42,
+        "2001_health": 3.0262377,
+        "2010_health": 3.3900983,
+        "2019_health": 3.789121
+    },
+    {
+        "Country Name": "Timor-Leste",
+        "2001_income": null,
+        "2010_income": null,
+        "2019_income": 1376.7136,
+        "2001_health": null,
+        "2010_health": 6.4705877,
+        "2019_health": 7.158506
+    },
+    {
+        "Country Name": "Togo",
+        "2001_income": 259.34247,
+        "2010_income": 443.71524,
+        "2019_income": 813.4577,
+        "2001_health": 2.8854358,
+        "2010_health": 4.4549294,
+        "2019_health": 5.726069
+    },
+    {
+        "Country Name": "Tonga",
+        "2001_income": 1690.4546,
+        "2010_income": 3259.311,
+        "2019_income": -381.65634,
+        "2001_health": 3.5429094,
+        "2010_health": 4.9820256,
+        "2019_health": 4.9814997
+    },
+    {
+        "Country Name": "Trinidad and Tobago",
+        "2001_income": 5185.168,
+        "2010_income": 11570.38,
+        "2019_income": 13558.89,
+        "2001_health": 4.034649,
+        "2010_health": 5.080429,
+        "2019_health": 7.020074
+    },
+    {
+        "Country Name": "Tunisia",
+        "2001_income": 1775.5785,
+        "2010_income": 3316.3115,
+        "2019_income": 3333.1152,
+        "2001_health": 5.0992947,
+        "2010_health": 5.883956,
+        "2019_health": 6.9584594
+    },
+    {
+        "Country Name": "Turkey",
+        "2001_income": 2510.847,
+        "2010_income": 9004.892,
+        "2019_income": 7581.142,
+        "2001_health": 4.8878493,
+        "2010_health": 5.0205345,
+        "2019_health": 4.344098
+    },
+    {
+        "Country Name": "Turkmenistan",
+        "2001_income": 262.4277,
+        "2010_income": 2717.1785,
+        "2019_income": 5560.2783,
+        "2001_health": 8.148754,
+        "2010_health": 4.9963603,
+        "2019_health": 6.568625
+    },
+    {
+        "Country Name": "Uganda",
+        "2001_income": 186.76944,
+        "2010_income": 650.2476,
+        "2019_income": 661.9929,
+        "2001_health": 5.039504,
+        "2010_health": 6.8089023,
+        "2019_health": 3.8252242
+    },
+    {
+        "Country Name": "Ukraine",
+        "2001_income": 614.0883,
+        "2010_income": 2463.0596,
+        "2019_income": 3234.6902,
+        "2001_health": 5.725344,
+        "2010_health": 6.8122654,
+        "2019_health": 7.098602
+    },
+    {
+        "Country Name": "United Arab Emirates",
+        "2001_income": 29043.922,
+        "2010_income": 30508.22,
+        "2019_income": 38920.152,
+        "2001_health": 2.4843705,
+        "2010_health": 3.878745,
+        "2019_health": 4.275049
+    },
+    {
+        "Country Name": "United Kingdom",
+        "2001_income": 24028.787,
+        "2010_income": 33542.754,
+        "2019_income": null,
+        "2001_health": 7.5671635,
+        "2010_health": 9.835323,
+        "2019_health": 10.154027
+    },
+    {
+        "Country Name": "United States",
+        "2001_income": 31889.467,
+        "2010_income": 41135.555,
+        "2019_income": 55402.344,
+        "2001_health": 13.163626,
+        "2010_health": 16.259222,
+        "2019_health": 16.767063
+    },
+    {
+        "Country Name": "Uruguay",
+        "2001_income": 5674.6265,
+        "2010_income": 10269.449,
+        "2019_income": 14956.075,
+        "2001_health": 9.798644,
+        "2010_health": 7.911171,
+        "2019_health": 9.347832
+    },
+    {
+        "Country Name": "Uzbekistan",
+        "2001_income": 316.10242,
+        "2010_income": 1406.6152,
+        "2019_income": 1469.8877,
+        "2001_health": 5.5497212,
+        "2010_health": 5.2216687,
+        "2019_health": 5.6176043
+    },
+    {
+        "Country Name": "Vanuatu",
+        "2001_income": 1215.7585,
+        "2010_income": 2433.099,
+        "2019_income": 3034.7444,
+        "2001_health": 3.3933883,
+        "2010_health": 3.526561,
+        "2019_health": 3.3603468
+    },
+    {
+        "Country Name": "Venezuela, RB",
+        "2001_income": 3777.8796,
+        "2010_income": 11012.171,
+        "2019_income": null,
+        "2001_health": 7.850638,
+        "2010_health": 6.831038,
+        "2019_health": 5.3670835
+    },
+    {
+        "Country Name": "Vietnam",
+        "2001_income": 350.58804,
+        "2010_income": 1011.2517,
+        "2019_income": 2149.785,
+        "2001_health": 4.5113072,
+        "2010_health": 4.6992736,
+        "2019_health": 5.2496557
+    },
+    {
+        "Country Name": "Yemen, Rep.",
+        "2001_income": 361.24313,
+        "2010_income": 992.62665,
+        "2019_income": null,
+        "2001_health": 4.9451513,
+        "2010_health": 5.1593313,
+        "2019_health": null
+    },
+    {
+        "Country Name": "Zambia",
+        "2001_income": 282.9288,
+        "2010_income": 987.86914,
+        "2019_income": 995.86066,
+        "2001_health": 6.5524845,
+        "2010_health": 3.719296,
+        "2019_health": 5.312203
+    },
+    {
+        "Country Name": "Zimbabwe",
+        "2001_income": 480.9034,
+        "2010_income": 792.6248,
+        "2019_income": 1129.4424,
+        "2001_health": null,
+        "2010_health": 10.475839,
+        "2019_health": 7.703565
+    }
+]
+   
+    async function init() {
+      // const data = await d3.csv("https://djoldman.github.io/data.csv");
+      console.log(typeof(data))
+      console.log(data)
+
+      const width = 600;
+      const height = 600;
+      const margin = 20;
+      var xdomain = [3.846088036, 15979.5925737]
+      var ydomain = [42.573461677, 87.231241220]
+
+      var x = d3.scaleLog().domain(xdomain).range([0, width - 2 * margin]);
+      var y = d3.scaleLog().domain(ydomain).range([height - 2 * margin, 0]);
+
+      var svg = d3.select("svg")
+        .attr("width", width + 2 * margin)
+        .attr("height", height + 2 * margin)
+
+      var g = svg.append("g")
+        .attr("fill", "none")
+        .attr("stroke-linecap", "round");
+
+      g.selectAll("path")
+        .data(data)
+        .join("path")
+        // .attr("d", d => `M${x(d[0])},${y(d[3])}h0`)
+        .attr("d", function(d,i) {
+          if (d !== null) {
+            const income_2001 = d['2001_income']
+            const health_2001 = d['2001_health']
+            if((income_2001 !== null) & (health_2001 !== null)) {
+              return `M${x(health_2001)},${y(income_2001)}h0`
+            }
+          }
+          return `M10,10h0`
+        })
+        .attr("stroke", d => 0);
+
+      // d3.select("svg")
+      //   .attr("width", width + 2 * margin)
+      //   .attr("height", height + 2 * margin)
+      //   .append("g")
+      //   .attr("transform", "translate(" + margin + "," + margin + ")")
+      //   .selectAll().data(data).enter().append("rect")
+      //   .attr("x", function (d, i) { return xs(i) })
+      //   .attr("y", function (d, i) { return ys(d) })
+      //   .attr("width", 33.3333)
+      //   .attr("height", function (d, i) { return 200 - ys(d) })
+      //   ;
+      // d3.select("svg").append("g")
+      //   .attr("transform", "translate(" + margin + "," + margin + ")")
+      //   .call(d3.axisLeft(ys));
+      // d3.select("svg").append("g")
+      //   .attr("transform", "translate(" + margin + "," + (height - margin) + ")")
+      //   .call(d3.axisBottom(xs));
+    }
+  </script>
+</body>
+
 </html>
