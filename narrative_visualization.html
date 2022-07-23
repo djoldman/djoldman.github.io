@@ -7,10 +7,46 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>?????????????????????????????????????</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
+  <style>
+    :root {
+      --accent-color: #E8336D;
+    }
+
+    .annotation path {
+      stroke: var(--accent-color);
+      fill: none;
+    }
+
+    .annotation path.connector-arrow,
+    .title text,
+    .annotation text,
+    .annotation.callout.circle .annotation-subject path {
+      fill: var(--accent-color);
+    }
+
+    .annotation-note-bg {
+      fill: rgba(255, 255, 255, 0);
+    }
+
+    .annotation-note-title {
+      font-weight: bold;
+    }
+
+    .annotation.xythreshold {
+      cursor: move;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 
 <body onload='init()'>
-  <svg style="margin: auto;  display: block;">
+  <!-- <svg style="margin: auto;  display: block;"> -->
+  <svg>
   </svg>
   <script>
     const data = [
@@ -1986,15 +2022,13 @@
       var xdomain = [3.036340309, 16160.4995247]
       var ydomain = [38.822061302, 87.622867623]
 
-      var x = d3.scaleLog().domain(xdomain).range([0, width - 2 * margin]);
-      var y = d3.scaleLog().domain(ydomain).range([height - 2 * margin, 0]);
+      var xs = d3.scaleLog().domain(xdomain).range([0, width - 2 * margin]);
+      var ys = d3.scaleLog().domain(ydomain).range([height - 2 * margin, 0]);
 
       var svg = d3.select("svg")
         .attr("width", width + 2 * margin)
         .attr("height", height + 2 * margin)
 
-      // <g fill="none" stroke-linecap="round" transform="translate(0,0) 
-      // scale(1)" stroke-width="5">
       var d2001 = svg.append("g")
         .attr("transform", "translate(" + margin + "," + margin + ")")
         .attr("fill", "none")
@@ -2009,37 +2043,98 @@
             const life_2001 = d['life_2001']
             const health_2001 = d['health_2001']
             if ((life_2001 !== null) & (health_2001 !== null)) {
-              return `M${x(health_2001)},${y(life_2001)}h0`
+              return `M${xs(health_2001)},${ys(life_2001)}h0`
             }
           }
           // return `M10,10h0`
         })
         .attr("stroke", d => "#1f77b4");
+
       svg.append("g")
         .attr("transform", "translate(" + margin + "," + margin + ")")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(ys));
 
       svg.append("g")
-        .attr("transform", "translate(" + margin + "," + (height - margin) + ")")
-        .call(d3.axisBottom(x));
+        .attr("transform", "translate(" + margin + "," + (height - margin) + ")").call(d3.axisBottom(xs));
 
-      // d3.select("svg")
-      //   .attr("width", width + 2 * margin)
-      //   .attr("height", height + 2 * margin)
-      //   .append("g")
-      //   .attr("transform", "translate(" + margin + "," + margin + ")")
-      //   .selectAll().data(data).enter().append("rect")
-      //   .attr("x", function (d, i) { return xs(i) })
-      //   .attr("y", function (d, i) { return ys(d) })
-      //   .attr("width", 33.3333)
-      //   .attr("height", function (d, i) { return 200 - ys(d) })
-      //   ;
-      // d3.select("svg").append("g")
-      //   .attr("transform", "translate(" + margin + "," + margin + ")")
-      //   .call(d3.axisLeft(ys));
-      // d3.select("svg").append("g")
-      //   .attr("transform", "translate(" + margin + "," + (height - margin) + ")")
-      //   .call(d3.axisBottom(xs));
+      //Add annotations
+      var labels2 = data.map(function (d) {
+      //   {
+      //   "Country Name": "Afghanistan",
+      //   "life_2001": 56.308,
+      //   "life_2010": 61.028,
+      //   "life_2019": 64.833,
+      //   "health_2001": null,
+      //   "health_2010": 44.990532,
+      //   "health_2019": 65.80603
+      // },
+        ret = {
+          // data: {}
+          dx: d['health_2001'],
+          dy: d['life_2001'],
+        }
+        return ret;
+      })
+      console.log(labels2)
+
+      var labels = [{
+        data: { date: "9-Apr-12", close: 636.23 },
+        dy: 37,
+        dx: -142
+      }, {
+        data: { date: "26-Feb-08", close: 119.15 },
+        dy: -137,
+        dx: 0,
+        note: { align: "middle" }
+      }, {
+        data: { date: "18-Sep-09", close: 185.02 },
+        dy: 37,
+        dx: 42
+      }].map(function (l) {
+        l.note = Object.assign({}, l.note, {
+          title: "Close: " + l.data.close,
+          label: "" + l.data.date
+        });
+        l.subject = { radius: 4 };
+
+        return l;
+      });
+
+      var timeFormat = d3.timeFormat("%d-%b-%y");
+
+      window.makeAnnotations = d3.annotation().annotations(data).type(d3.annotationCalloutCircle).accessors({
+        x: function x(d) {
+          // console.log(d['health_2001'])
+          // return xs(d['health_2001'])
+          return xs(200)
+          // return _x(parseTime(d.date));
+        },
+        y: function y(d) {
+          // console.log(d['life_2001'])
+          // return ys(d['life_2001'])
+          return xs(60)
+          // return _y(d.close);
+        }
+      }).accessorsInverse({
+        date: function date(d) {
+          return xs.invert(d['health_2001']);
+          // return xs.invert(200);
+          // return timeFormat(_x.invert(d.x));
+        },
+        close: function close(d) {
+          return ys.invert(d['life_2001']);
+          // return ys.invert(60);
+          // return _y.invert(d.y);
+        }
+      }).on('subjectover', function (annotation) {
+        annotation.type.a.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", false);
+      }).on('subjectout', function (annotation) {
+        annotation.type.a.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", true);
+      });
+
+      svg.append("g").attr("class", "annotation-test").call(makeAnnotations);
+
+      svg.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", true);
     }
   </script>
 </body>
