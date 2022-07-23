@@ -12,6 +12,7 @@
   <style>
     :root {
       --accent-color: #E8336D;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol;
     }
 
     .annotation path {
@@ -27,24 +28,68 @@
     }
 
     .annotation-note-bg {
-      fill: rgba(255, 255, 255, 0);
+      fill: rgba(255, 255, 255, 0.8);
+      fill-opacity: initial;
     }
 
     .annotation-note-title {
       font-weight: bold;
     }
 
+    .year2001 {
+      stroke: #6fa0cb;
+    }
+
+    .year2010 {
+      stroke: #6fa0cb;
+      visibility: hidden
+    }
+
+    .year2019 {
+      stroke: #1f77b4;
+      visibility: hidden
+    }
+
     .annotation.xythreshold {
       cursor: move;
+    }
+
+    .annotation-subject {
+      opacity: 0;
     }
 
     .hidden {
       display: none;
     }
+
+    text.hover {
+      font-size: .7em;
+    }
+
+    text.title {
+      font-size: 1.1em;
+    }
   </style>
 </head>
 
 <body onload='init()'>
+  <form>
+    <label>
+      <input type="radio" name="radio" value="0" style="margin-right: 0.5em;"
+        onclick="handleClick(this);" checked="">
+      Slide 1
+    </label>
+    <label>
+      <input type="radio" name="radio" value="1" style="margin-right: 0.5em;"
+        onclick="handleClick(this);">
+      Slide 2
+    </label>
+    <label>
+      <input type="radio" name="radio" value="2" style="margin-right: 0.5em;"
+        onclick="handleClick(this);">
+      Slide 3
+    </label>
+  </form>
   <!-- <svg style="margin: auto;  display: block;"> -->
   <svg>
   </svg>
@@ -52,1962 +97,3948 @@
     const data = [
       {
         "Country Name": "Afghanistan",
-        "life_2001": 56.308,
-        "life_2010": 61.028,
-        "life_2019": 64.833,
-        "health_2001": null,
-        "health_2010": 44.990532,
-        "health_2019": 65.80603
+        "Year": 2001,
+        "life": 56.308,
+        "health": null
       },
       {
         "Country Name": "Albania",
-        "life_2001": 74.288,
-        "life_2010": 76.562,
-        "life_2019": 78.573,
-        "health_2001": 89.580734,
-        "health_2010": 192.00322,
-        "health_2019": null
+        "Year": 2001,
+        "life": 74.288,
+        "health": 89.580734
       },
       {
         "Country Name": "Algeria",
-        "life_2001": 71.116,
-        "life_2010": 74.938,
-        "life_2019": 76.88,
-        "health_2001": 66.80212,
-        "health_2010": 229.28946,
-        "health_2019": 248.20587
+        "Year": 2001,
+        "life": 71.116,
+        "health": 66.80212
       },
       {
         "Country Name": "American Samoa",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Andorra",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 1347.485,
-        "health_2010": 2685.4797,
-        "health_2019": 2744.1943
+        "Year": 2001,
+        "life": null,
+        "health": 1347.485
       },
       {
         "Country Name": "Angola",
-        "life_2001": 47.059,
-        "life_2010": 55.35,
-        "life_2019": 61.147,
-        "health_2001": 28.918121,
-        "health_2010": 96.697014,
-        "health_2019": 71.326004
+        "Year": 2001,
+        "life": 47.059,
+        "health": 28.918121
       },
       {
         "Country Name": "Antigua and Barbuda",
-        "life_2001": 74.171,
-        "life_2010": 75.823,
-        "life_2019": 77.016,
-        "health_2001": 563.7371,
-        "health_2010": 701.8178,
-        "health_2019": 760.26495
+        "Year": 2001,
+        "life": 74.171,
+        "health": 563.7371
       },
       {
         "Country Name": "Argentina",
-        "life_2001": 73.755,
-        "life_2010": 75.278,
-        "life_2019": 76.667,
-        "health_2001": 675.05786,
-        "health_2010": 985.0344,
-        "health_2019": 945.99194
+        "Year": 2001,
+        "life": 73.755,
+        "health": 675.05786
       },
       {
         "Country Name": "Armenia",
-        "life_2001": 71.8,
-        "life_2010": 73.331,
-        "life_2019": 75.087,
-        "health_2001": 32.25934,
-        "health_2010": 297.22906,
-        "health_2019": 523.9991
+        "Year": 2001,
+        "life": 71.8,
+        "health": 32.25934
       },
       {
         "Country Name": "Aruba",
-        "life_2001": 73.853,
-        "life_2010": 75.017,
-        "life_2019": 76.293,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 73.853,
+        "health": null
       },
       {
         "Country Name": "Australia",
-        "life_2001": 79.63415,
-        "life_2010": 81.69512,
-        "life_2019": 82.9,
-        "health_2001": 1564.1665,
-        "health_2010": 4945.038,
-        "health_2019": 5427.4624
+        "Year": 2001,
+        "life": 79.63415,
+        "health": 1564.1665
       },
       {
         "Country Name": "Austria",
-        "life_2001": 78.57561,
-        "life_2010": 80.58049,
-        "life_2019": 81.89512,
-        "health_2001": 2282.5159,
-        "health_2010": 4800.7935,
-        "health_2019": 5242.183
+        "Year": 2001,
+        "life": 78.57561,
+        "health": 2282.5159
       },
       {
         "Country Name": "Azerbaijan",
-        "life_2001": 67.054,
-        "life_2010": 70.938,
-        "life_2019": 73.005,
-        "health_2001": 19.190283,
-        "health_2010": 145.84526,
-        "health_2019": 193.10884
+        "Year": 2001,
+        "life": 67.054,
+        "health": 19.190283
       },
       {
         "Country Name": "Bahamas, The",
-        "life_2001": 71.954,
-        "life_2010": 72.144,
-        "life_2019": 73.918,
-        "health_2001": 1078.6945,
-        "health_2010": 1495.2313,
-        "health_2019": 2004.6163
+        "Year": 2001,
+        "life": 71.954,
+        "health": 1078.6945
       },
       {
         "Country Name": "Bahrain",
-        "life_2001": 74.635,
-        "life_2010": 76.057,
-        "life_2019": 77.292,
-        "health_2001": 484.90735,
-        "health_2010": 796.3184,
-        "health_2019": 940.3957
+        "Year": 2001,
+        "life": 74.635,
+        "health": 484.90735
       },
       {
         "Country Name": "Bangladesh",
-        "life_2001": 65.956,
-        "life_2010": 69.881,
-        "life_2019": 72.591,
-        "health_2001": 8.36238,
-        "health_2010": 20.8027,
-        "health_2019": 45.857162
+        "Year": 2001,
+        "life": 65.956,
+        "health": 8.36238
       },
       {
         "Country Name": "Barbados",
-        "life_2001": 77.362,
-        "life_2010": 78.364,
-        "life_2019": 79.19,
-        "health_2001": 619.3396,
-        "health_2010": 1087.6565,
-        "health_2019": 1143.322
+        "Year": 2001,
+        "life": 77.362,
+        "health": 619.3396
       },
       {
         "Country Name": "Belarus",
-        "life_2001": 68.50732,
-        "life_2010": 70.40488,
-        "life_2019": 74.22683,
-        "health_2001": 74.33643,
-        "health_2010": 343.6791,
-        "health_2019": 399.3971
+        "Year": 2001,
+        "life": 68.50732,
+        "health": 74.33643
       },
       {
         "Country Name": "Belgium",
-        "life_2001": 77.97317,
-        "life_2010": 80.18293,
-        "life_2019": 81.995125,
-        "health_2001": 1879.9348,
-        "health_2010": 4544.78,
-        "health_2019": 4960.3936
+        "Year": 2001,
+        "life": 77.97317,
+        "health": 1879.9348
       },
       {
         "Country Name": "Belize",
-        "life_2001": 69.04,
-        "life_2010": 72.057,
-        "life_2019": 74.623,
-        "health_2001": 157.4632,
-        "health_2010": 242.34943,
-        "health_2019": 293.4126
+        "Year": 2001,
+        "life": 69.04,
+        "health": 157.4632
       },
       {
         "Country Name": "Benin",
-        "life_2001": 55.668,
-        "life_2010": 59.318,
-        "life_2019": 61.771,
-        "health_2001": 16.8325,
-        "health_2010": 31.065983,
-        "health_2019": 29.125292
+        "Year": 2001,
+        "life": 55.668,
+        "health": 16.8325
       },
       {
         "Country Name": "Bermuda",
-        "life_2001": 77.88537,
-        "life_2010": 79.288536,
-        "life_2019": 81.866585,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 77.88537,
+        "health": null
       },
       {
         "Country Name": "Bhutan",
-        "life_2001": 61.808,
-        "life_2010": 68.384,
-        "life_2019": 71.777,
-        "health_2001": 35.94556,
-        "health_2010": 74.09109,
-        "health_2019": 115.98076
+        "Year": 2001,
+        "life": 61.808,
+        "health": 35.94556
       },
       {
         "Country Name": "Bolivia",
-        "life_2001": 63.054,
-        "life_2010": 68.007,
-        "life_2019": 71.513,
-        "health_2001": 45.78475,
-        "health_2010": 101.72988,
-        "health_2019": 245.92348
+        "Year": 2001,
+        "life": 63.054,
+        "health": 45.78475
       },
       {
         "Country Name": "Bosnia and Herzegovina",
-        "life_2001": 74.637,
-        "life_2010": 76.031,
-        "life_2019": 77.401,
-        "health_2001": 112.06852,
-        "health_2010": 417.74832,
-        "health_2019": 553.82294
+        "Year": 2001,
+        "life": 74.637,
+        "health": 112.06852
       },
       {
         "Country Name": "Botswana",
-        "life_2001": 50.281,
-        "life_2010": 60.211,
-        "life_2019": 69.592,
-        "health_2001": 201.8108,
-        "health_2010": 398.5707,
-        "health_2019": 481.53305
+        "Year": 2001,
+        "life": 50.281,
+        "health": 201.8108
       },
       {
         "Country Name": "Brazil",
-        "life_2001": 70.462,
-        "life_2010": 73.619,
-        "life_2019": 75.881,
-        "health_2001": 270.18982,
-        "health_2010": 896.69714,
-        "health_2019": 853.38794
+        "Year": 2001,
+        "life": 70.462,
+        "health": 270.18982
       },
       {
         "Country Name": "British Virgin Islands",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Brunei Darussalam",
-        "life_2001": 73.076,
-        "life_2010": 74.74,
-        "life_2019": 75.86,
-        "health_2001": 464.79044,
-        "health_2010": 803.52686,
-        "health_2019": 671.5627
+        "Year": 2001,
+        "life": 73.076,
+        "health": 464.79044
       },
       {
         "Country Name": "Bulgaria",
-        "life_2001": 71.768295,
-        "life_2010": 73.51219,
-        "life_2019": 75.1122,
-        "health_2001": 119.82998,
-        "health_2010": 484.7523,
-        "health_2019": 697.89636
+        "Year": 2001,
+        "life": 71.768295,
+        "health": 119.82998
       },
       {
         "Country Name": "Burkina Faso",
-        "life_2001": 50.893,
-        "life_2010": 57.096,
-        "life_2019": 61.577,
-        "health_2001": 7.714724,
-        "health_2010": 33.9439,
-        "health_2019": 42.34453
+        "Year": 2001,
+        "life": 50.893,
+        "health": 7.714724
       },
       {
         "Country Name": "Burundi",
-        "life_2001": 49.93,
-        "life_2010": 57.228,
-        "life_2019": 61.584,
-        "health_2001": 8.604748,
-        "health_2010": 26.413322,
-        "health_2019": 20.567541
+        "Year": 2001,
+        "life": 49.93,
+        "health": 8.604748
       },
       {
         "Country Name": "Cabo Verde",
-        "life_2001": 69.099,
-        "life_2010": 71.062,
-        "life_2019": 72.981,
-        "health_2001": 67.14394,
-        "health_2010": 151.16014,
-        "health_2019": 177.89027
+        "Year": 2001,
+        "life": 69.099,
+        "health": 67.14394
       },
       {
         "Country Name": "Cambodia",
-        "life_2001": 59.335,
-        "life_2010": 66.56,
-        "life_2019": 69.823,
-        "health_2001": 22.5629,
-        "health_2010": 54.29156,
-        "health_2019": 113.31044
+        "Year": 2001,
+        "life": 59.335,
+        "health": 22.5629
       },
       {
         "Country Name": "Cameroon",
-        "life_2001": 51.222,
-        "life_2010": 55.101,
-        "life_2019": 59.292,
-        "health_2001": 26.702278,
-        "health_2010": 48.35902,
-        "health_2019": 53.99585
+        "Year": 2001,
+        "life": 51.222,
+        "health": 26.702278
       },
       {
         "Country Name": "Canada",
-        "life_2001": 79.33903,
-        "life_2010": 81.24634,
-        "life_2019": 82.04878,
-        "health_2001": 2063.9275,
-        "health_2010": 5065.915,
-        "health_2019": 5048.3726
+        "Year": 2001,
+        "life": 79.33903,
+        "health": 2063.9275
       },
       {
         "Country Name": "Cayman Islands",
-        "life_2001": null,
-        "life_2010": 82.19025,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Central African Republic",
-        "life_2001": 44.061,
-        "life_2010": 47.312,
-        "life_2019": 53.283,
-        "health_2001": 9.566786,
-        "health_2010": 18.69205,
-        "health_2019": 37.19958
+        "Year": 2001,
+        "life": 44.061,
+        "health": 9.566786
       },
       {
         "Country Name": "Chad",
-        "life_2001": 47.789,
-        "life_2010": 50.89,
-        "life_2019": 54.239,
-        "health_2001": 11.809539,
-        "health_2010": 36.32339,
-        "health_2019": 29.85083
+        "Year": 2001,
+        "life": 47.789,
+        "health": 11.809539
       },
       {
         "Country Name": "Channel Islands",
-        "life_2001": 79.3,
-        "life_2010": 81.483,
-        "life_2019": 83.086,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 79.3,
+        "health": null
       },
       {
         "Country Name": "Chile",
-        "life_2001": 76.634,
-        "life_2010": 78.779,
-        "life_2019": 80.181,
-        "health_2001": 327.132,
-        "health_2010": 867.7308,
-        "health_2019": 1375.803
+        "Year": 2001,
+        "life": 76.634,
+        "health": 327.132
       },
       {
         "Country Name": "China",
-        "life_2001": 71.732,
-        "life_2010": 74.409,
-        "life_2019": 76.912,
-        "health_2001": 43.663677,
-        "health_2010": 186.4915,
-        "health_2019": 535.13336
+        "Year": 2001,
+        "life": 71.732,
+        "health": 43.663677
       },
       {
         "Country Name": "Colombia",
-        "life_2001": 73.241,
-        "life_2010": 75.424,
-        "life_2019": 77.287,
-        "health_2001": 136.61053,
-        "health_2010": 448.08777,
-        "health_2019": 495.3297
+        "Year": 2001,
+        "life": 73.241,
+        "health": 136.61053
       },
       {
         "Country Name": "Comoros",
-        "life_2001": 59.529,
-        "life_2010": 61.862,
-        "life_2019": 64.321,
-        "health_2001": 44.589848,
-        "health_2010": 65.71719,
-        "health_2019": 72.3238
+        "Year": 2001,
+        "life": 59.529,
+        "health": 44.589848
       },
       {
         "Country Name": "Congo, Dem. Rep.",
-        "life_2001": 50.667,
-        "life_2010": 56.909,
-        "life_2019": 60.681,
-        "health_2001": 6.0385017,
-        "health_2010": 12.894424,
-        "health_2019": 20.570732
+        "Year": 2001,
+        "life": 50.667,
+        "health": 6.0385017
       },
       {
         "Country Name": "Congo, Rep.",
-        "life_2001": 52.517,
-        "life_2010": 60.093,
-        "life_2019": 64.57,
-        "health_2001": 20.648438,
-        "health_2010": 56.96957,
-        "health_2019": 48.558773
+        "Year": 2001,
+        "life": 52.517,
+        "health": 20.648438
       },
       {
         "Country Name": "Costa Rica",
-        "life_2001": 77.601,
-        "life_2010": 78.769,
-        "life_2019": 80.279,
-        "health_2001": 256.3936,
-        "health_2010": 660.5864,
-        "health_2019": 921.58575
+        "Year": 2001,
+        "life": 77.601,
+        "health": 256.3936
       },
       {
         "Country Name": "Cote d'Ivoire",
-        "life_2001": 49.495,
-        "life_2010": 52.964,
-        "life_2019": 57.783,
-        "health_2001": 55.291386,
-        "health_2010": 74.04659,
-        "health_2019": 75.08779
+        "Year": 2001,
+        "life": 49.495,
+        "health": 55.291386
       },
       {
         "Country Name": "Croatia",
-        "life_2001": 74.512924,
-        "life_2010": 76.47561,
-        "life_2019": 78.42439,
-        "health_2001": 388.3249,
-        "health_2010": 1126.3737,
-        "health_2019": 1040.0857
+        "Year": 2001,
+        "life": 74.512924,
+        "health": 388.3249
       },
       {
         "Country Name": "Cuba",
-        "life_2001": 76.905,
-        "life_2010": 78.338,
-        "life_2019": 78.802,
-        "health_2001": 198.13365,
-        "health_2010": 612.4651,
-        "health_2019": 1031.9218
+        "Year": 2001,
+        "life": 76.905,
+        "health": 198.13365
       },
       {
         "Country Name": "Curacao",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Cyprus",
-        "life_2001": 78.139,
-        "life_2010": 79.43,
-        "life_2019": 80.982,
-        "health_2001": 782.1616,
-        "health_2010": 2045.2924,
-        "health_2019": 1996.4583
+        "Year": 2001,
+        "life": 78.139,
+        "health": 782.1616
       },
       {
         "Country Name": "Czech Republic",
-        "life_2001": 75.17317,
-        "life_2010": 77.42439,
-        "life_2019": 79.22927,
-        "health_2001": 388.54404,
-        "health_2010": 1373.9318,
-        "health_2019": 1844.2178
+        "Year": 2001,
+        "life": 75.17317,
+        "health": 388.54404
       },
       {
         "Country Name": "Denmark",
-        "life_2001": 76.79269,
-        "life_2010": 79.1,
-        "life_2019": 81.45122,
-        "health_2001": 2602.6428,
-        "health_2010": 6011.538,
-        "health_2019": 6003.325
+        "Year": 2001,
+        "life": 76.79269,
+        "health": 2602.6428
       },
       {
         "Country Name": "Djibouti",
-        "life_2001": 57.1,
-        "life_2010": 60.062,
-        "life_2019": 67.112,
-        "health_2001": 31.042257,
-        "health_2010": 56.201412,
-        "health_2019": 61.809433
+        "Year": 2001,
+        "life": 57.1,
+        "health": 31.042257
       },
       {
         "Country Name": "Dominica",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 226.96007,
-        "health_2010": 359.22134,
-        "health_2019": 440.16986
+        "Year": 2001,
+        "life": null,
+        "health": 226.96007
       },
       {
         "Country Name": "Dominican Republic",
-        "life_2001": 69.69,
-        "life_2010": 72.046,
-        "life_2019": 74.081,
-        "health_2001": 145.35367,
-        "health_2010": 309.95718,
-        "health_2019": 491.05936
+        "Year": 2001,
+        "life": 69.69,
+        "health": 145.35367
       },
       {
         "Country Name": "Ecuador",
-        "life_2001": 73.078,
-        "life_2010": 75.089,
-        "life_2019": 77.01,
-        "health_2001": 71.11089,
-        "health_2010": 283.41574,
-        "health_2019": 486.49216
+        "Year": 2001,
+        "life": 73.078,
+        "health": 71.11089
       },
       {
         "Country Name": "Egypt, Arab Rep.",
-        "life_2001": 68.796,
-        "life_2010": 70.349,
-        "life_2019": 71.99,
-        "health_2001": 73.077835,
-        "health_2010": 113.2482,
-        "health_2019": 149.84032
+        "Year": 2001,
+        "life": 68.796,
+        "health": 73.077835
       },
       {
         "Country Name": "El Salvador",
-        "life_2001": 69.162,
-        "life_2010": 71.21,
-        "life_2019": 73.317,
-        "health_2001": 182.88065,
-        "health_2010": 245.70859,
-        "health_2019": 300.05328
+        "Year": 2001,
+        "life": 69.162,
+        "health": 182.88065
       },
       {
         "Country Name": "Equatorial Guinea",
-        "life_2001": 53.581,
-        "life_2010": 55.622,
-        "life_2019": 58.735,
-        "health_2001": 58.393887,
-        "health_2010": 314.40918,
-        "health_2019": 254.8911
+        "Year": 2001,
+        "life": 53.581,
+        "health": 58.393887
       },
       {
         "Country Name": "Eritrea",
-        "life_2001": 55.864,
-        "life_2010": 62.193,
-        "life_2019": 66.321,
-        "health_2001": 14.513529,
-        "health_2010": 24.714329,
-        "health_2019": 25.267935
+        "Year": 2001,
+        "life": 55.864,
+        "health": 14.513529
       },
       {
         "Country Name": "Estonia",
-        "life_2001": 70.25854,
-        "life_2010": 75.42927,
-        "life_2019": 78.64634,
-        "health_2001": 214.70415,
-        "health_2010": 926.45416,
-        "health_2019": 1598.8188
+        "Year": 2001,
+        "life": 70.25854,
+        "health": 214.70415
       },
       {
         "Country Name": "Eswatini",
-        "life_2001": 45.799,
-        "life_2010": 46.601,
-        "life_2019": 60.194,
-        "health_2001": 78.200195,
-        "health_2010": 358.1239,
-        "health_2019": 264.05515
+        "Year": 2001,
+        "life": 45.799,
+        "health": 78.200195
       },
       {
         "Country Name": "Ethiopia",
-        "life_2001": 52.595,
-        "life_2010": 61.627,
-        "life_2019": 66.597,
-        "health_2001": 5.616925,
-        "health_2010": 16.70585,
-        "health_2019": 26.742205
+        "Year": 2001,
+        "life": 52.595,
+        "health": 5.616925
       },
       {
         "Country Name": "Faroe Islands",
-        "life_2001": 78.641464,
-        "life_2010": 80.687805,
-        "life_2019": 82.79269,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 78.641464,
+        "health": null
       },
       {
         "Country Name": "Fiji",
-        "life_2001": 65.863,
-        "life_2010": 66.655,
-        "life_2019": 67.444,
-        "health_2001": 64.19379,
-        "health_2010": 135.1687,
-        "health_2019": 235.67502
+        "Year": 2001,
+        "life": 65.863,
+        "health": 64.19379
       },
       {
         "Country Name": "Finland",
-        "life_2001": 77.96585,
-        "life_2010": 79.870735,
-        "life_2019": 81.982925,
-        "health_2001": 1806.0502,
-        "health_2010": 4249.602,
-        "health_2019": 4450.3027
+        "Year": 2001,
+        "life": 77.96585,
+        "health": 1806.0502
       },
       {
         "Country Name": "France",
-        "life_2001": 79.15854,
-        "life_2010": 81.663414,
-        "life_2019": 82.82683,
-        "health_2001": 2192.7158,
-        "health_2010": 4592.3833,
-        "health_2019": 4491.7354
+        "Year": 2001,
+        "life": 79.15854,
+        "health": 2192.7158
       },
       {
         "Country Name": "French Polynesia",
-        "life_2001": 72.658,
-        "life_2010": 75.611,
-        "life_2019": 77.657,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 72.658,
+        "health": null
       },
       {
         "Country Name": "Gabon",
-        "life_2001": 57.968,
-        "life_2010": 61.4,
-        "life_2019": 66.467,
-        "health_2001": 125.87947,
-        "health_2010": 219.07191,
-        "health_2019": 215.01915
+        "Year": 2001,
+        "life": 57.968,
+        "health": 125.87947
       },
       {
         "Country Name": "Gambia, The",
-        "life_2001": 56.359,
-        "life_2010": 59.637,
-        "life_2019": 62.05,
-        "health_2001": 42.067417,
-        "health_2010": 43.80533,
-        "health_2019": 29.725803
+        "Year": 2001,
+        "life": 56.359,
+        "health": 42.067417
       },
       {
         "Country Name": "Georgia",
-        "life_2001": 70.065,
-        "life_2010": 71.46,
-        "life_2019": 73.767,
-        "health_2001": 55.222275,
-        "health_2010": 271.01666,
-        "health_2019": 291.12204
+        "Year": 2001,
+        "life": 70.065,
+        "health": 55.222275
       },
       {
         "Country Name": "Germany",
-        "life_2001": 78.32927,
-        "life_2010": 79.98781,
-        "life_2019": 81.29269,
-        "health_2001": 2346.615,
-        "health_2010": 4611.276,
-        "health_2019": 5440.2515
+        "Year": 2001,
+        "life": 78.32927,
+        "health": 2346.615
       },
       {
         "Country Name": "Ghana",
-        "life_2001": 57.158,
-        "life_2010": 61.03,
-        "life_2019": 64.074,
-        "health_2001": 19.633295,
-        "health_2010": 73.898506,
-        "health_2019": 75.28166
+        "Year": 2001,
+        "life": 57.158,
+        "health": 19.633295
       },
       {
         "Country Name": "Gibraltar",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Greece",
-        "life_2001": 78.3878,
-        "life_2010": 80.3878,
-        "life_2019": 81.63902,
-        "health_2001": 1004.8154,
-        "health_2010": 2564.3694,
-        "health_2019": 1500.595
+        "Year": 2001,
+        "life": 78.3878,
+        "health": 1004.8154
       },
       {
         "Country Name": "Greenland",
-        "life_2001": 66.70927,
-        "life_2010": 70.291954,
-        "life_2019": 72.04756,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 66.70927,
+        "health": null
       },
       {
         "Country Name": "Grenada",
-        "life_2001": 72.805,
-        "life_2010": 72.867,
-        "life_2019": 72.397,
-        "health_2001": 283.47583,
-        "health_2010": 393.3341,
-        "health_2019": 534.2744
+        "Year": 2001,
+        "life": 72.805,
+        "health": 283.47583
       },
       {
         "Country Name": "Guam",
-        "life_2001": 75.373,
-        "life_2010": 77.941,
-        "life_2019": 80.074,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 75.373,
+        "health": null
       },
       {
         "Country Name": "Guatemala",
-        "life_2001": 68.304,
-        "life_2010": 71.481,
-        "life_2019": 74.302,
-        "health_2001": 100.39343,
-        "health_2010": 173.75179,
-        "health_2019": 271.02127
+        "Year": 2001,
+        "life": 68.304,
+        "health": 100.39343
       },
       {
         "Country Name": "Guinea",
-        "life_2001": 51.255,
-        "life_2010": 56.861,
-        "life_2019": 61.602,
-        "health_2001": 22.106821,
-        "health_2010": 23.04637,
-        "health_2019": 43.037823
+        "Year": 2001,
+        "life": 51.255,
+        "health": 22.106821
       },
       {
         "Country Name": "Guinea-Bissau",
-        "life_2001": 50.744,
-        "life_2010": 54.628,
-        "life_2019": 58.322,
-        "health_2001": 22.556522,
-        "health_2010": 38.658882,
-        "health_2019": 62.575577
+        "Year": 2001,
+        "life": 50.744,
+        "health": 22.556522
       },
       {
         "Country Name": "Guyana",
-        "life_2001": 65.532,
-        "life_2010": 68.059,
-        "life_2019": 69.906,
-        "health_2001": 61.653477,
-        "health_2010": 162.66496,
-        "health_2019": 325.88516
+        "Year": 2001,
+        "life": 65.532,
+        "health": 61.653477
       },
       {
         "Country Name": "Haiti",
-        "life_2001": 57.382,
-        "life_2010": 60.511,
-        "life_2019": 64.001,
-        "health_2001": 26.906698,
-        "health_2010": 54.917152,
-        "health_2019": 56.9944
+        "Year": 2001,
+        "life": 57.382,
+        "health": 26.906698
       },
       {
         "Country Name": "Honduras",
-        "life_2001": 70.976,
-        "life_2010": 73.317,
-        "life_2019": 75.27,
-        "health_2001": 67.19782,
-        "health_2010": 166.16116,
-        "health_2019": 187.55434
+        "Year": 2001,
+        "life": 70.976,
+        "health": 67.19782
       },
       {
         "Country Name": "Hong Kong SAR, China",
-        "life_2001": 81.42439,
-        "life_2010": 82.97805,
-        "life_2019": 85.07805,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 81.42439,
+        "health": null
       },
       {
         "Country Name": "Hungary",
-        "life_2001": 72.24878,
-        "life_2010": 74.20731,
-        "life_2019": 76.31951,
-        "health_2001": 359.69748,
-        "health_2010": 983.11084,
-        "health_2019": 1062.3942
+        "Year": 2001,
+        "life": 72.24878,
+        "health": 359.69748
       },
       {
         "Country Name": "Iceland",
-        "life_2001": 80.69025,
-        "life_2010": 81.89756,
-        "life_2019": 83.163414,
-        "health_2001": 2557.2695,
-        "health_2010": 3589.5557,
-        "health_2019": 6274.9595
+        "Year": 2001,
+        "life": 80.69025,
+        "health": 2557.2695
       },
       {
         "Country Name": "India",
-        "life_2001": 62.907,
-        "life_2010": 66.693,
-        "life_2019": 69.656,
-        "health_2001": 19.797678,
-        "health_2010": 45.129772,
-        "health_2019": 63.74832
+        "Year": 2001,
+        "life": 62.907,
+        "health": 19.797678
       },
       {
         "Country Name": "Indonesia",
-        "life_2001": 66.037,
-        "life_2010": 69.205,
-        "life_2019": 71.716,
-        "health_2001": 17.240965,
-        "health_2010": 87.14134,
-        "health_2019": 120.12496
+        "Year": 2001,
+        "life": 66.037,
+        "health": 17.240965
       },
       {
         "Country Name": "Iran, Islamic Rep.",
-        "life_2001": 70.553,
-        "life_2010": 73.905,
-        "life_2019": 76.677,
-        "health_2001": 94.6177,
-        "health_2010": 445.66364,
-        "health_2019": 470.4346
+        "Year": 2001,
+        "life": 70.553,
+        "health": 94.6177
       },
       {
         "Country Name": "Iraq",
-        "life_2001": 68.983,
-        "life_2010": 68.567,
-        "life_2019": 70.604,
-        "health_2001": null,
-        "health_2010": 150.45607,
-        "health_2019": 253.31464
+        "Year": 2001,
+        "life": 68.983,
+        "health": null
       },
       {
         "Country Name": "Ireland",
-        "life_2001": 77.13415,
-        "life_2010": 80.743904,
-        "life_2019": 82.70244,
-        "health_2001": 1823.7347,
-        "health_2010": 5133.455,
-        "health_2019": 5428.589
+        "Year": 2001,
+        "life": 77.13415,
+        "health": 1823.7347
       },
       {
         "Country Name": "Isle of Man",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Israel",
-        "life_2001": 79.40732,
-        "life_2010": 81.60244,
-        "life_2019": 82.80488,
-        "health_2001": 1559.0833,
-        "health_2010": 2234.9497,
-        "health_2019": 3456.387
+        "Year": 2001,
+        "life": 79.40732,
+        "health": 1559.0833
       },
       {
         "Country Name": "Italy",
-        "life_2001": 80.12683,
-        "life_2010": 82.03658,
-        "life_2019": 83.49756,
-        "health_2001": 1586.6571,
-        "health_2010": 3217.6829,
-        "health_2019": 2905.5
+        "Year": 2001,
+        "life": 80.12683,
+        "health": 1586.6571
       },
       {
         "Country Name": "Jamaica",
-        "life_2001": 74.139,
-        "life_2010": 74.038,
-        "life_2019": 74.475,
-        "health_2001": 177.26375,
-        "health_2010": 249.08258,
-        "health_2019": 327.40353
+        "Year": 2001,
+        "life": 74.139,
+        "health": 177.26375
       },
       {
         "Country Name": "Japan",
-        "life_2001": 81.417076,
-        "life_2010": 82.84268,
-        "life_2019": 84.35634,
-        "health_2001": 2479.8115,
-        "health_2010": 4060.491,
-        "health_2019": 4360.4736
+        "Year": 2001,
+        "life": 81.417076,
+        "health": 2479.8115
       },
       {
         "Country Name": "Jordan",
-        "life_2001": 71.907,
-        "life_2010": 73.428,
-        "life_2019": 74.526,
-        "health_2001": 170.0458,
-        "health_2010": 305.2936,
-        "health_2019": 334.04422
+        "Year": 2001,
+        "life": 71.907,
+        "health": 170.0458
       },
       {
         "Country Name": "Kazakhstan",
-        "life_2001": 65.76,
-        "life_2010": 68.45,
-        "life_2019": 73.18,
-        "health_2001": 51.56955,
-        "health_2010": 249.26892,
-        "health_2019": 272.96524
+        "Year": 2001,
+        "life": 65.76,
+        "health": 51.56955
       },
       {
         "Country Name": "Kenya",
-        "life_2001": 51.101,
-        "life_2010": 60.959,
-        "life_2019": 66.699,
-        "health_2001": 21.257555,
-        "health_2010": 58.21166,
-        "health_2019": 83.41163
+        "Year": 2001,
+        "life": 51.101,
+        "health": 21.257555
       },
       {
         "Country Name": "Kiribati",
-        "life_2001": 63.446,
-        "life_2010": 65.769,
-        "life_2019": 68.369,
-        "health_2001": 90.621925,
-        "health_2010": 139.49522,
-        "health_2019": 172.30574
+        "Year": 2001,
+        "life": 63.446,
+        "health": 90.621925
       },
       {
         "Country Name": "Korea, Dem. People's Rep.",
-        "life_2001": 66.087,
-        "life_2010": 69.571,
-        "life_2019": 72.274,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 66.087,
+        "health": null
       },
       {
         "Country Name": "Korea, Rep.",
-        "life_2001": 76.41219,
-        "life_2010": 80.11707,
-        "life_2019": 83.22683,
-        "health_2001": 508.36133,
-        "health_2010": 1365.9128,
-        "health_2019": 2624.5332
+        "Year": 2001,
+        "life": 76.41219,
+        "health": 508.36133
       },
       {
         "Country Name": "Kosovo",
-        "life_2001": 67.99756,
-        "life_2010": 69.9,
-        "life_2019": 73.09268,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 67.99756,
+        "health": null
       },
       {
         "Country Name": "Kuwait",
-        "life_2001": 73.21,
-        "life_2010": 74.358,
-        "life_2019": 75.489,
-        "health_2001": 528.6975,
-        "health_2010": 1033.3838,
-        "health_2019": 1758.6742
+        "Year": 2001,
+        "life": 73.21,
+        "health": 528.6975
       },
       {
         "Country Name": "Kyrgyz Republic",
-        "life_2001": 68.70731,
-        "life_2010": 69.3,
-        "life_2019": 71.6,
-        "health_2001": 13.161617,
-        "health_2010": 61.453785,
-        "health_2019": 62.144775
+        "Year": 2001,
+        "life": 68.70731,
+        "health": 13.161617
       },
       {
         "Country Name": "Lao PDR",
-        "life_2001": 59.372,
-        "life_2010": 64.306,
-        "life_2019": 67.923,
-        "health_2001": 14.765901,
-        "health_2010": 34.994404,
-        "health_2019": 68.22131
+        "Year": 2001,
+        "life": 59.372,
+        "health": 14.765901
       },
       {
         "Country Name": "Latvia",
-        "life_2001": 70.76098,
-        "life_2010": 73.482925,
-        "life_2019": 75.3878,
-        "health_2001": 205.02048,
-        "health_2010": 689.0772,
-        "health_2019": 1166.7979
+        "Year": 2001,
+        "life": 70.76098,
+        "health": 205.02048
       },
       {
         "Country Name": "Lebanon",
-        "life_2001": 74.999,
-        "life_2010": 78.36,
-        "life_2019": 78.93,
-        "health_2001": 459.4658,
-        "health_2010": 577.3594,
-        "health_2019": 663.0511
+        "Year": 2001,
+        "life": 74.999,
+        "health": 459.4658
       },
       {
         "Country Name": "Lesotho",
-        "life_2001": 46.197,
-        "life_2010": 45.1,
-        "life_2019": 54.331,
-        "health_2001": 27.737806,
-        "health_2010": 97.6808,
-        "health_2019": 124.193634
+        "Year": 2001,
+        "life": 46.197,
+        "health": 27.737806
       },
       {
         "Country Name": "Liberia",
-        "life_2001": 52.236,
-        "life_2010": 59.6,
-        "life_2019": 64.104,
-        "health_2001": 10.754223,
-        "health_2010": 45.360386,
-        "health_2019": 52.56287
+        "Year": 2001,
+        "life": 52.236,
+        "health": 10.754223
       },
       {
         "Country Name": "Libya",
-        "life_2001": 71.038,
-        "life_2010": 72.044,
-        "life_2019": 72.913,
-        "health_2001": 253.90991,
-        "health_2010": 399.01917,
-        "health_2019": null
+        "Year": 2001,
+        "life": 71.038,
+        "health": 253.90991
       },
       {
         "Country Name": "Liechtenstein",
-        "life_2001": 79.27561,
-        "life_2010": 81.84146,
-        "life_2019": 84.16097,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 79.27561,
+        "health": null
       },
       {
         "Country Name": "Lithuania",
-        "life_2001": 71.65854,
-        "life_2010": 73.268295,
-        "life_2019": 76.28293,
-        "health_2001": 218.81802,
-        "health_2010": 805.2245,
-        "health_2019": 1369.9795
+        "Year": 2001,
+        "life": 71.65854,
+        "health": 218.81802
       },
       {
         "Country Name": "Luxembourg",
-        "life_2001": 77.82439,
-        "life_2010": 80.63171,
-        "life_2019": 82.63902,
-        "health_2001": 3109.2014,
-        "health_2010": 7459.8354,
-        "health_2019": 6220.741
+        "Year": 2001,
+        "life": 77.82439,
+        "health": 3109.2014
       },
       {
         "Country Name": "Macao SAR, China",
-        "life_2001": 80.645,
-        "life_2010": 82.704,
-        "life_2019": 84.244,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 80.645,
+        "health": null
       },
       {
         "Country Name": "Madagascar",
-        "life_2001": 59.129,
-        "life_2010": 63.388,
-        "life_2019": 67.041,
-        "health_2001": 15.910254,
-        "health_2010": 21.950842,
-        "health_2019": 19.849976
+        "Year": 2001,
+        "life": 59.129,
+        "health": 15.910254
       },
       {
         "Country Name": "Malawi",
-        "life_2001": 45.204,
-        "life_2010": 55.564,
-        "life_2019": 64.263,
-        "health_2001": 6.190803,
-        "health_2010": 34.662567,
-        "health_2019": 30.400288
+        "Year": 2001,
+        "life": 45.204,
+        "health": 6.190803
       },
       {
         "Country Name": "Malaysia",
-        "life_2001": 72.782,
-        "life_2010": 74.493,
-        "life_2019": 76.156,
-        "health_2001": 114.03215,
-        "health_2010": 290.1766,
-        "health_2019": 436.61203
+        "Year": 2001,
+        "life": 72.782,
+        "health": 114.03215
       },
       {
         "Country Name": "Maldives",
-        "life_2001": 70.964,
-        "life_2010": 75.905,
-        "life_2019": 78.921,
-        "health_2001": 230.17087,
-        "health_2010": 600.64435,
-        "health_2019": 854.3706
+        "Year": 2001,
+        "life": 70.964,
+        "health": 230.17087
       },
       {
         "Country Name": "Mali",
-        "life_2001": 48.758,
-        "life_2010": 55.251,
-        "life_2019": 59.306,
-        "health_2001": 13.906796,
-        "health_2010": 33.231255,
-        "health_2019": 34.281776
+        "Year": 2001,
+        "life": 48.758,
+        "health": 13.906796
       },
       {
         "Country Name": "Malta",
-        "life_2001": 78.8439,
-        "life_2010": 81.39756,
-        "life_2019": 82.858536,
-        "health_2001": 685.984,
-        "health_2010": 1733.6688,
-        "health_2019": 2531.911
+        "Year": 2001,
+        "life": 78.8439,
+        "health": 685.984
       },
       {
         "Country Name": "Marshall Islands",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 387.95535,
-        "health_2010": 449.94284,
-        "health_2019": 664.3185
+        "Year": 2001,
+        "life": null,
+        "health": 387.95535
       },
       {
         "Country Name": "Mauritania",
-        "life_2001": 60.788,
-        "life_2010": 62.527,
-        "life_2019": 64.925,
-        "health_2001": 23.078022,
-        "health_2010": 42.466923,
-        "health_2019": 57.884846
+        "Year": 2001,
+        "life": 60.788,
+        "health": 23.078022
       },
       {
         "Country Name": "Mauritius",
-        "life_2001": 71.765854,
-        "life_2010": 72.967316,
-        "life_2019": 74.235855,
-        "health_2001": 119.46854,
-        "health_2010": 367.1208,
-        "health_2019": 685.9456
+        "Year": 2001,
+        "life": 71.765854,
+        "health": 119.46854
       },
       {
         "Country Name": "Mexico",
-        "life_2001": 74.658,
-        "life_2010": 75.065,
-        "life_2019": 75.054,
-        "health_2001": 363.67358,
-        "health_2010": 531.88947,
-        "health_2019": 540.3723
+        "Year": 2001,
+        "life": 74.658,
+        "health": 363.67358
       },
       {
         "Country Name": "Micronesia, Fed. Sts.",
-        "life_2001": 64.71,
-        "life_2010": 66.471,
-        "life_2019": 67.883,
-        "health_2001": 190.07368,
-        "health_2010": 378.24478,
-        "health_2019": 415.19827
+        "Year": 2001,
+        "life": 64.71,
+        "health": 190.07368
       },
       {
         "Country Name": "Moldova",
-        "life_2001": 67.185,
-        "life_2010": 69.616,
-        "life_2019": 71.901,
-        "health_2001": 25.39859,
-        "health_2010": 198.28894,
-        "health_2019": 284.30713
+        "Year": 2001,
+        "life": 67.185,
+        "health": 25.39859
       },
       {
         "Country Name": "Monaco",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 1431.1339,
-        "health_2010": 3509.5662,
-        "health_2019": 2905.8438
+        "Year": 2001,
+        "life": null,
+        "health": 1431.1339
       },
       {
         "Country Name": "Mongolia",
-        "life_2001": 63.319,
-        "life_2010": 67.38,
-        "life_2019": 69.87,
-        "health_2001": 26.487616,
-        "health_2010": 98.844795,
-        "health_2019": 163.44186
+        "Year": 2001,
+        "life": 63.319,
+        "health": 26.487616
       },
       {
         "Country Name": "Montenegro",
-        "life_2001": 73.187515,
-        "life_2010": 75.99024,
-        "life_2019": 76.68293,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": 735.1589
+        "Year": 2001,
+        "life": 73.187515,
+        "health": null
       },
       {
         "Country Name": "Morocco",
-        "life_2001": 69.193,
-        "life_2010": 74.382,
-        "life_2019": 76.68,
-        "health_2001": 55.94983,
-        "health_2010": 169.00949,
-        "health_2019": 174.22377
+        "Year": 2001,
+        "life": 69.193,
+        "health": 55.94983
       },
       {
         "Country Name": "Mozambique",
-        "life_2001": 49.295,
-        "life_2010": 52.31,
-        "life_2019": 60.854,
-        "health_2001": 8.612842,
-        "health_2010": 25.666542,
-        "health_2019": 39.46094
+        "Year": 2001,
+        "life": 49.295,
+        "health": 8.612842
       },
       {
         "Country Name": "Myanmar",
-        "life_2001": 60.377,
-        "life_2010": 63.525,
-        "life_2019": 67.134,
-        "health_2001": 4.4845495,
-        "health_2010": 19.602367,
-        "health_2019": 60.015873
+        "Year": 2001,
+        "life": 60.377,
+        "health": 4.4845495
       },
       {
         "Country Name": "Namibia",
-        "life_2001": 51.399,
-        "life_2010": 56.665,
-        "life_2019": 63.708,
-        "health_2001": 185.40504,
-        "health_2010": 517.3282,
-        "health_2019": 427.25623
+        "Year": 2001,
+        "life": 51.399,
+        "health": 185.40504
       },
       {
         "Country Name": "Nauru",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 346.12976,
-        "health_2010": 628.5897,
-        "health_2019": 1049.447
+        "Year": 2001,
+        "life": null,
+        "health": 346.12976
       },
       {
         "Country Name": "Nepal",
-        "life_2001": 62.945,
-        "life_2010": 67.611,
-        "life_2019": 70.778,
-        "health_2001": 10.521443,
-        "health_2010": 29.982807,
-        "health_2019": 53.246403
+        "Year": 2001,
+        "life": 62.945,
+        "health": 10.521443
       },
       {
         "Country Name": "Netherlands",
-        "life_2001": 78.19025,
-        "life_2010": 80.70244,
-        "life_2019": 82.1122,
-        "health_2001": 2175.7327,
-        "health_2010": 5191.728,
-        "health_2019": 5335.3013
+        "Year": 2001,
+        "life": 78.19025,
+        "health": 2175.7327
       },
       {
         "Country Name": "New Caledonia",
-        "life_2001": 74.83171,
-        "life_2010": 77.28049,
-        "life_2019": 77.63415,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 74.83171,
+        "health": null
       },
       {
         "Country Name": "New Zealand",
-        "life_2001": 78.69268,
-        "life_2010": 80.70244,
-        "life_2019": 81.70731,
-        "health_2001": 1049.3761,
-        "health_2010": 3216.2236,
-        "health_2019": 4211.0464
+        "Year": 2001,
+        "life": 78.69268,
+        "health": 1049.3761
       },
       {
         "Country Name": "Nicaragua",
-        "life_2001": 69.934,
-        "life_2010": 72.428,
-        "life_2019": 74.485,
-        "health_2001": 57.04566,
-        "health_2010": 115.95103,
-        "health_2019": 160.75879
+        "Year": 2001,
+        "life": 69.934,
+        "health": 57.04566
       },
       {
         "Country Name": "Niger",
-        "life_2001": 50.584,
-        "life_2010": 57.333,
-        "life_2019": 62.42,
-        "health_2001": 9.885902,
-        "health_2010": 23.886559,
-        "health_2019": 31.397636
+        "Year": 2001,
+        "life": 50.584,
+        "health": 9.885902
       },
       {
         "Country Name": "Nigeria",
-        "life_2001": 46.51,
-        "life_2010": 50.896,
-        "life_2019": 54.687,
-        "health_2001": 18.600574,
-        "health_2010": 76.75748,
-        "health_2019": 71.46573
+        "Year": 2001,
+        "life": 46.51,
+        "health": 18.600574
       },
       {
         "Country Name": "North Macedonia",
-        "life_2001": 73.436584,
-        "life_2010": 74.99756,
-        "life_2019": 76.60244,
-        "health_2001": 152.15872,
-        "health_2010": 305.2323,
-        "health_2019": 436.88718
+        "Year": 2001,
+        "life": 73.436584,
+        "health": 152.15872
       },
       {
         "Country Name": "Northern Mariana Islands",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Norway",
-        "life_2001": 78.78536,
-        "life_2010": 80.99756,
-        "life_2019": 82.958534,
-        "health_2001": 3099.0034,
-        "health_2010": 7859.516,
-        "health_2019": 8007.398
+        "Year": 2001,
+        "life": 78.78536,
+        "health": 3099.0034
       },
       {
         "Country Name": "Oman",
-        "life_2001": 72.58,
-        "life_2010": 75.682,
-        "life_2019": 77.861,
-        "health_2001": 261.31638,
-        "health_2010": 529.08093,
-        "health_2019": 624.74445
+        "Year": 2001,
+        "life": 72.58,
+        "health": 261.31638
       },
       {
         "Country Name": "Pakistan",
-        "life_2001": 63.066,
-        "life_2010": 65.264,
-        "life_2019": 67.273,
-        "health_2001": 13.585202,
-        "health_2010": 25.256002,
-        "health_2019": 39.499287
+        "Year": 2001,
+        "life": 63.066,
+        "health": 13.585202
       },
       {
         "Country Name": "Palau",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 639.4607,
-        "health_2010": 1183.1667,
-        "health_2019": 2355.6958
+        "Year": 2001,
+        "life": null,
+        "health": 639.4607
       },
       {
         "Country Name": "Panama",
-        "life_2001": 75.233,
-        "life_2010": 76.792,
-        "life_2019": 78.506,
-        "health_2001": 281.00452,
-        "health_2010": 572.6137,
-        "health_2019": 1192.8208
+        "Year": 2001,
+        "life": 75.233,
+        "health": 281.00452
       },
       {
         "Country Name": "Papua New Guinea",
-        "life_2001": 59.487,
-        "life_2010": 62.029,
-        "life_2019": 64.501,
-        "health_2001": 17.448261,
-        "health_2010": 41.083786,
-        "health_2019": 65.08072
+        "Year": 2001,
+        "life": 59.487,
+        "health": 17.448261
       },
       {
         "Country Name": "Paraguay",
-        "life_2001": 70.786,
-        "life_2010": 72.653,
-        "life_2019": 74.254,
-        "health_2001": 87.7708,
-        "health_2010": 237.33458,
-        "health_2019": 388.39325
+        "Year": 2001,
+        "life": 70.786,
+        "health": 87.7708
       },
       {
         "Country Name": "Peru",
-        "life_2001": 71.505,
-        "life_2010": 74.41,
-        "life_2019": 76.736,
-        "health_2001": 89.91749,
-        "health_2010": 241.9287,
-        "health_2019": 370.10995
+        "Year": 2001,
+        "life": 71.505,
+        "health": 89.91749
       },
       {
         "Country Name": "Philippines",
-        "life_2001": 68.835,
-        "life_2010": 69.823,
-        "life_2019": 71.231,
-        "health_2001": 28.20891,
-        "health_2010": 91.6056,
-        "health_2019": 142.07877
+        "Year": 2001,
+        "life": 68.835,
+        "health": 28.20891
       },
       {
         "Country Name": "Poland",
-        "life_2001": 74.2,
-        "life_2010": 76.24634,
-        "life_2019": 77.90488,
-        "health_2001": 282.82104,
-        "health_2010": 809.1994,
-        "health_2019": 1014.0382
+        "Year": 2001,
+        "life": 74.2,
+        "health": 282.82104
       },
       {
         "Country Name": "Portugal",
-        "life_2001": 76.81464,
-        "life_2010": 79.02683,
-        "life_2019": 81.67561,
-        "health_2001": 1015.5497,
-        "health_2010": 2259.3037,
-        "health_2019": 2221.4392
+        "Year": 2001,
+        "life": 76.81464,
+        "health": 1015.5497
       },
       {
         "Country Name": "Puerto Rico",
-        "life_2001": 77.066826,
-        "life_2010": 78.4191,
-        "life_2019": 79.92851,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 77.066826,
+        "health": null
       },
       {
         "Country Name": "Qatar",
-        "life_2001": 77.612,
-        "life_2010": 79.108,
-        "life_2019": 80.227,
-        "health_2001": 659.9841,
-        "health_2010": 1206.003,
-        "health_2019": 1807.1539
+        "Year": 2001,
+        "life": 77.612,
+        "health": 659.9841
       },
       {
         "Country Name": "Romania",
-        "life_2001": 71.16097,
-        "life_2010": 73.458534,
-        "life_2019": 75.607315,
-        "health_2001": 78.817535,
-        "health_2010": 472.20752,
-        "health_2019": 738.55817
+        "Year": 2001,
+        "life": 71.16097,
+        "health": 78.817535
       },
       {
         "Country Name": "Russian Federation",
-        "life_2001": 65.383415,
-        "life_2010": 68.84122,
-        "life_2019": 73.0839,
-        "health_2001": 118.10949,
-        "health_2010": 566.0909,
-        "health_2019": 653.41724
+        "Year": 2001,
+        "life": 65.383415,
+        "health": 118.10949
       },
       {
         "Country Name": "Rwanda",
-        "life_2001": 49.936,
-        "life_2010": 63.433,
-        "life_2019": 69.024,
-        "health_2001": 7.920927,
-        "health_2010": 49.315437,
-        "health_2019": 51.399124
+        "Year": 2001,
+        "life": 49.936,
+        "health": 7.920927
       },
       {
         "Country Name": "Samoa",
-        "life_2001": 69.103,
-        "life_2010": 71.663,
-        "life_2019": 73.321,
-        "health_2001": 58.871178,
-        "health_2010": 192.76791,
-        "health_2019": 271.91577
+        "Year": 2001,
+        "life": 69.103,
+        "health": 58.871178
       },
       {
         "Country Name": "San Marino",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 2168.8333,
-        "health_2010": 3983.751,
-        "health_2019": 3050.9182
+        "Year": 2001,
+        "life": null,
+        "health": 2168.8333
       },
       {
         "Country Name": "Sao Tome and Principe",
-        "life_2001": 62.017,
-        "life_2010": 67.43,
-        "life_2019": 70.385,
-        "health_2001": 53.569183,
-        "health_2010": 74.93682,
-        "health_2019": 108.4464
+        "Year": 2001,
+        "life": 62.017,
+        "health": 53.569183
       },
       {
         "Country Name": "Saudi Arabia",
-        "life_2001": 72.759,
-        "life_2010": 73.917,
-        "life_2019": 75.133,
-        "health_2001": 387.4863,
-        "health_2010": 702.6711,
-        "health_2019": 1316.2603
+        "Year": 2001,
+        "life": 72.759,
+        "health": 387.4863
       },
       {
         "Country Name": "Senegal",
-        "life_2001": 58.177,
-        "life_2010": 64.284,
-        "life_2019": 67.941,
-        "health_2001": 23.857248,
-        "health_2010": 51.214836,
-        "health_2019": 59.097584
+        "Year": 2001,
+        "life": 58.177,
+        "health": 23.857248
       },
       {
         "Country Name": "Serbia",
-        "life_2001": 72.234146,
-        "life_2010": 74.336586,
-        "life_2019": 75.936584,
-        "health_2001": 112.220634,
-        "health_2010": 545.3338,
-        "health_2019": 641.025
+        "Year": 2001,
+        "life": 72.234146,
+        "health": 112.220634
       },
       {
         "Country Name": "Seychelles",
-        "life_2001": 73.25366,
-        "life_2010": 73.19756,
-        "life_2019": 74.04634,
-        "health_2001": 407.45132,
-        "health_2010": 513.228,
-        "health_2019": 839.7733
+        "Year": 2001,
+        "life": 73.25366,
+        "health": 407.45132
       },
       {
         "Country Name": "Sierra Leone",
-        "life_2001": 40.369,
-        "life_2010": 49.382,
-        "life_2019": 54.696,
-        "health_2001": 25.172243,
-        "health_2010": 43.974323,
-        "health_2019": 46.157955
+        "Year": 2001,
+        "life": 40.369,
+        "health": 25.172243
       },
       {
         "Country Name": "Singapore",
-        "life_2001": 78.25122,
-        "life_2010": 81.541466,
-        "life_2019": 83.59512,
-        "health_2001": 696.6172,
-        "health_2010": 1496.776,
-        "health_2019": 2632.7139
+        "Year": 2001,
+        "life": 78.25122,
+        "health": 696.6172
       },
       {
         "Country Name": "Sint Maarten (Dutch part)",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Slovak Republic",
-        "life_2001": 73.402435,
-        "life_2010": 75.1122,
-        "life_2019": 77.665855,
-        "health_2001": 212.22208,
-        "health_2010": 1296.5428,
-        "health_2019": 1342.0748
+        "Year": 2001,
+        "life": 73.402435,
+        "health": 212.22208
       },
       {
         "Country Name": "Slovenia",
-        "life_2001": 75.75854,
-        "life_2010": 79.42195,
-        "life_2019": 81.52927,
-        "health_2001": 826.22577,
-        "health_2010": 2017.1466,
-        "health_2019": 2219.1006
+        "Year": 2001,
+        "life": 75.75854,
+        "health": 826.22577
       },
       {
         "Country Name": "Solomon Islands",
-        "life_2001": 67.816,
-        "life_2010": 70.674,
-        "life_2019": 72.996,
-        "health_2001": 63.79349,
-        "health_2010": 134.58466,
-        "health_2019": 111.90449
+        "Year": 2001,
+        "life": 67.816,
+        "health": 63.79349
       },
       {
         "Country Name": "Somalia",
-        "life_2001": 51.213,
-        "life_2010": 53.99,
-        "life_2019": 57.397,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 51.213,
+        "health": null
       },
       {
         "Country Name": "South Africa",
-        "life_2001": 55.089,
-        "life_2010": 57.669,
-        "life_2019": 64.131,
-        "health_2001": 211.69156,
-        "health_2010": 635.0941,
-        "health_2019": 546.6884
+        "Year": 2001,
+        "life": 55.089,
+        "health": 211.69156
       },
       {
         "Country Name": "South Sudan",
-        "life_2001": 49.592,
-        "life_2010": 54.8,
-        "life_2019": 57.846,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": 22.638187
+        "Year": 2001,
+        "life": 49.592,
+        "health": null
       },
       {
         "Country Name": "Spain",
-        "life_2001": 79.36829,
-        "life_2010": 81.62683,
-        "life_2019": 83.83171,
-        "health_2001": 1045.0507,
-        "health_2010": 2789.534,
-        "health_2019": 2711.1929
+        "Year": 2001,
+        "life": 79.36829,
+        "health": 1045.0507
       },
       {
         "Country Name": "Sri Lanka",
-        "life_2001": 72.233,
-        "life_2010": 75.439,
-        "life_2019": 76.978,
-        "health_2001": 41.323704,
-        "health_2010": 108.275185,
-        "health_2019": 160.69696
+        "Year": 2001,
+        "life": 72.233,
+        "health": 41.323704
       },
       {
         "Country Name": "St. Kitts and Nevis",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 451.68024,
-        "health_2010": 828.48224,
-        "health_2019": 1087.801
+        "Year": 2001,
+        "life": null,
+        "health": 451.68024
       },
       {
         "Country Name": "St. Lucia",
-        "life_2001": 73.486,
-        "life_2010": 74.852,
-        "life_2019": 76.203,
-        "health_2001": 288.75674,
-        "health_2010": 430.23776,
-        "health_2019": 502.1817
+        "Year": 2001,
+        "life": 73.486,
+        "health": 288.75674
       },
       {
         "Country Name": "St. Martin (French part)",
-        "life_2001": 76.97317,
-        "life_2010": 78.52195,
-        "life_2019": 79.97317,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 76.97317,
+        "health": null
       },
       {
         "Country Name": "St. Vincent and the Grenadines",
-        "life_2001": 70.882,
-        "life_2010": 71.776,
-        "life_2019": 72.534,
-        "health_2001": 171.39845,
-        "health_2010": 286.35498,
-        "health_2019": 354.80865
+        "Year": 2001,
+        "life": 70.882,
+        "health": 171.39845
       },
       {
         "Country Name": "Sudan",
-        "life_2001": 58.859,
-        "life_2010": 62.764,
-        "life_2019": 65.311,
-        "health_2001": 16.5766,
-        "health_2010": 93.453156,
-        "health_2019": 46.92884
+        "Year": 2001,
+        "life": 58.859,
+        "health": 16.5766
       },
       {
         "Country Name": "Suriname",
-        "life_2001": 67.913,
-        "life_2010": 70.465,
-        "life_2019": 71.682,
-        "health_2001": 93.65899,
-        "health_2010": 415.2991,
-        "health_2019": 619.24713
+        "Year": 2001,
+        "life": 67.913,
+        "health": 93.65899
       },
       {
         "Country Name": "Sweden",
-        "life_2001": 79.79512,
-        "life_2010": 81.45122,
-        "life_2019": 83.10976,
-        "health_2001": 2155.8542,
-        "health_2010": 4416.1455,
-        "health_2019": 5671.3857
+        "Year": 2001,
+        "life": 79.79512,
+        "health": 2155.8542
       },
       {
         "Country Name": "Switzerland",
-        "life_2001": 80.18049,
-        "life_2010": 82.24634,
-        "life_2019": 83.90488,
-        "health_2001": 3763.3845,
-        "health_2010": 7705.176,
-        "health_2019": 9666.338
+        "Year": 2001,
+        "life": 80.18049,
+        "health": 3763.3845
       },
       {
         "Country Name": "Syrian Arab Republic",
-        "life_2001": 73.371,
-        "life_2010": 72.108,
-        "life_2019": 72.697,
-        "health_2001": 58.473927,
-        "health_2010": 92.7375,
-        "health_2019": null
+        "Year": 2001,
+        "life": 73.371,
+        "health": 58.473927
       },
       {
         "Country Name": "Tajikistan",
-        "life_2001": 62.807,
-        "life_2010": 68.736,
-        "life_2019": 71.097,
-        "health_2001": 7.6724076,
-        "health_2010": 42.98645,
-        "health_2019": 61.872253
+        "Year": 2001,
+        "life": 62.807,
+        "health": 7.6724076
       },
       {
         "Country Name": "Tanzania",
-        "life_2001": 51.444,
-        "life_2010": 58.584,
-        "life_2019": 65.456,
-        "health_2001": 15.532048,
-        "health_2010": 37.53248,
-        "health_2019": 40.343304
+        "Year": 2001,
+        "life": 51.444,
+        "health": 15.532048
       },
       {
         "Country Name": "Thailand",
-        "life_2001": 70.832,
-        "life_2010": 74.184,
-        "life_2019": 77.15,
-        "health_2001": 57.29466,
-        "health_2010": 172.09297,
-        "health_2019": 296.1651
+        "Year": 2001,
+        "life": 70.832,
+        "health": 57.29466
       },
       {
         "Country Name": "Timor-Leste",
-        "life_2001": 59.945,
-        "life_2010": 67.186,
-        "life_2019": 69.495,
-        "health_2001": null,
-        "health_2010": 52.189655,
-        "health_2019": 92.670044
+        "Year": 2001,
+        "life": 59.945,
+        "health": null
       },
       {
         "Country Name": "Togo",
-        "life_2001": 53.554,
-        "life_2010": 57.468,
-        "life_2019": 61.042,
-        "health_2001": 11.397036,
-        "health_2010": 32.09547,
-        "health_2019": 51.15503
+        "Year": 2001,
+        "life": 53.554,
+        "health": 11.397036
       },
       {
         "Country Name": "Tonga",
-        "life_2001": 69.725,
-        "life_2010": 70.059,
-        "life_2019": 70.907,
-        "health_2001": 59.96764,
-        "health_2010": 177.96895,
-        "health_2019": 242.37277
+        "Year": 2001,
+        "life": 69.725,
+        "health": 59.96764
       },
       {
         "Country Name": "Trinidad and Tobago",
-        "life_2001": 69.65,
-        "life_2010": 71.946,
-        "life_2019": 73.507,
-        "health_2001": 284.29602,
-        "health_2010": 861.51056,
-        "health_2019": 1167.9331
+        "Year": 2001,
+        "life": 69.65,
+        "health": 284.29602
       },
       {
         "Country Name": "Tunisia",
-        "life_2001": 73.415,
-        "life_2010": 75.041,
-        "life_2019": 76.699,
-        "health_2001": 114.88659,
-        "health_2010": 243.71402,
-        "health_2019": 233.05931
+        "Year": 2001,
+        "life": 73.415,
+        "health": 114.88659
       },
       {
         "Country Name": "Turkey",
-        "life_2001": 70.56,
-        "life_2010": 74.507,
-        "life_2019": 77.691,
-        "health_2001": 153.62274,
-        "health_2010": 539.32715,
-        "health_2019": 396.46683
+        "Year": 2001,
+        "life": 70.56,
+        "health": 153.62274
       },
       {
         "Country Name": "Turkmenistan",
-        "life_2001": 63.842,
-        "life_2010": 66.657,
-        "life_2019": 68.191,
-        "health_2001": 123.79407,
-        "health_2010": 221.79845,
-        "health_2019": 500.00644
+        "Year": 2001,
+        "life": 63.842,
+        "health": 123.79407
       },
       {
         "Country Name": "Turks and Caicos Islands",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": null,
+        "health": null
       },
       {
         "Country Name": "Tuvalu",
-        "life_2001": null,
-        "life_2010": null,
-        "life_2019": null,
-        "health_2001": 272.08038,
-        "health_2010": 500.05597,
-        "health_2019": 972.6124
+        "Year": 2001,
+        "life": null,
+        "health": 272.08038
       },
       {
         "Country Name": "Uganda",
-        "life_2001": 47.22,
-        "life_2010": 57.099,
-        "life_2019": 63.368,
-        "health_2001": 16.189337,
-        "health_2010": 51.82596,
-        "health_2019": 32.408443
+        "Year": 2001,
+        "life": 47.22,
+        "health": 16.189337
       },
       {
         "Country Name": "Ukraine",
-        "life_2001": 67.837074,
-        "life_2010": 70.265366,
-        "life_2019": 71.82732,
-        "health_2001": 44.78644,
-        "health_2010": 202.34087,
-        "health_2019": 248.13348
+        "Year": 2001,
+        "life": 67.837074,
+        "health": 44.78644
       },
       {
         "Country Name": "United Arab Emirates",
-        "life_2001": 74.544,
-        "life_2010": 76.332,
-        "life_2019": 77.972,
-        "health_2001": 777.1306,
-        "health_2010": 1314.63,
-        "health_2019": 1842.6945
+        "Year": 2001,
+        "life": 74.544,
+        "health": 777.1306
       },
       {
         "Country Name": "United Kingdom",
-        "life_2001": 77.99268,
-        "life_2010": 80.402435,
-        "life_2019": 81.20488,
-        "health_2001": 2101.8364,
-        "health_2010": 3904.507,
-        "health_2019": 4312.889
+        "Year": 2001,
+        "life": 77.99268,
+        "health": 2101.8364
       },
       {
         "Country Name": "United States",
-        "life_2001": 76.836586,
-        "life_2010": 78.541466,
-        "life_2019": 78.7878,
-        "health_2001": 4894.281,
-        "health_2010": 7888.352,
-        "health_2019": 10921.013
+        "Year": 2001,
+        "life": 76.836586,
+        "health": 4894.281
       },
       {
         "Country Name": "Uruguay",
-        "life_2001": 74.939,
-        "life_2010": 76.75,
-        "life_2019": 77.911,
-        "health_2001": 668.95795,
-        "health_2010": 1030.6217,
-        "health_2019": 1660.9529
+        "Year": 2001,
+        "life": 74.939,
+        "health": 668.95795
       },
       {
         "Country Name": "Uzbekistan",
-        "life_2001": 67.374,
-        "life_2010": 69.672,
-        "life_2019": 71.725,
-        "health_2001": 30.44023,
-        "health_2010": 85.44558,
-        "health_2019": 98.573166
+        "Year": 2001,
+        "life": 67.374,
+        "health": 30.44023
       },
       {
         "Country Name": "Vanuatu",
-        "life_2001": 67.583,
-        "life_2010": 69.123,
-        "life_2019": 70.474,
-        "health_2001": 46.25572,
-        "health_2010": 100.13548,
-        "health_2019": 104.24961
+        "Year": 2001,
+        "life": 67.583,
+        "health": 46.25572
       },
       {
         "Country Name": "Venezuela, RB",
-        "life_2001": 72.294,
-        "life_2010": 73.134,
-        "life_2019": 72.064,
-        "health_2001": 391.32364,
-        "health_2010": 945.9151,
-        "health_2019": 338.82538
+        "Year": 2001,
+        "life": 72.294,
+        "health": 391.32364
       },
       {
         "Country Name": "Vietnam",
-        "life_2001": 73.228,
-        "life_2010": 74.837,
-        "life_2019": 75.4,
-        "health_2001": 23.187826,
-        "health_2010": 78.63556,
-        "health_2019": 180.71819
+        "Year": 2001,
+        "life": 73.228,
+        "health": 23.187826
       },
       {
         "Country Name": "Virgin Islands (U.S.)",
-        "life_2001": 77.62195,
-        "life_2010": 77.86585,
-        "life_2019": 79.66829,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 77.62195,
+        "health": null
       },
       {
         "Country Name": "West Bank and Gaza",
-        "life_2001": 71.239,
-        "life_2010": 72.788,
-        "life_2019": 74.053,
-        "health_2001": null,
-        "health_2010": null,
-        "health_2019": null
+        "Year": 2001,
+        "life": 71.239,
+        "health": null
       },
       {
         "Country Name": "Yemen, Rep.",
-        "life_2001": 61.216,
-        "life_2010": 65.549,
-        "life_2019": 66.125,
-        "health_2001": 27.195436,
-        "health_2010": 68.86594,
-        "health_2019": null
+        "Year": 2001,
+        "life": 61.216,
+        "health": 27.195436
       },
       {
         "Country Name": "Zambia",
-        "life_2001": 44.615,
-        "life_2010": 55.655,
-        "life_2019": 63.886,
-        "health_2001": 25.092323,
-        "health_2010": 55.39283,
-        "health_2019": 69.32438
+        "Year": 2001,
+        "life": 44.615,
+        "health": 25.092323
       },
       {
         "Country Name": "Zimbabwe",
-        "life_2001": 44.01,
-        "life_2010": 50.64,
-        "life_2019": 61.49,
-        "health_2001": null,
-        "health_2010": 99.34856,
-        "health_2019": 103.028275
+        "Year": 2001,
+        "life": 44.01,
+        "health": null
+      },
+      {
+        "Country Name": "Afghanistan",
+        "Year": 2010,
+        "life": 61.028,
+        "health": 44.990532
+      },
+      {
+        "Country Name": "Albania",
+        "Year": 2010,
+        "life": 76.562,
+        "health": 192.00322
+      },
+      {
+        "Country Name": "Algeria",
+        "Year": 2010,
+        "life": 74.938,
+        "health": 229.28946
+      },
+      {
+        "Country Name": "American Samoa",
+        "Year": 2010,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Andorra",
+        "Year": 2010,
+        "life": null,
+        "health": 2685.4797
+      },
+      {
+        "Country Name": "Angola",
+        "Year": 2010,
+        "life": 55.35,
+        "health": 96.697014
+      },
+      {
+        "Country Name": "Antigua and Barbuda",
+        "Year": 2010,
+        "life": 75.823,
+        "health": 701.8178
+      },
+      {
+        "Country Name": "Argentina",
+        "Year": 2010,
+        "life": 75.278,
+        "health": 985.0344
+      },
+      {
+        "Country Name": "Armenia",
+        "Year": 2010,
+        "life": 73.331,
+        "health": 297.22906
+      },
+      {
+        "Country Name": "Aruba",
+        "Year": 2010,
+        "life": 75.017,
+        "health": null
+      },
+      {
+        "Country Name": "Australia",
+        "Year": 2010,
+        "life": 81.69512,
+        "health": 4945.038
+      },
+      {
+        "Country Name": "Austria",
+        "Year": 2010,
+        "life": 80.58049,
+        "health": 4800.7935
+      },
+      {
+        "Country Name": "Azerbaijan",
+        "Year": 2010,
+        "life": 70.938,
+        "health": 145.84526
+      },
+      {
+        "Country Name": "Bahamas, The",
+        "Year": 2010,
+        "life": 72.144,
+        "health": 1495.2313
+      },
+      {
+        "Country Name": "Bahrain",
+        "Year": 2010,
+        "life": 76.057,
+        "health": 796.3184
+      },
+      {
+        "Country Name": "Bangladesh",
+        "Year": 2010,
+        "life": 69.881,
+        "health": 20.8027
+      },
+      {
+        "Country Name": "Barbados",
+        "Year": 2010,
+        "life": 78.364,
+        "health": 1087.6565
+      },
+      {
+        "Country Name": "Belarus",
+        "Year": 2010,
+        "life": 70.40488,
+        "health": 343.6791
+      },
+      {
+        "Country Name": "Belgium",
+        "Year": 2010,
+        "life": 80.18293,
+        "health": 4544.78
+      },
+      {
+        "Country Name": "Belize",
+        "Year": 2010,
+        "life": 72.057,
+        "health": 242.34943
+      },
+      {
+        "Country Name": "Benin",
+        "Year": 2010,
+        "life": 59.318,
+        "health": 31.065983
+      },
+      {
+        "Country Name": "Bermuda",
+        "Year": 2010,
+        "life": 79.288536,
+        "health": null
+      },
+      {
+        "Country Name": "Bhutan",
+        "Year": 2010,
+        "life": 68.384,
+        "health": 74.09109
+      },
+      {
+        "Country Name": "Bolivia",
+        "Year": 2010,
+        "life": 68.007,
+        "health": 101.72988
+      },
+      {
+        "Country Name": "Bosnia and Herzegovina",
+        "Year": 2010,
+        "life": 76.031,
+        "health": 417.74832
+      },
+      {
+        "Country Name": "Botswana",
+        "Year": 2010,
+        "life": 60.211,
+        "health": 398.5707
+      },
+      {
+        "Country Name": "Brazil",
+        "Year": 2010,
+        "life": 73.619,
+        "health": 896.69714
+      },
+      {
+        "Country Name": "British Virgin Islands",
+        "Year": 2010,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Brunei Darussalam",
+        "Year": 2010,
+        "life": 74.74,
+        "health": 803.52686
+      },
+      {
+        "Country Name": "Bulgaria",
+        "Year": 2010,
+        "life": 73.51219,
+        "health": 484.7523
+      },
+      {
+        "Country Name": "Burkina Faso",
+        "Year": 2010,
+        "life": 57.096,
+        "health": 33.9439
+      },
+      {
+        "Country Name": "Burundi",
+        "Year": 2010,
+        "life": 57.228,
+        "health": 26.413322
+      },
+      {
+        "Country Name": "Cabo Verde",
+        "Year": 2010,
+        "life": 71.062,
+        "health": 151.16014
+      },
+      {
+        "Country Name": "Cambodia",
+        "Year": 2010,
+        "life": 66.56,
+        "health": 54.29156
+      },
+      {
+        "Country Name": "Cameroon",
+        "Year": 2010,
+        "life": 55.101,
+        "health": 48.35902
+      },
+      {
+        "Country Name": "Canada",
+        "Year": 2010,
+        "life": 81.24634,
+        "health": 5065.915
+      },
+      {
+        "Country Name": "Cayman Islands",
+        "Year": 2010,
+        "life": 82.19025,
+        "health": null
+      },
+      {
+        "Country Name": "Central African Republic",
+        "Year": 2010,
+        "life": 47.312,
+        "health": 18.69205
+      },
+      {
+        "Country Name": "Chad",
+        "Year": 2010,
+        "life": 50.89,
+        "health": 36.32339
+      },
+      {
+        "Country Name": "Channel Islands",
+        "Year": 2010,
+        "life": 81.483,
+        "health": null
+      },
+      {
+        "Country Name": "Chile",
+        "Year": 2010,
+        "life": 78.779,
+        "health": 867.7308
+      },
+      {
+        "Country Name": "China",
+        "Year": 2010,
+        "life": 74.409,
+        "health": 186.4915
+      },
+      {
+        "Country Name": "Colombia",
+        "Year": 2010,
+        "life": 75.424,
+        "health": 448.08777
+      },
+      {
+        "Country Name": "Comoros",
+        "Year": 2010,
+        "life": 61.862,
+        "health": 65.71719
+      },
+      {
+        "Country Name": "Congo, Dem. Rep.",
+        "Year": 2010,
+        "life": 56.909,
+        "health": 12.894424
+      },
+      {
+        "Country Name": "Congo, Rep.",
+        "Year": 2010,
+        "life": 60.093,
+        "health": 56.96957
+      },
+      {
+        "Country Name": "Costa Rica",
+        "Year": 2010,
+        "life": 78.769,
+        "health": 660.5864
+      },
+      {
+        "Country Name": "Cote d'Ivoire",
+        "Year": 2010,
+        "life": 52.964,
+        "health": 74.04659
+      },
+      {
+        "Country Name": "Croatia",
+        "Year": 2010,
+        "life": 76.47561,
+        "health": 1126.3737
+      },
+      {
+        "Country Name": "Cuba",
+        "Year": 2010,
+        "life": 78.338,
+        "health": 612.4651
+      },
+      {
+        "Country Name": "Curacao",
+        "Year": 2010,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Cyprus",
+        "Year": 2010,
+        "life": 79.43,
+        "health": 2045.2924
+      },
+      {
+        "Country Name": "Czech Republic",
+        "Year": 2010,
+        "life": 77.42439,
+        "health": 1373.9318
+      },
+      {
+        "Country Name": "Denmark",
+        "Year": 2010,
+        "life": 79.1,
+        "health": 6011.538
+      },
+      {
+        "Country Name": "Djibouti",
+        "Year": 2010,
+        "life": 60.062,
+        "health": 56.201412
+      },
+      {
+        "Country Name": "Dominica",
+        "Year": 2010,
+        "life": null,
+        "health": 359.22134
+      },
+      {
+        "Country Name": "Dominican Republic",
+        "Year": 2010,
+        "life": 72.046,
+        "health": 309.95718
+      },
+      {
+        "Country Name": "Ecuador",
+        "Year": 2010,
+        "life": 75.089,
+        "health": 283.41574
+      },
+      {
+        "Country Name": "Egypt, Arab Rep.",
+        "Year": 2010,
+        "life": 70.349,
+        "health": 113.2482
+      },
+      {
+        "Country Name": "El Salvador",
+        "Year": 2010,
+        "life": 71.21,
+        "health": 245.70859
+      },
+      {
+        "Country Name": "Equatorial Guinea",
+        "Year": 2010,
+        "life": 55.622,
+        "health": 314.40918
+      },
+      {
+        "Country Name": "Eritrea",
+        "Year": 2010,
+        "life": 62.193,
+        "health": 24.714329
+      },
+      {
+        "Country Name": "Estonia",
+        "Year": 2010,
+        "life": 75.42927,
+        "health": 926.45416
+      },
+      {
+        "Country Name": "Eswatini",
+        "Year": 2010,
+        "life": 46.601,
+        "health": 358.1239
+      },
+      {
+        "Country Name": "Ethiopia",
+        "Year": 2010,
+        "life": 61.627,
+        "health": 16.70585
+      },
+      {
+        "Country Name": "Faroe Islands",
+        "Year": 2010,
+        "life": 80.687805,
+        "health": null
+      },
+      {
+        "Country Name": "Fiji",
+        "Year": 2010,
+        "life": 66.655,
+        "health": 135.1687
+      },
+      {
+        "Country Name": "Finland",
+        "Year": 2010,
+        "life": 79.870735,
+        "health": 4249.602
+      },
+      {
+        "Country Name": "France",
+        "Year": 2010,
+        "life": 81.663414,
+        "health": 4592.3833
+      },
+      {
+        "Country Name": "French Polynesia",
+        "Year": 2010,
+        "life": 75.611,
+        "health": null
+      },
+      {
+        "Country Name": "Gabon",
+        "Year": 2010,
+        "life": 61.4,
+        "health": 219.07191
+      },
+      {
+        "Country Name": "Gambia, The",
+        "Year": 2010,
+        "life": 59.637,
+        "health": 43.80533
+      },
+      {
+        "Country Name": "Georgia",
+        "Year": 2010,
+        "life": 71.46,
+        "health": 271.01666
+      },
+      {
+        "Country Name": "Germany",
+        "Year": 2010,
+        "life": 79.98781,
+        "health": 4611.276
+      },
+      {
+        "Country Name": "Ghana",
+        "Year": 2010,
+        "life": 61.03,
+        "health": 73.898506
+      },
+      {
+        "Country Name": "Gibraltar",
+        "Year": 2010,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Greece",
+        "Year": 2010,
+        "life": 80.3878,
+        "health": 2564.3694
+      },
+      {
+        "Country Name": "Greenland",
+        "Year": 2010,
+        "life": 70.291954,
+        "health": null
+      },
+      {
+        "Country Name": "Grenada",
+        "Year": 2010,
+        "life": 72.867,
+        "health": 393.3341
+      },
+      {
+        "Country Name": "Guam",
+        "Year": 2010,
+        "life": 77.941,
+        "health": null
+      },
+      {
+        "Country Name": "Guatemala",
+        "Year": 2010,
+        "life": 71.481,
+        "health": 173.75179
+      },
+      {
+        "Country Name": "Guinea",
+        "Year": 2010,
+        "life": 56.861,
+        "health": 23.04637
+      },
+      {
+        "Country Name": "Guinea-Bissau",
+        "Year": 2010,
+        "life": 54.628,
+        "health": 38.658882
+      },
+      {
+        "Country Name": "Guyana",
+        "Year": 2010,
+        "life": 68.059,
+        "health": 162.66496
+      },
+      {
+        "Country Name": "Haiti",
+        "Year": 2010,
+        "life": 60.511,
+        "health": 54.917152
+      },
+      {
+        "Country Name": "Honduras",
+        "Year": 2010,
+        "life": 73.317,
+        "health": 166.16116
+      },
+      {
+        "Country Name": "Hong Kong SAR, China",
+        "Year": 2010,
+        "life": 82.97805,
+        "health": null
+      },
+      {
+        "Country Name": "Hungary",
+        "Year": 2010,
+        "life": 74.20731,
+        "health": 983.11084
+      },
+      {
+        "Country Name": "Iceland",
+        "Year": 2010,
+        "life": 81.89756,
+        "health": 3589.5557
+      },
+      {
+        "Country Name": "India",
+        "Year": 2010,
+        "life": 66.693,
+        "health": 45.129772
+      },
+      {
+        "Country Name": "Indonesia",
+        "Year": 2010,
+        "life": 69.205,
+        "health": 87.14134
+      },
+      {
+        "Country Name": "Iran, Islamic Rep.",
+        "Year": 2010,
+        "life": 73.905,
+        "health": 445.66364
+      },
+      {
+        "Country Name": "Iraq",
+        "Year": 2010,
+        "life": 68.567,
+        "health": 150.45607
+      },
+      {
+        "Country Name": "Ireland",
+        "Year": 2010,
+        "life": 80.743904,
+        "health": 5133.455
+      },
+      {
+        "Country Name": "Isle of Man",
+        "Year": 2010,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Israel",
+        "Year": 2010,
+        "life": 81.60244,
+        "health": 2234.9497
+      },
+      {
+        "Country Name": "Italy",
+        "Year": 2010,
+        "life": 82.03658,
+        "health": 3217.6829
+      },
+      {
+        "Country Name": "Jamaica",
+        "Year": 2010,
+        "life": 74.038,
+        "health": 249.08258
+      },
+      {
+        "Country Name": "Japan",
+        "Year": 2010,
+        "life": 82.84268,
+        "health": 4060.491
+      },
+      {
+        "Country Name": "Jordan",
+        "Year": 2010,
+        "life": 73.428,
+        "health": 305.2936
+      },
+      {
+        "Country Name": "Kazakhstan",
+        "Year": 2010,
+        "life": 68.45,
+        "health": 249.26892
+      },
+      {
+        "Country Name": "Kenya",
+        "Year": 2010,
+        "life": 60.959,
+        "health": 58.21166
+      },
+      {
+        "Country Name": "Kiribati",
+        "Year": 2010,
+        "life": 65.769,
+        "health": 139.49522
+      },
+      {
+        "Country Name": "Korea, Dem. People's Rep.",
+        "Year": 2010,
+        "life": 69.571,
+        "health": null
+      },
+      {
+        "Country Name": "Korea, Rep.",
+        "Year": 2010,
+        "life": 80.11707,
+        "health": 1365.9128
+      },
+      {
+        "Country Name": "Kosovo",
+        "Year": 2010,
+        "life": 69.9,
+        "health": null
+      },
+      {
+        "Country Name": "Kuwait",
+        "Year": 2010,
+        "life": 74.358,
+        "health": 1033.3838
+      },
+      {
+        "Country Name": "Kyrgyz Republic",
+        "Year": 2010,
+        "life": 69.3,
+        "health": 61.453785
+      },
+      {
+        "Country Name": "Lao PDR",
+        "Year": 2010,
+        "life": 64.306,
+        "health": 34.994404
+      },
+      {
+        "Country Name": "Latvia",
+        "Year": 2010,
+        "life": 73.482925,
+        "health": 689.0772
+      },
+      {
+        "Country Name": "Lebanon",
+        "Year": 2010,
+        "life": 78.36,
+        "health": 577.3594
+      },
+      {
+        "Country Name": "Lesotho",
+        "Year": 2010,
+        "life": 45.1,
+        "health": 97.6808
+      },
+      {
+        "Country Name": "Liberia",
+        "Year": 2010,
+        "life": 59.6,
+        "health": 45.360386
+      },
+      {
+        "Country Name": "Libya",
+        "Year": 2010,
+        "life": 72.044,
+        "health": 399.01917
+      },
+      {
+        "Country Name": "Liechtenstein",
+        "Year": 2010,
+        "life": 81.84146,
+        "health": null
+      },
+      {
+        "Country Name": "Lithuania",
+        "Year": 2010,
+        "life": 73.268295,
+        "health": 805.2245
+      },
+      {
+        "Country Name": "Luxembourg",
+        "Year": 2010,
+        "life": 80.63171,
+        "health": 7459.8354
+      },
+      {
+        "Country Name": "Macao SAR, China",
+        "Year": 2010,
+        "life": 82.704,
+        "health": null
+      },
+      {
+        "Country Name": "Madagascar",
+        "Year": 2010,
+        "life": 63.388,
+        "health": 21.950842
+      },
+      {
+        "Country Name": "Malawi",
+        "Year": 2010,
+        "life": 55.564,
+        "health": 34.662567
+      },
+      {
+        "Country Name": "Malaysia",
+        "Year": 2010,
+        "life": 74.493,
+        "health": 290.1766
+      },
+      {
+        "Country Name": "Maldives",
+        "Year": 2010,
+        "life": 75.905,
+        "health": 600.64435
+      },
+      {
+        "Country Name": "Mali",
+        "Year": 2010,
+        "life": 55.251,
+        "health": 33.231255
+      },
+      {
+        "Country Name": "Malta",
+        "Year": 2010,
+        "life": 81.39756,
+        "health": 1733.6688
+      },
+      {
+        "Country Name": "Marshall Islands",
+        "Year": 2010,
+        "life": null,
+        "health": 449.94284
+      },
+      {
+        "Country Name": "Mauritania",
+        "Year": 2010,
+        "life": 62.527,
+        "health": 42.466923
+      },
+      {
+        "Country Name": "Mauritius",
+        "Year": 2010,
+        "life": 72.967316,
+        "health": 367.1208
+      },
+      {
+        "Country Name": "Mexico",
+        "Year": 2010,
+        "life": 75.065,
+        "health": 531.88947
+      },
+      {
+        "Country Name": "Micronesia, Fed. Sts.",
+        "Year": 2010,
+        "life": 66.471,
+        "health": 378.24478
+      },
+      {
+        "Country Name": "Moldova",
+        "Year": 2010,
+        "life": 69.616,
+        "health": 198.28894
+      },
+      {
+        "Country Name": "Monaco",
+        "Year": 2010,
+        "life": null,
+        "health": 3509.5662
+      },
+      {
+        "Country Name": "Mongolia",
+        "Year": 2010,
+        "life": 67.38,
+        "health": 98.844795
+      },
+      {
+        "Country Name": "Montenegro",
+        "Year": 2010,
+        "life": 75.99024,
+        "health": null
+      },
+      {
+        "Country Name": "Morocco",
+        "Year": 2010,
+        "life": 74.382,
+        "health": 169.00949
+      },
+      {
+        "Country Name": "Mozambique",
+        "Year": 2010,
+        "life": 52.31,
+        "health": 25.666542
+      },
+      {
+        "Country Name": "Myanmar",
+        "Year": 2010,
+        "life": 63.525,
+        "health": 19.602367
+      },
+      {
+        "Country Name": "Namibia",
+        "Year": 2010,
+        "life": 56.665,
+        "health": 517.3282
+      },
+      {
+        "Country Name": "Nauru",
+        "Year": 2010,
+        "life": null,
+        "health": 628.5897
+      },
+      {
+        "Country Name": "Nepal",
+        "Year": 2010,
+        "life": 67.611,
+        "health": 29.982807
+      },
+      {
+        "Country Name": "Netherlands",
+        "Year": 2010,
+        "life": 80.70244,
+        "health": 5191.728
+      },
+      {
+        "Country Name": "New Caledonia",
+        "Year": 2010,
+        "life": 77.28049,
+        "health": null
+      },
+      {
+        "Country Name": "New Zealand",
+        "Year": 2010,
+        "life": 80.70244,
+        "health": 3216.2236
+      },
+      {
+        "Country Name": "Nicaragua",
+        "Year": 2010,
+        "life": 72.428,
+        "health": 115.95103
+      },
+      {
+        "Country Name": "Niger",
+        "Year": 2010,
+        "life": 57.333,
+        "health": 23.886559
+      },
+      {
+        "Country Name": "Nigeria",
+        "Year": 2010,
+        "life": 50.896,
+        "health": 76.75748
+      },
+      {
+        "Country Name": "North Macedonia",
+        "Year": 2010,
+        "life": 74.99756,
+        "health": 305.2323
+      },
+      {
+        "Country Name": "Northern Mariana Islands",
+        "Year": 2010,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Norway",
+        "Year": 2010,
+        "life": 80.99756,
+        "health": 7859.516
+      },
+      {
+        "Country Name": "Oman",
+        "Year": 2010,
+        "life": 75.682,
+        "health": 529.08093
+      },
+      {
+        "Country Name": "Pakistan",
+        "Year": 2010,
+        "life": 65.264,
+        "health": 25.256002
+      },
+      {
+        "Country Name": "Palau",
+        "Year": 2010,
+        "life": null,
+        "health": 1183.1667
+      },
+      {
+        "Country Name": "Panama",
+        "Year": 2010,
+        "life": 76.792,
+        "health": 572.6137
+      },
+      {
+        "Country Name": "Papua New Guinea",
+        "Year": 2010,
+        "life": 62.029,
+        "health": 41.083786
+      },
+      {
+        "Country Name": "Paraguay",
+        "Year": 2010,
+        "life": 72.653,
+        "health": 237.33458
+      },
+      {
+        "Country Name": "Peru",
+        "Year": 2010,
+        "life": 74.41,
+        "health": 241.9287
+      },
+      {
+        "Country Name": "Philippines",
+        "Year": 2010,
+        "life": 69.823,
+        "health": 91.6056
+      },
+      {
+        "Country Name": "Poland",
+        "Year": 2010,
+        "life": 76.24634,
+        "health": 809.1994
+      },
+      {
+        "Country Name": "Portugal",
+        "Year": 2010,
+        "life": 79.02683,
+        "health": 2259.3037
+      },
+      {
+        "Country Name": "Puerto Rico",
+        "Year": 2010,
+        "life": 78.4191,
+        "health": null
+      },
+      {
+        "Country Name": "Qatar",
+        "Year": 2010,
+        "life": 79.108,
+        "health": 1206.003
+      },
+      {
+        "Country Name": "Romania",
+        "Year": 2010,
+        "life": 73.458534,
+        "health": 472.20752
+      },
+      {
+        "Country Name": "Russian Federation",
+        "Year": 2010,
+        "life": 68.84122,
+        "health": 566.0909
+      },
+      {
+        "Country Name": "Rwanda",
+        "Year": 2010,
+        "life": 63.433,
+        "health": 49.315437
+      },
+      {
+        "Country Name": "Samoa",
+        "Year": 2010,
+        "life": 71.663,
+        "health": 192.76791
+      },
+      {
+        "Country Name": "San Marino",
+        "Year": 2010,
+        "life": null,
+        "health": 3983.751
+      },
+      {
+        "Country Name": "Sao Tome and Principe",
+        "Year": 2010,
+        "life": 67.43,
+        "health": 74.93682
+      },
+      {
+        "Country Name": "Saudi Arabia",
+        "Year": 2010,
+        "life": 73.917,
+        "health": 702.6711
+      },
+      {
+        "Country Name": "Senegal",
+        "Year": 2010,
+        "life": 64.284,
+        "health": 51.214836
+      },
+      {
+        "Country Name": "Serbia",
+        "Year": 2010,
+        "life": 74.336586,
+        "health": 545.3338
+      },
+      {
+        "Country Name": "Seychelles",
+        "Year": 2010,
+        "life": 73.19756,
+        "health": 513.228
+      },
+      {
+        "Country Name": "Sierra Leone",
+        "Year": 2010,
+        "life": 49.382,
+        "health": 43.974323
+      },
+      {
+        "Country Name": "Singapore",
+        "Year": 2010,
+        "life": 81.541466,
+        "health": 1496.776
+      },
+      {
+        "Country Name": "Sint Maarten (Dutch part)",
+        "Year": 2010,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Slovak Republic",
+        "Year": 2010,
+        "life": 75.1122,
+        "health": 1296.5428
+      },
+      {
+        "Country Name": "Slovenia",
+        "Year": 2010,
+        "life": 79.42195,
+        "health": 2017.1466
+      },
+      {
+        "Country Name": "Solomon Islands",
+        "Year": 2010,
+        "life": 70.674,
+        "health": 134.58466
+      },
+      {
+        "Country Name": "Somalia",
+        "Year": 2010,
+        "life": 53.99,
+        "health": null
+      },
+      {
+        "Country Name": "South Africa",
+        "Year": 2010,
+        "life": 57.669,
+        "health": 635.0941
+      },
+      {
+        "Country Name": "South Sudan",
+        "Year": 2010,
+        "life": 54.8,
+        "health": null
+      },
+      {
+        "Country Name": "Spain",
+        "Year": 2010,
+        "life": 81.62683,
+        "health": 2789.534
+      },
+      {
+        "Country Name": "Sri Lanka",
+        "Year": 2010,
+        "life": 75.439,
+        "health": 108.275185
+      },
+      {
+        "Country Name": "St. Kitts and Nevis",
+        "Year": 2010,
+        "life": null,
+        "health": 828.48224
+      },
+      {
+        "Country Name": "St. Lucia",
+        "Year": 2010,
+        "life": 74.852,
+        "health": 430.23776
+      },
+      {
+        "Country Name": "St. Martin (French part)",
+        "Year": 2010,
+        "life": 78.52195,
+        "health": null
+      },
+      {
+        "Country Name": "St. Vincent and the Grenadines",
+        "Year": 2010,
+        "life": 71.776,
+        "health": 286.35498
+      },
+      {
+        "Country Name": "Sudan",
+        "Year": 2010,
+        "life": 62.764,
+        "health": 93.453156
+      },
+      {
+        "Country Name": "Suriname",
+        "Year": 2010,
+        "life": 70.465,
+        "health": 415.2991
+      },
+      {
+        "Country Name": "Sweden",
+        "Year": 2010,
+        "life": 81.45122,
+        "health": 4416.1455
+      },
+      {
+        "Country Name": "Switzerland",
+        "Year": 2010,
+        "life": 82.24634,
+        "health": 7705.176
+      },
+      {
+        "Country Name": "Syrian Arab Republic",
+        "Year": 2010,
+        "life": 72.108,
+        "health": 92.7375
+      },
+      {
+        "Country Name": "Tajikistan",
+        "Year": 2010,
+        "life": 68.736,
+        "health": 42.98645
+      },
+      {
+        "Country Name": "Tanzania",
+        "Year": 2010,
+        "life": 58.584,
+        "health": 37.53248
+      },
+      {
+        "Country Name": "Thailand",
+        "Year": 2010,
+        "life": 74.184,
+        "health": 172.09297
+      },
+      {
+        "Country Name": "Timor-Leste",
+        "Year": 2010,
+        "life": 67.186,
+        "health": 52.189655
+      },
+      {
+        "Country Name": "Togo",
+        "Year": 2010,
+        "life": 57.468,
+        "health": 32.09547
+      },
+      {
+        "Country Name": "Tonga",
+        "Year": 2010,
+        "life": 70.059,
+        "health": 177.96895
+      },
+      {
+        "Country Name": "Trinidad and Tobago",
+        "Year": 2010,
+        "life": 71.946,
+        "health": 861.51056
+      },
+      {
+        "Country Name": "Tunisia",
+        "Year": 2010,
+        "life": 75.041,
+        "health": 243.71402
+      },
+      {
+        "Country Name": "Turkey",
+        "Year": 2010,
+        "life": 74.507,
+        "health": 539.32715
+      },
+      {
+        "Country Name": "Turkmenistan",
+        "Year": 2010,
+        "life": 66.657,
+        "health": 221.79845
+      },
+      {
+        "Country Name": "Turks and Caicos Islands",
+        "Year": 2010,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Tuvalu",
+        "Year": 2010,
+        "life": null,
+        "health": 500.05597
+      },
+      {
+        "Country Name": "Uganda",
+        "Year": 2010,
+        "life": 57.099,
+        "health": 51.82596
+      },
+      {
+        "Country Name": "Ukraine",
+        "Year": 2010,
+        "life": 70.265366,
+        "health": 202.34087
+      },
+      {
+        "Country Name": "United Arab Emirates",
+        "Year": 2010,
+        "life": 76.332,
+        "health": 1314.63
+      },
+      {
+        "Country Name": "United Kingdom",
+        "Year": 2010,
+        "life": 80.402435,
+        "health": 3904.507
+      },
+      {
+        "Country Name": "United States",
+        "Year": 2010,
+        "life": 78.541466,
+        "health": 7888.352
+      },
+      {
+        "Country Name": "Uruguay",
+        "Year": 2010,
+        "life": 76.75,
+        "health": 1030.6217
+      },
+      {
+        "Country Name": "Uzbekistan",
+        "Year": 2010,
+        "life": 69.672,
+        "health": 85.44558
+      },
+      {
+        "Country Name": "Vanuatu",
+        "Year": 2010,
+        "life": 69.123,
+        "health": 100.13548
+      },
+      {
+        "Country Name": "Venezuela, RB",
+        "Year": 2010,
+        "life": 73.134,
+        "health": 945.9151
+      },
+      {
+        "Country Name": "Vietnam",
+        "Year": 2010,
+        "life": 74.837,
+        "health": 78.63556
+      },
+      {
+        "Country Name": "Virgin Islands (U.S.)",
+        "Year": 2010,
+        "life": 77.86585,
+        "health": null
+      },
+      {
+        "Country Name": "West Bank and Gaza",
+        "Year": 2010,
+        "life": 72.788,
+        "health": null
+      },
+      {
+        "Country Name": "Yemen, Rep.",
+        "Year": 2010,
+        "life": 65.549,
+        "health": 68.86594
+      },
+      {
+        "Country Name": "Zambia",
+        "Year": 2010,
+        "life": 55.655,
+        "health": 55.39283
+      },
+      {
+        "Country Name": "Zimbabwe",
+        "Year": 2010,
+        "life": 50.64,
+        "health": 99.34856
+      },
+      {
+        "Country Name": "Afghanistan",
+        "Year": 2019,
+        "life": 64.833,
+        "health": 65.80603
+      },
+      {
+        "Country Name": "Albania",
+        "Year": 2019,
+        "life": 78.573,
+        "health": null
+      },
+      {
+        "Country Name": "Algeria",
+        "Year": 2019,
+        "life": 76.88,
+        "health": 248.20587
+      },
+      {
+        "Country Name": "American Samoa",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Andorra",
+        "Year": 2019,
+        "life": null,
+        "health": 2744.1943
+      },
+      {
+        "Country Name": "Angola",
+        "Year": 2019,
+        "life": 61.147,
+        "health": 71.326004
+      },
+      {
+        "Country Name": "Antigua and Barbuda",
+        "Year": 2019,
+        "life": 77.016,
+        "health": 760.26495
+      },
+      {
+        "Country Name": "Argentina",
+        "Year": 2019,
+        "life": 76.667,
+        "health": 945.99194
+      },
+      {
+        "Country Name": "Armenia",
+        "Year": 2019,
+        "life": 75.087,
+        "health": 523.9991
+      },
+      {
+        "Country Name": "Aruba",
+        "Year": 2019,
+        "life": 76.293,
+        "health": null
+      },
+      {
+        "Country Name": "Australia",
+        "Year": 2019,
+        "life": 82.9,
+        "health": 5427.4624
+      },
+      {
+        "Country Name": "Austria",
+        "Year": 2019,
+        "life": 81.89512,
+        "health": 5242.183
+      },
+      {
+        "Country Name": "Azerbaijan",
+        "Year": 2019,
+        "life": 73.005,
+        "health": 193.10884
+      },
+      {
+        "Country Name": "Bahamas, The",
+        "Year": 2019,
+        "life": 73.918,
+        "health": 2004.6163
+      },
+      {
+        "Country Name": "Bahrain",
+        "Year": 2019,
+        "life": 77.292,
+        "health": 940.3957
+      },
+      {
+        "Country Name": "Bangladesh",
+        "Year": 2019,
+        "life": 72.591,
+        "health": 45.857162
+      },
+      {
+        "Country Name": "Barbados",
+        "Year": 2019,
+        "life": 79.19,
+        "health": 1143.322
+      },
+      {
+        "Country Name": "Belarus",
+        "Year": 2019,
+        "life": 74.22683,
+        "health": 399.3971
+      },
+      {
+        "Country Name": "Belgium",
+        "Year": 2019,
+        "life": 81.995125,
+        "health": 4960.3936
+      },
+      {
+        "Country Name": "Belize",
+        "Year": 2019,
+        "life": 74.623,
+        "health": 293.4126
+      },
+      {
+        "Country Name": "Benin",
+        "Year": 2019,
+        "life": 61.771,
+        "health": 29.125292
+      },
+      {
+        "Country Name": "Bermuda",
+        "Year": 2019,
+        "life": 81.866585,
+        "health": null
+      },
+      {
+        "Country Name": "Bhutan",
+        "Year": 2019,
+        "life": 71.777,
+        "health": 115.98076
+      },
+      {
+        "Country Name": "Bolivia",
+        "Year": 2019,
+        "life": 71.513,
+        "health": 245.92348
+      },
+      {
+        "Country Name": "Bosnia and Herzegovina",
+        "Year": 2019,
+        "life": 77.401,
+        "health": 553.82294
+      },
+      {
+        "Country Name": "Botswana",
+        "Year": 2019,
+        "life": 69.592,
+        "health": 481.53305
+      },
+      {
+        "Country Name": "Brazil",
+        "Year": 2019,
+        "life": 75.881,
+        "health": 853.38794
+      },
+      {
+        "Country Name": "British Virgin Islands",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Brunei Darussalam",
+        "Year": 2019,
+        "life": 75.86,
+        "health": 671.5627
+      },
+      {
+        "Country Name": "Bulgaria",
+        "Year": 2019,
+        "life": 75.1122,
+        "health": 697.89636
+      },
+      {
+        "Country Name": "Burkina Faso",
+        "Year": 2019,
+        "life": 61.577,
+        "health": 42.34453
+      },
+      {
+        "Country Name": "Burundi",
+        "Year": 2019,
+        "life": 61.584,
+        "health": 20.567541
+      },
+      {
+        "Country Name": "Cabo Verde",
+        "Year": 2019,
+        "life": 72.981,
+        "health": 177.89027
+      },
+      {
+        "Country Name": "Cambodia",
+        "Year": 2019,
+        "life": 69.823,
+        "health": 113.31044
+      },
+      {
+        "Country Name": "Cameroon",
+        "Year": 2019,
+        "life": 59.292,
+        "health": 53.99585
+      },
+      {
+        "Country Name": "Canada",
+        "Year": 2019,
+        "life": 82.04878,
+        "health": 5048.3726
+      },
+      {
+        "Country Name": "Cayman Islands",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Central African Republic",
+        "Year": 2019,
+        "life": 53.283,
+        "health": 37.19958
+      },
+      {
+        "Country Name": "Chad",
+        "Year": 2019,
+        "life": 54.239,
+        "health": 29.85083
+      },
+      {
+        "Country Name": "Channel Islands",
+        "Year": 2019,
+        "life": 83.086,
+        "health": null
+      },
+      {
+        "Country Name": "Chile",
+        "Year": 2019,
+        "life": 80.181,
+        "health": 1375.803
+      },
+      {
+        "Country Name": "China",
+        "Year": 2019,
+        "life": 76.912,
+        "health": 535.13336
+      },
+      {
+        "Country Name": "Colombia",
+        "Year": 2019,
+        "life": 77.287,
+        "health": 495.3297
+      },
+      {
+        "Country Name": "Comoros",
+        "Year": 2019,
+        "life": 64.321,
+        "health": 72.3238
+      },
+      {
+        "Country Name": "Congo, Dem. Rep.",
+        "Year": 2019,
+        "life": 60.681,
+        "health": 20.570732
+      },
+      {
+        "Country Name": "Congo, Rep.",
+        "Year": 2019,
+        "life": 64.57,
+        "health": 48.558773
+      },
+      {
+        "Country Name": "Costa Rica",
+        "Year": 2019,
+        "life": 80.279,
+        "health": 921.58575
+      },
+      {
+        "Country Name": "Cote d'Ivoire",
+        "Year": 2019,
+        "life": 57.783,
+        "health": 75.08779
+      },
+      {
+        "Country Name": "Croatia",
+        "Year": 2019,
+        "life": 78.42439,
+        "health": 1040.0857
+      },
+      {
+        "Country Name": "Cuba",
+        "Year": 2019,
+        "life": 78.802,
+        "health": 1031.9218
+      },
+      {
+        "Country Name": "Curacao",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Cyprus",
+        "Year": 2019,
+        "life": 80.982,
+        "health": 1996.4583
+      },
+      {
+        "Country Name": "Czech Republic",
+        "Year": 2019,
+        "life": 79.22927,
+        "health": 1844.2178
+      },
+      {
+        "Country Name": "Denmark",
+        "Year": 2019,
+        "life": 81.45122,
+        "health": 6003.325
+      },
+      {
+        "Country Name": "Djibouti",
+        "Year": 2019,
+        "life": 67.112,
+        "health": 61.809433
+      },
+      {
+        "Country Name": "Dominica",
+        "Year": 2019,
+        "life": null,
+        "health": 440.16986
+      },
+      {
+        "Country Name": "Dominican Republic",
+        "Year": 2019,
+        "life": 74.081,
+        "health": 491.05936
+      },
+      {
+        "Country Name": "Ecuador",
+        "Year": 2019,
+        "life": 77.01,
+        "health": 486.49216
+      },
+      {
+        "Country Name": "Egypt, Arab Rep.",
+        "Year": 2019,
+        "life": 71.99,
+        "health": 149.84032
+      },
+      {
+        "Country Name": "El Salvador",
+        "Year": 2019,
+        "life": 73.317,
+        "health": 300.05328
+      },
+      {
+        "Country Name": "Equatorial Guinea",
+        "Year": 2019,
+        "life": 58.735,
+        "health": 254.8911
+      },
+      {
+        "Country Name": "Eritrea",
+        "Year": 2019,
+        "life": 66.321,
+        "health": 25.267935
+      },
+      {
+        "Country Name": "Estonia",
+        "Year": 2019,
+        "life": 78.64634,
+        "health": 1598.8188
+      },
+      {
+        "Country Name": "Eswatini",
+        "Year": 2019,
+        "life": 60.194,
+        "health": 264.05515
+      },
+      {
+        "Country Name": "Ethiopia",
+        "Year": 2019,
+        "life": 66.597,
+        "health": 26.742205
+      },
+      {
+        "Country Name": "Faroe Islands",
+        "Year": 2019,
+        "life": 82.79269,
+        "health": null
+      },
+      {
+        "Country Name": "Fiji",
+        "Year": 2019,
+        "life": 67.444,
+        "health": 235.67502
+      },
+      {
+        "Country Name": "Finland",
+        "Year": 2019,
+        "life": 81.982925,
+        "health": 4450.3027
+      },
+      {
+        "Country Name": "France",
+        "Year": 2019,
+        "life": 82.82683,
+        "health": 4491.7354
+      },
+      {
+        "Country Name": "French Polynesia",
+        "Year": 2019,
+        "life": 77.657,
+        "health": null
+      },
+      {
+        "Country Name": "Gabon",
+        "Year": 2019,
+        "life": 66.467,
+        "health": 215.01915
+      },
+      {
+        "Country Name": "Gambia, The",
+        "Year": 2019,
+        "life": 62.05,
+        "health": 29.725803
+      },
+      {
+        "Country Name": "Georgia",
+        "Year": 2019,
+        "life": 73.767,
+        "health": 291.12204
+      },
+      {
+        "Country Name": "Germany",
+        "Year": 2019,
+        "life": 81.29269,
+        "health": 5440.2515
+      },
+      {
+        "Country Name": "Ghana",
+        "Year": 2019,
+        "life": 64.074,
+        "health": 75.28166
+      },
+      {
+        "Country Name": "Gibraltar",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Greece",
+        "Year": 2019,
+        "life": 81.63902,
+        "health": 1500.595
+      },
+      {
+        "Country Name": "Greenland",
+        "Year": 2019,
+        "life": 72.04756,
+        "health": null
+      },
+      {
+        "Country Name": "Grenada",
+        "Year": 2019,
+        "life": 72.397,
+        "health": 534.2744
+      },
+      {
+        "Country Name": "Guam",
+        "Year": 2019,
+        "life": 80.074,
+        "health": null
+      },
+      {
+        "Country Name": "Guatemala",
+        "Year": 2019,
+        "life": 74.302,
+        "health": 271.02127
+      },
+      {
+        "Country Name": "Guinea",
+        "Year": 2019,
+        "life": 61.602,
+        "health": 43.037823
+      },
+      {
+        "Country Name": "Guinea-Bissau",
+        "Year": 2019,
+        "life": 58.322,
+        "health": 62.575577
+      },
+      {
+        "Country Name": "Guyana",
+        "Year": 2019,
+        "life": 69.906,
+        "health": 325.88516
+      },
+      {
+        "Country Name": "Haiti",
+        "Year": 2019,
+        "life": 64.001,
+        "health": 56.9944
+      },
+      {
+        "Country Name": "Honduras",
+        "Year": 2019,
+        "life": 75.27,
+        "health": 187.55434
+      },
+      {
+        "Country Name": "Hong Kong SAR, China",
+        "Year": 2019,
+        "life": 85.07805,
+        "health": null
+      },
+      {
+        "Country Name": "Hungary",
+        "Year": 2019,
+        "life": 76.31951,
+        "health": 1062.3942
+      },
+      {
+        "Country Name": "Iceland",
+        "Year": 2019,
+        "life": 83.163414,
+        "health": 6274.9595
+      },
+      {
+        "Country Name": "India",
+        "Year": 2019,
+        "life": 69.656,
+        "health": 63.74832
+      },
+      {
+        "Country Name": "Indonesia",
+        "Year": 2019,
+        "life": 71.716,
+        "health": 120.12496
+      },
+      {
+        "Country Name": "Iran, Islamic Rep.",
+        "Year": 2019,
+        "life": 76.677,
+        "health": 470.4346
+      },
+      {
+        "Country Name": "Iraq",
+        "Year": 2019,
+        "life": 70.604,
+        "health": 253.31464
+      },
+      {
+        "Country Name": "Ireland",
+        "Year": 2019,
+        "life": 82.70244,
+        "health": 5428.589
+      },
+      {
+        "Country Name": "Isle of Man",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Israel",
+        "Year": 2019,
+        "life": 82.80488,
+        "health": 3456.387
+      },
+      {
+        "Country Name": "Italy",
+        "Year": 2019,
+        "life": 83.49756,
+        "health": 2905.5
+      },
+      {
+        "Country Name": "Jamaica",
+        "Year": 2019,
+        "life": 74.475,
+        "health": 327.40353
+      },
+      {
+        "Country Name": "Japan",
+        "Year": 2019,
+        "life": 84.35634,
+        "health": 4360.4736
+      },
+      {
+        "Country Name": "Jordan",
+        "Year": 2019,
+        "life": 74.526,
+        "health": 334.04422
+      },
+      {
+        "Country Name": "Kazakhstan",
+        "Year": 2019,
+        "life": 73.18,
+        "health": 272.96524
+      },
+      {
+        "Country Name": "Kenya",
+        "Year": 2019,
+        "life": 66.699,
+        "health": 83.41163
+      },
+      {
+        "Country Name": "Kiribati",
+        "Year": 2019,
+        "life": 68.369,
+        "health": 172.30574
+      },
+      {
+        "Country Name": "Korea, Dem. People's Rep.",
+        "Year": 2019,
+        "life": 72.274,
+        "health": null
+      },
+      {
+        "Country Name": "Korea, Rep.",
+        "Year": 2019,
+        "life": 83.22683,
+        "health": 2624.5332
+      },
+      {
+        "Country Name": "Kosovo",
+        "Year": 2019,
+        "life": 73.09268,
+        "health": null
+      },
+      {
+        "Country Name": "Kuwait",
+        "Year": 2019,
+        "life": 75.489,
+        "health": 1758.6742
+      },
+      {
+        "Country Name": "Kyrgyz Republic",
+        "Year": 2019,
+        "life": 71.6,
+        "health": 62.144775
+      },
+      {
+        "Country Name": "Lao PDR",
+        "Year": 2019,
+        "life": 67.923,
+        "health": 68.22131
+      },
+      {
+        "Country Name": "Latvia",
+        "Year": 2019,
+        "life": 75.3878,
+        "health": 1166.7979
+      },
+      {
+        "Country Name": "Lebanon",
+        "Year": 2019,
+        "life": 78.93,
+        "health": 663.0511
+      },
+      {
+        "Country Name": "Lesotho",
+        "Year": 2019,
+        "life": 54.331,
+        "health": 124.193634
+      },
+      {
+        "Country Name": "Liberia",
+        "Year": 2019,
+        "life": 64.104,
+        "health": 52.56287
+      },
+      {
+        "Country Name": "Libya",
+        "Year": 2019,
+        "life": 72.913,
+        "health": null
+      },
+      {
+        "Country Name": "Liechtenstein",
+        "Year": 2019,
+        "life": 84.16097,
+        "health": null
+      },
+      {
+        "Country Name": "Lithuania",
+        "Year": 2019,
+        "life": 76.28293,
+        "health": 1369.9795
+      },
+      {
+        "Country Name": "Luxembourg",
+        "Year": 2019,
+        "life": 82.63902,
+        "health": 6220.741
+      },
+      {
+        "Country Name": "Macao SAR, China",
+        "Year": 2019,
+        "life": 84.244,
+        "health": null
+      },
+      {
+        "Country Name": "Madagascar",
+        "Year": 2019,
+        "life": 67.041,
+        "health": 19.849976
+      },
+      {
+        "Country Name": "Malawi",
+        "Year": 2019,
+        "life": 64.263,
+        "health": 30.400288
+      },
+      {
+        "Country Name": "Malaysia",
+        "Year": 2019,
+        "life": 76.156,
+        "health": 436.61203
+      },
+      {
+        "Country Name": "Maldives",
+        "Year": 2019,
+        "life": 78.921,
+        "health": 854.3706
+      },
+      {
+        "Country Name": "Mali",
+        "Year": 2019,
+        "life": 59.306,
+        "health": 34.281776
+      },
+      {
+        "Country Name": "Malta",
+        "Year": 2019,
+        "life": 82.858536,
+        "health": 2531.911
+      },
+      {
+        "Country Name": "Marshall Islands",
+        "Year": 2019,
+        "life": null,
+        "health": 664.3185
+      },
+      {
+        "Country Name": "Mauritania",
+        "Year": 2019,
+        "life": 64.925,
+        "health": 57.884846
+      },
+      {
+        "Country Name": "Mauritius",
+        "Year": 2019,
+        "life": 74.235855,
+        "health": 685.9456
+      },
+      {
+        "Country Name": "Mexico",
+        "Year": 2019,
+        "life": 75.054,
+        "health": 540.3723
+      },
+      {
+        "Country Name": "Micronesia, Fed. Sts.",
+        "Year": 2019,
+        "life": 67.883,
+        "health": 415.19827
+      },
+      {
+        "Country Name": "Moldova",
+        "Year": 2019,
+        "life": 71.901,
+        "health": 284.30713
+      },
+      {
+        "Country Name": "Monaco",
+        "Year": 2019,
+        "life": null,
+        "health": 2905.8438
+      },
+      {
+        "Country Name": "Mongolia",
+        "Year": 2019,
+        "life": 69.87,
+        "health": 163.44186
+      },
+      {
+        "Country Name": "Montenegro",
+        "Year": 2019,
+        "life": 76.68293,
+        "health": 735.1589
+      },
+      {
+        "Country Name": "Morocco",
+        "Year": 2019,
+        "life": 76.68,
+        "health": 174.22377
+      },
+      {
+        "Country Name": "Mozambique",
+        "Year": 2019,
+        "life": 60.854,
+        "health": 39.46094
+      },
+      {
+        "Country Name": "Myanmar",
+        "Year": 2019,
+        "life": 67.134,
+        "health": 60.015873
+      },
+      {
+        "Country Name": "Namibia",
+        "Year": 2019,
+        "life": 63.708,
+        "health": 427.25623
+      },
+      {
+        "Country Name": "Nauru",
+        "Year": 2019,
+        "life": null,
+        "health": 1049.447
+      },
+      {
+        "Country Name": "Nepal",
+        "Year": 2019,
+        "life": 70.778,
+        "health": 53.246403
+      },
+      {
+        "Country Name": "Netherlands",
+        "Year": 2019,
+        "life": 82.1122,
+        "health": 5335.3013
+      },
+      {
+        "Country Name": "New Caledonia",
+        "Year": 2019,
+        "life": 77.63415,
+        "health": null
+      },
+      {
+        "Country Name": "New Zealand",
+        "Year": 2019,
+        "life": 81.70731,
+        "health": 4211.0464
+      },
+      {
+        "Country Name": "Nicaragua",
+        "Year": 2019,
+        "life": 74.485,
+        "health": 160.75879
+      },
+      {
+        "Country Name": "Niger",
+        "Year": 2019,
+        "life": 62.42,
+        "health": 31.397636
+      },
+      {
+        "Country Name": "Nigeria",
+        "Year": 2019,
+        "life": 54.687,
+        "health": 71.46573
+      },
+      {
+        "Country Name": "North Macedonia",
+        "Year": 2019,
+        "life": 76.60244,
+        "health": 436.88718
+      },
+      {
+        "Country Name": "Northern Mariana Islands",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Norway",
+        "Year": 2019,
+        "life": 82.958534,
+        "health": 8007.398
+      },
+      {
+        "Country Name": "Oman",
+        "Year": 2019,
+        "life": 77.861,
+        "health": 624.74445
+      },
+      {
+        "Country Name": "Pakistan",
+        "Year": 2019,
+        "life": 67.273,
+        "health": 39.499287
+      },
+      {
+        "Country Name": "Palau",
+        "Year": 2019,
+        "life": null,
+        "health": 2355.6958
+      },
+      {
+        "Country Name": "Panama",
+        "Year": 2019,
+        "life": 78.506,
+        "health": 1192.8208
+      },
+      {
+        "Country Name": "Papua New Guinea",
+        "Year": 2019,
+        "life": 64.501,
+        "health": 65.08072
+      },
+      {
+        "Country Name": "Paraguay",
+        "Year": 2019,
+        "life": 74.254,
+        "health": 388.39325
+      },
+      {
+        "Country Name": "Peru",
+        "Year": 2019,
+        "life": 76.736,
+        "health": 370.10995
+      },
+      {
+        "Country Name": "Philippines",
+        "Year": 2019,
+        "life": 71.231,
+        "health": 142.07877
+      },
+      {
+        "Country Name": "Poland",
+        "Year": 2019,
+        "life": 77.90488,
+        "health": 1014.0382
+      },
+      {
+        "Country Name": "Portugal",
+        "Year": 2019,
+        "life": 81.67561,
+        "health": 2221.4392
+      },
+      {
+        "Country Name": "Puerto Rico",
+        "Year": 2019,
+        "life": 79.92851,
+        "health": null
+      },
+      {
+        "Country Name": "Qatar",
+        "Year": 2019,
+        "life": 80.227,
+        "health": 1807.1539
+      },
+      {
+        "Country Name": "Romania",
+        "Year": 2019,
+        "life": 75.607315,
+        "health": 738.55817
+      },
+      {
+        "Country Name": "Russian Federation",
+        "Year": 2019,
+        "life": 73.0839,
+        "health": 653.41724
+      },
+      {
+        "Country Name": "Rwanda",
+        "Year": 2019,
+        "life": 69.024,
+        "health": 51.399124
+      },
+      {
+        "Country Name": "Samoa",
+        "Year": 2019,
+        "life": 73.321,
+        "health": 271.91577
+      },
+      {
+        "Country Name": "San Marino",
+        "Year": 2019,
+        "life": null,
+        "health": 3050.9182
+      },
+      {
+        "Country Name": "Sao Tome and Principe",
+        "Year": 2019,
+        "life": 70.385,
+        "health": 108.4464
+      },
+      {
+        "Country Name": "Saudi Arabia",
+        "Year": 2019,
+        "life": 75.133,
+        "health": 1316.2603
+      },
+      {
+        "Country Name": "Senegal",
+        "Year": 2019,
+        "life": 67.941,
+        "health": 59.097584
+      },
+      {
+        "Country Name": "Serbia",
+        "Year": 2019,
+        "life": 75.936584,
+        "health": 641.025
+      },
+      {
+        "Country Name": "Seychelles",
+        "Year": 2019,
+        "life": 74.04634,
+        "health": 839.7733
+      },
+      {
+        "Country Name": "Sierra Leone",
+        "Year": 2019,
+        "life": 54.696,
+        "health": 46.157955
+      },
+      {
+        "Country Name": "Singapore",
+        "Year": 2019,
+        "life": 83.59512,
+        "health": 2632.7139
+      },
+      {
+        "Country Name": "Sint Maarten (Dutch part)",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Slovak Republic",
+        "Year": 2019,
+        "life": 77.665855,
+        "health": 1342.0748
+      },
+      {
+        "Country Name": "Slovenia",
+        "Year": 2019,
+        "life": 81.52927,
+        "health": 2219.1006
+      },
+      {
+        "Country Name": "Solomon Islands",
+        "Year": 2019,
+        "life": 72.996,
+        "health": 111.90449
+      },
+      {
+        "Country Name": "Somalia",
+        "Year": 2019,
+        "life": 57.397,
+        "health": null
+      },
+      {
+        "Country Name": "South Africa",
+        "Year": 2019,
+        "life": 64.131,
+        "health": 546.6884
+      },
+      {
+        "Country Name": "South Sudan",
+        "Year": 2019,
+        "life": 57.846,
+        "health": 22.638187
+      },
+      {
+        "Country Name": "Spain",
+        "Year": 2019,
+        "life": 83.83171,
+        "health": 2711.1929
+      },
+      {
+        "Country Name": "Sri Lanka",
+        "Year": 2019,
+        "life": 76.978,
+        "health": 160.69696
+      },
+      {
+        "Country Name": "St. Kitts and Nevis",
+        "Year": 2019,
+        "life": null,
+        "health": 1087.801
+      },
+      {
+        "Country Name": "St. Lucia",
+        "Year": 2019,
+        "life": 76.203,
+        "health": 502.1817
+      },
+      {
+        "Country Name": "St. Martin (French part)",
+        "Year": 2019,
+        "life": 79.97317,
+        "health": null
+      },
+      {
+        "Country Name": "St. Vincent and the Grenadines",
+        "Year": 2019,
+        "life": 72.534,
+        "health": 354.80865
+      },
+      {
+        "Country Name": "Sudan",
+        "Year": 2019,
+        "life": 65.311,
+        "health": 46.92884
+      },
+      {
+        "Country Name": "Suriname",
+        "Year": 2019,
+        "life": 71.682,
+        "health": 619.24713
+      },
+      {
+        "Country Name": "Sweden",
+        "Year": 2019,
+        "life": 83.10976,
+        "health": 5671.3857
+      },
+      {
+        "Country Name": "Switzerland",
+        "Year": 2019,
+        "life": 83.90488,
+        "health": 9666.338
+      },
+      {
+        "Country Name": "Syrian Arab Republic",
+        "Year": 2019,
+        "life": 72.697,
+        "health": null
+      },
+      {
+        "Country Name": "Tajikistan",
+        "Year": 2019,
+        "life": 71.097,
+        "health": 61.872253
+      },
+      {
+        "Country Name": "Tanzania",
+        "Year": 2019,
+        "life": 65.456,
+        "health": 40.343304
+      },
+      {
+        "Country Name": "Thailand",
+        "Year": 2019,
+        "life": 77.15,
+        "health": 296.1651
+      },
+      {
+        "Country Name": "Timor-Leste",
+        "Year": 2019,
+        "life": 69.495,
+        "health": 92.670044
+      },
+      {
+        "Country Name": "Togo",
+        "Year": 2019,
+        "life": 61.042,
+        "health": 51.15503
+      },
+      {
+        "Country Name": "Tonga",
+        "Year": 2019,
+        "life": 70.907,
+        "health": 242.37277
+      },
+      {
+        "Country Name": "Trinidad and Tobago",
+        "Year": 2019,
+        "life": 73.507,
+        "health": 1167.9331
+      },
+      {
+        "Country Name": "Tunisia",
+        "Year": 2019,
+        "life": 76.699,
+        "health": 233.05931
+      },
+      {
+        "Country Name": "Turkey",
+        "Year": 2019,
+        "life": 77.691,
+        "health": 396.46683
+      },
+      {
+        "Country Name": "Turkmenistan",
+        "Year": 2019,
+        "life": 68.191,
+        "health": 500.00644
+      },
+      {
+        "Country Name": "Turks and Caicos Islands",
+        "Year": 2019,
+        "life": null,
+        "health": null
+      },
+      {
+        "Country Name": "Tuvalu",
+        "Year": 2019,
+        "life": null,
+        "health": 972.6124
+      },
+      {
+        "Country Name": "Uganda",
+        "Year": 2019,
+        "life": 63.368,
+        "health": 32.408443
+      },
+      {
+        "Country Name": "Ukraine",
+        "Year": 2019,
+        "life": 71.82732,
+        "health": 248.13348
+      },
+      {
+        "Country Name": "United Arab Emirates",
+        "Year": 2019,
+        "life": 77.972,
+        "health": 1842.6945
+      },
+      {
+        "Country Name": "United Kingdom",
+        "Year": 2019,
+        "life": 81.20488,
+        "health": 4312.889
+      },
+      {
+        "Country Name": "United States",
+        "Year": 2019,
+        "life": 78.7878,
+        "health": 10921.013
+      },
+      {
+        "Country Name": "Uruguay",
+        "Year": 2019,
+        "life": 77.911,
+        "health": 1660.9529
+      },
+      {
+        "Country Name": "Uzbekistan",
+        "Year": 2019,
+        "life": 71.725,
+        "health": 98.573166
+      },
+      {
+        "Country Name": "Vanuatu",
+        "Year": 2019,
+        "life": 70.474,
+        "health": 104.24961
+      },
+      {
+        "Country Name": "Venezuela, RB",
+        "Year": 2019,
+        "life": 72.064,
+        "health": 338.82538
+      },
+      {
+        "Country Name": "Vietnam",
+        "Year": 2019,
+        "life": 75.4,
+        "health": 180.71819
+      },
+      {
+        "Country Name": "Virgin Islands (U.S.)",
+        "Year": 2019,
+        "life": 79.66829,
+        "health": null
+      },
+      {
+        "Country Name": "West Bank and Gaza",
+        "Year": 2019,
+        "life": 74.053,
+        "health": null
+      },
+      {
+        "Country Name": "Yemen, Rep.",
+        "Year": 2019,
+        "life": 66.125,
+        "health": null
+      },
+      {
+        "Country Name": "Zambia",
+        "Year": 2019,
+        "life": 63.886,
+        "health": 69.32438
+      },
+      {
+        "Country Name": "Zimbabwe",
+        "Year": 2019,
+        "life": 61.49,
+        "health": 103.028275
       }
     ]
+
+    function hide(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        arr[i].style.visibility = 'hidden';
+      }
+    }
+    function showels(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        arr[i].style.visibility = 'visible';
+      }
+    }
+
+    function handleClick(myRadio) {
+      var el2001 = document.getElementsByClassName("year2001");
+      var el2010 = document.getElementsByClassName("year2010");
+      var el2019 = document.getElementsByClassName("year2019");
+      if (myRadio.value === "0") {
+        showels(el2001);
+        hide(el2010);
+        hide(el2019);
+      }
+      else if (myRadio.value === "1") {
+        showels(el2001);
+        showels(el2010);
+        hide(el2019);
+      }
+      else if (myRadio.value === "2") {
+        showels(el2001);
+        showels(el2010);
+        showels(el2019);
+      }
+    }
 
     async function init() {
       // const data = await d3.csv("https://djoldman.github.io/data.csv");
       // const data = await d3.csv("https://djoldman.github.io/life.csv");
+      // const data = await d3.csv("https://djoldman.github.io/flat.csv");
       console.log(typeof (data))
       console.log(data)
 
@@ -2029,26 +4060,29 @@
         .attr("width", width + 2 * margin)
         .attr("height", height + 2 * margin)
 
-      var d2001 = svg.append("g")
+      var points = svg.append("g")
         .attr("transform", "translate(" + margin + "," + margin + ")")
         .attr("fill", "none")
         .attr("stroke-linecap", "round")
         .attr("stroke-width", "5");
 
-      d2001.selectAll("path")
+      points.selectAll("path")
         .data(data)
         .join("path")
         .attr("d", function (d, i) {
-          if (d !== null) {
-            const life_2001 = d['life_2001']
-            const health_2001 = d['health_2001']
-            if ((life_2001 !== null) & (health_2001 !== null)) {
-              return `M${xs(health_2001)},${ys(life_2001)}h0`
-            }
+          const health = d['health']
+          const life = d['life']
+          if ((health !== null) & (life !== null)) {
+            return `M${xs(health)},${ys(life)}h0`
           }
-          // return `M10,10h0`
         })
-        .attr("stroke", d => "#1f77b4");
+        .attr("display", "initial")
+        .attr("class", function (d, i) {
+          const year = d['Year']
+          if (year !== null) {
+            return `year${year}`
+          }
+        });
 
       svg.append("g")
         .attr("transform", "translate(" + margin + "," + margin + ")")
@@ -2058,73 +4092,39 @@
         .attr("transform", "translate(" + margin + "," + (height - margin) + ")").call(d3.axisBottom(xs));
 
       //Add annotations
-      var labels2 = data.map(function (d) {
-      //   {
-      //   "Country Name": "Afghanistan",
-      //   "life_2001": 56.308,
-      //   "life_2010": 61.028,
-      //   "life_2019": 64.833,
-      //   "health_2001": null,
-      //   "health_2010": 44.990532,
-      //   "health_2019": 65.80603
-      // },
-        ret = {
-          // data: {}
-          dx: d['health_2001'],
-          dy: d['life_2001'],
-        }
-        return ret;
-      })
-      console.log(labels2)
-
-      var labels = [{
-        data: { date: "9-Apr-12", close: 636.23 },
-        dy: 37,
-        dx: -142
-      }, {
-        data: { date: "26-Feb-08", close: 119.15 },
-        dy: -137,
-        dx: 0,
-        note: { align: "middle" }
-      }, {
-        data: { date: "18-Sep-09", close: 185.02 },
-        dy: 37,
-        dx: 42
-      }].map(function (l) {
+      var labels2 = data.map(function (l) {
+        l.data = { "health": l.health, "life": l.life }
+        l.dx = 20
+        l.dy = 20
         l.note = Object.assign({}, l.note, {
-          title: "Close: " + l.data.close,
-          label: "" + l.data.date
+          title: l["Country Name"],
+          label: `Year: ${l.Year}\nLife Expectancy: ${l.life}\nHealth Expenditure per capita: ${l.health}`,
+          wrapSplitter: "\n"
         });
         l.subject = { radius: 4 };
 
         return l;
       });
 
-      var timeFormat = d3.timeFormat("%d-%b-%y");
+      labels2 = labels2.filter(function (obj) {
+        return (obj.data.health !== null) & (obj.data.life !== null)
+      });
 
-      window.makeAnnotations = d3.annotation().annotations(data).type(d3.annotationCalloutCircle).accessors({
+      console.log(labels2)
+
+      window.makeAnnotations = d3.annotation().annotations(labels2).type(d3.annotationCalloutCircle).accessors({
         x: function x(d) {
-          // console.log(d['health_2001'])
-          // return xs(d['health_2001'])
-          return xs(200)
-          // return _x(parseTime(d.date));
+          return xs(d.health)
         },
         y: function y(d) {
-          // console.log(d['life_2001'])
-          // return ys(d['life_2001'])
-          return xs(60)
-          // return _y(d.close);
+          return ys(d.life)
         }
       }).accessorsInverse({
         date: function date(d) {
-          return xs.invert(d['health_2001']);
-          // return xs.invert(200);
-          // return timeFormat(_x.invert(d.x));
+          return xs.invert(d.health);
         },
         close: function close(d) {
-          return ys.invert(d['life_2001']);
-          // return ys.invert(60);
-          // return _y.invert(d.y);
+          return ys.invert(d.life);
         }
       }).on('subjectover', function (annotation) {
         annotation.type.a.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", false);
@@ -2132,9 +4132,12 @@
         annotation.type.a.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", true);
       });
 
-      svg.append("g").attr("class", "annotation-test").call(makeAnnotations);
+      svg.append("g").attr("class", "annotation-test")
+        .attr("transform", "translate(" + margin + "," + margin + ")")
+        .call(makeAnnotations);
 
       svg.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", true);
+
     }
   </script>
 </body>
