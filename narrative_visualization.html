@@ -9,9 +9,11 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
+  <!-- Some CSS styles adapted from:
+      https://bl.ocks.org/susielu/63269cf8ec84497920f2b7ef1ac85039 -->
   <style>
     :root {
-      --accent-color: #E8336D;
+      --accent-color: 'black';
       font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol;
     }
 
@@ -49,6 +51,21 @@
       stroke: #1f77b4;
       visibility: hidden
     }
+    
+    .hilight {
+      stroke: #becb2480;
+    }
+
+    /* .text2001 {
+    } */
+
+    .text2010 {
+      visibility: hidden
+    }
+
+    .text2019 {
+      visibility: hidden
+    }
 
     .annotation.xythreshold {
       cursor: move;
@@ -73,26 +90,42 @@
 </head>
 
 <body onload='init()'>
-  <form>
-    <label>
-      <input type="radio" name="radio" value="0" style="margin-right: 0.5em;"
-        onclick="handleClick(this);" checked="">
-      Slide 1
-    </label>
-    <label>
-      <input type="radio" name="radio" value="1" style="margin-right: 0.5em;"
-        onclick="handleClick(this);">
-      Slide 2
-    </label>
-    <label>
-      <input type="radio" name="radio" value="2" style="margin-right: 0.5em;"
-        onclick="handleClick(this);">
-      Slide 3
-    </label>
-  </form>
-  <!-- <svg style="margin: auto;  display: block;"> -->
-  <svg>
-  </svg>
+  <div style="text-align: center;">
+    <form style="display: inline-block;">
+      <label>
+        <input type="radio" name="radio" value="0" style="margin-right: 0.5em;"
+          onclick="handleClick(this);" checked="">
+        2001
+      </label>
+      <label>
+        <input type="radio" name="radio" value="1" style="margin-right: 0.5em;"
+          onclick="handleClick(this);">
+        2010
+      </label>
+      <label>
+        <input type="radio" name="radio" value="2" style="margin-right: 0.5em;"
+          onclick="handleClick(this);">
+        2019
+      </label>
+    </form>
+    <p>Life Expectancy versus Health Expenditure per Capita</p>
+    <svg style="margin: auto;  display: block;">
+    </svg>
+  </div>
+  <p style="text-align: center;">
+    Health Expenditure:
+    <button onclick="handleType('');">All</button>
+    <button onclick="handleType('low');">Low</button>
+    <button onclick="handleType('mid');">Middle</button>
+    <button onclick="handleType('high');">High</button>
+  </p>
+  <p>The above narrative visualization delineates the relationship between Life Expectancy at birth in years versus Health Expenditure per Capita in current US$ for select countries for the years 2001, 2010, and 2019. Points may be examined in more detail by hovering the pointer over a point of interest, which displays an annotation with details about the datapoint.
+  </p>
+  <p>
+    Data was sourced from the <a
+      href="https://datatopics.worldbank.org/world-development-indicators/"> World Bank World
+      Development Indicators dataset</a>.
+  </p>
   <script>
     const data = [
       {
@@ -4003,6 +4036,3501 @@
       }
     ]
 
+    const ndata = [
+      {
+        "Afghanistan": {
+          "2001": {
+            "life": 56.308,
+            "health": null
+          },
+          "2010": {
+            "life": 61.028,
+            "health": 44.990532
+          },
+          "2019": {
+            "life": 64.833,
+            "health": 65.80603
+          }
+        }
+      },
+      {
+        "Albania": {
+          "2001": {
+            "life": 74.288,
+            "health": 89.580734
+          },
+          "2010": {
+            "life": 76.562,
+            "health": 192.00322
+          },
+          "2019": {
+            "life": 78.573,
+            "health": null
+          }
+        }
+      },
+      {
+        "Algeria": {
+          "2001": {
+            "life": 71.116,
+            "health": 66.80212
+          },
+          "2010": {
+            "life": 74.938,
+            "health": 229.28946
+          },
+          "2019": {
+            "life": 76.88,
+            "health": 248.20587
+          }
+        }
+      },
+      {
+        "American Samoa": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": null,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Andorra": {
+          "2001": {
+            "life": null,
+            "health": 1347.485
+          },
+          "2010": {
+            "life": null,
+            "health": 2685.4797
+          },
+          "2019": {
+            "life": null,
+            "health": 2744.1943
+          }
+        }
+      },
+      {
+        "Angola": {
+          "2001": {
+            "life": 47.059,
+            "health": 28.918121
+          },
+          "2010": {
+            "life": 55.35,
+            "health": 96.697014
+          },
+          "2019": {
+            "life": 61.147,
+            "health": 71.326004
+          }
+        }
+      },
+      {
+        "Antigua and Barbuda": {
+          "2001": {
+            "life": 74.171,
+            "health": 563.7371
+          },
+          "2010": {
+            "life": 75.823,
+            "health": 701.8178
+          },
+          "2019": {
+            "life": 77.016,
+            "health": 760.26495
+          }
+        }
+      },
+      {
+        "Argentina": {
+          "2001": {
+            "life": 73.755,
+            "health": 675.05786
+          },
+          "2010": {
+            "life": 75.278,
+            "health": 985.0344
+          },
+          "2019": {
+            "life": 76.667,
+            "health": 945.99194
+          }
+        }
+      },
+      {
+        "Armenia": {
+          "2001": {
+            "life": 71.8,
+            "health": 32.25934
+          },
+          "2010": {
+            "life": 73.331,
+            "health": 297.22906
+          },
+          "2019": {
+            "life": 75.087,
+            "health": 523.9991
+          }
+        }
+      },
+      {
+        "Aruba": {
+          "2001": {
+            "life": 73.853,
+            "health": null
+          },
+          "2010": {
+            "life": 75.017,
+            "health": null
+          },
+          "2019": {
+            "life": 76.293,
+            "health": null
+          }
+        }
+      },
+      {
+        "Australia": {
+          "2001": {
+            "life": 79.63415,
+            "health": 1564.1665
+          },
+          "2010": {
+            "life": 81.69512,
+            "health": 4945.038
+          },
+          "2019": {
+            "life": 82.9,
+            "health": 5427.4624
+          }
+        }
+      },
+      {
+        "Austria": {
+          "2001": {
+            "life": 78.57561,
+            "health": 2282.5159
+          },
+          "2010": {
+            "life": 80.58049,
+            "health": 4800.7935
+          },
+          "2019": {
+            "life": 81.89512,
+            "health": 5242.183
+          }
+        }
+      },
+      {
+        "Azerbaijan": {
+          "2001": {
+            "life": 67.054,
+            "health": 19.190283
+          },
+          "2010": {
+            "life": 70.938,
+            "health": 145.84526
+          },
+          "2019": {
+            "life": 73.005,
+            "health": 193.10884
+          }
+        }
+      },
+      {
+        "Bahamas, The": {
+          "2001": {
+            "life": 71.954,
+            "health": 1078.6945
+          },
+          "2010": {
+            "life": 72.144,
+            "health": 1495.2313
+          },
+          "2019": {
+            "life": 73.918,
+            "health": 2004.6163
+          }
+        }
+      },
+      {
+        "Bahrain": {
+          "2001": {
+            "life": 74.635,
+            "health": 484.90735
+          },
+          "2010": {
+            "life": 76.057,
+            "health": 796.3184
+          },
+          "2019": {
+            "life": 77.292,
+            "health": 940.3957
+          }
+        }
+      },
+      {
+        "Bangladesh": {
+          "2001": {
+            "life": 65.956,
+            "health": 8.36238
+          },
+          "2010": {
+            "life": 69.881,
+            "health": 20.8027
+          },
+          "2019": {
+            "life": 72.591,
+            "health": 45.857162
+          }
+        }
+      },
+      {
+        "Barbados": {
+          "2001": {
+            "life": 77.362,
+            "health": 619.3396
+          },
+          "2010": {
+            "life": 78.364,
+            "health": 1087.6565
+          },
+          "2019": {
+            "life": 79.19,
+            "health": 1143.322
+          }
+        }
+      },
+      {
+        "Belarus": {
+          "2001": {
+            "life": 68.50732,
+            "health": 74.33643
+          },
+          "2010": {
+            "life": 70.40488,
+            "health": 343.6791
+          },
+          "2019": {
+            "life": 74.22683,
+            "health": 399.3971
+          }
+        }
+      },
+      {
+        "Belgium": {
+          "2001": {
+            "life": 77.97317,
+            "health": 1879.9348
+          },
+          "2010": {
+            "life": 80.18293,
+            "health": 4544.78
+          },
+          "2019": {
+            "life": 81.995125,
+            "health": 4960.3936
+          }
+        }
+      },
+      {
+        "Belize": {
+          "2001": {
+            "life": 69.04,
+            "health": 157.4632
+          },
+          "2010": {
+            "life": 72.057,
+            "health": 242.34943
+          },
+          "2019": {
+            "life": 74.623,
+            "health": 293.4126
+          }
+        }
+      },
+      {
+        "Benin": {
+          "2001": {
+            "life": 55.668,
+            "health": 16.8325
+          },
+          "2010": {
+            "life": 59.318,
+            "health": 31.065983
+          },
+          "2019": {
+            "life": 61.771,
+            "health": 29.125292
+          }
+        }
+      },
+      {
+        "Bermuda": {
+          "2001": {
+            "life": 77.88537,
+            "health": null
+          },
+          "2010": {
+            "life": 79.288536,
+            "health": null
+          },
+          "2019": {
+            "life": 81.866585,
+            "health": null
+          }
+        }
+      },
+      {
+        "Bhutan": {
+          "2001": {
+            "life": 61.808,
+            "health": 35.94556
+          },
+          "2010": {
+            "life": 68.384,
+            "health": 74.09109
+          },
+          "2019": {
+            "life": 71.777,
+            "health": 115.98076
+          }
+        }
+      },
+      {
+        "Bolivia": {
+          "2001": {
+            "life": 63.054,
+            "health": 45.78475
+          },
+          "2010": {
+            "life": 68.007,
+            "health": 101.72988
+          },
+          "2019": {
+            "life": 71.513,
+            "health": 245.92348
+          }
+        }
+      },
+      {
+        "Bosnia and Herzegovina": {
+          "2001": {
+            "life": 74.637,
+            "health": 112.06852
+          },
+          "2010": {
+            "life": 76.031,
+            "health": 417.74832
+          },
+          "2019": {
+            "life": 77.401,
+            "health": 553.82294
+          }
+        }
+      },
+      {
+        "Botswana": {
+          "2001": {
+            "life": 50.281,
+            "health": 201.8108
+          },
+          "2010": {
+            "life": 60.211,
+            "health": 398.5707
+          },
+          "2019": {
+            "life": 69.592,
+            "health": 481.53305
+          }
+        }
+      },
+      {
+        "Brazil": {
+          "2001": {
+            "life": 70.462,
+            "health": 270.18982
+          },
+          "2010": {
+            "life": 73.619,
+            "health": 896.69714
+          },
+          "2019": {
+            "life": 75.881,
+            "health": 853.38794
+          }
+        }
+      },
+      {
+        "British Virgin Islands": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": null,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Brunei Darussalam": {
+          "2001": {
+            "life": 73.076,
+            "health": 464.79044
+          },
+          "2010": {
+            "life": 74.74,
+            "health": 803.52686
+          },
+          "2019": {
+            "life": 75.86,
+            "health": 671.5627
+          }
+        }
+      },
+      {
+        "Bulgaria": {
+          "2001": {
+            "life": 71.768295,
+            "health": 119.82998
+          },
+          "2010": {
+            "life": 73.51219,
+            "health": 484.7523
+          },
+          "2019": {
+            "life": 75.1122,
+            "health": 697.89636
+          }
+        }
+      },
+      {
+        "Burkina Faso": {
+          "2001": {
+            "life": 50.893,
+            "health": 7.714724
+          },
+          "2010": {
+            "life": 57.096,
+            "health": 33.9439
+          },
+          "2019": {
+            "life": 61.577,
+            "health": 42.34453
+          }
+        }
+      },
+      {
+        "Burundi": {
+          "2001": {
+            "life": 49.93,
+            "health": 8.604748
+          },
+          "2010": {
+            "life": 57.228,
+            "health": 26.413322
+          },
+          "2019": {
+            "life": 61.584,
+            "health": 20.567541
+          }
+        }
+      },
+      {
+        "Cabo Verde": {
+          "2001": {
+            "life": 69.099,
+            "health": 67.14394
+          },
+          "2010": {
+            "life": 71.062,
+            "health": 151.16014
+          },
+          "2019": {
+            "life": 72.981,
+            "health": 177.89027
+          }
+        }
+      },
+      {
+        "Cambodia": {
+          "2001": {
+            "life": 59.335,
+            "health": 22.5629
+          },
+          "2010": {
+            "life": 66.56,
+            "health": 54.29156
+          },
+          "2019": {
+            "life": 69.823,
+            "health": 113.31044
+          }
+        }
+      },
+      {
+        "Cameroon": {
+          "2001": {
+            "life": 51.222,
+            "health": 26.702278
+          },
+          "2010": {
+            "life": 55.101,
+            "health": 48.35902
+          },
+          "2019": {
+            "life": 59.292,
+            "health": 53.99585
+          }
+        }
+      },
+      {
+        "Canada": {
+          "2001": {
+            "life": 79.33903,
+            "health": 2063.9275
+          },
+          "2010": {
+            "life": 81.24634,
+            "health": 5065.915
+          },
+          "2019": {
+            "life": 82.04878,
+            "health": 5048.3726
+          }
+        }
+      },
+      {
+        "Cayman Islands": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": 82.19025,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Central African Republic": {
+          "2001": {
+            "life": 44.061,
+            "health": 9.566786
+          },
+          "2010": {
+            "life": 47.312,
+            "health": 18.69205
+          },
+          "2019": {
+            "life": 53.283,
+            "health": 37.19958
+          }
+        }
+      },
+      {
+        "Chad": {
+          "2001": {
+            "life": 47.789,
+            "health": 11.809539
+          },
+          "2010": {
+            "life": 50.89,
+            "health": 36.32339
+          },
+          "2019": {
+            "life": 54.239,
+            "health": 29.85083
+          }
+        }
+      },
+      {
+        "Channel Islands": {
+          "2001": {
+            "life": 79.3,
+            "health": null
+          },
+          "2010": {
+            "life": 81.483,
+            "health": null
+          },
+          "2019": {
+            "life": 83.086,
+            "health": null
+          }
+        }
+      },
+      {
+        "Chile": {
+          "2001": {
+            "life": 76.634,
+            "health": 327.132
+          },
+          "2010": {
+            "life": 78.779,
+            "health": 867.7308
+          },
+          "2019": {
+            "life": 80.181,
+            "health": 1375.803
+          }
+        }
+      },
+      {
+        "China": {
+          "2001": {
+            "life": 71.732,
+            "health": 43.663677
+          },
+          "2010": {
+            "life": 74.409,
+            "health": 186.4915
+          },
+          "2019": {
+            "life": 76.912,
+            "health": 535.13336
+          }
+        }
+      },
+      {
+        "Colombia": {
+          "2001": {
+            "life": 73.241,
+            "health": 136.61053
+          },
+          "2010": {
+            "life": 75.424,
+            "health": 448.08777
+          },
+          "2019": {
+            "life": 77.287,
+            "health": 495.3297
+          }
+        }
+      },
+      {
+        "Comoros": {
+          "2001": {
+            "life": 59.529,
+            "health": 44.589848
+          },
+          "2010": {
+            "life": 61.862,
+            "health": 65.71719
+          },
+          "2019": {
+            "life": 64.321,
+            "health": 72.3238
+          }
+        }
+      },
+      {
+        "Congo, Dem. Rep.": {
+          "2001": {
+            "life": 50.667,
+            "health": 6.0385017
+          },
+          "2010": {
+            "life": 56.909,
+            "health": 12.894424
+          },
+          "2019": {
+            "life": 60.681,
+            "health": 20.570732
+          }
+        }
+      },
+      {
+        "Congo, Rep.": {
+          "2001": {
+            "life": 52.517,
+            "health": 20.648438
+          },
+          "2010": {
+            "life": 60.093,
+            "health": 56.96957
+          },
+          "2019": {
+            "life": 64.57,
+            "health": 48.558773
+          }
+        }
+      },
+      {
+        "Costa Rica": {
+          "2001": {
+            "life": 77.601,
+            "health": 256.3936
+          },
+          "2010": {
+            "life": 78.769,
+            "health": 660.5864
+          },
+          "2019": {
+            "life": 80.279,
+            "health": 921.58575
+          }
+        }
+      },
+      {
+        "Cote d'Ivoire": {
+          "2001": {
+            "life": 49.495,
+            "health": 55.291386
+          },
+          "2010": {
+            "life": 52.964,
+            "health": 74.04659
+          },
+          "2019": {
+            "life": 57.783,
+            "health": 75.08779
+          }
+        }
+      },
+      {
+        "Croatia": {
+          "2001": {
+            "life": 74.512924,
+            "health": 388.3249
+          },
+          "2010": {
+            "life": 76.47561,
+            "health": 1126.3737
+          },
+          "2019": {
+            "life": 78.42439,
+            "health": 1040.0857
+          }
+        }
+      },
+      {
+        "Cuba": {
+          "2001": {
+            "life": 76.905,
+            "health": 198.13365
+          },
+          "2010": {
+            "life": 78.338,
+            "health": 612.4651
+          },
+          "2019": {
+            "life": 78.802,
+            "health": 1031.9218
+          }
+        }
+      },
+      {
+        "Curacao": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": null,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Cyprus": {
+          "2001": {
+            "life": 78.139,
+            "health": 782.1616
+          },
+          "2010": {
+            "life": 79.43,
+            "health": 2045.2924
+          },
+          "2019": {
+            "life": 80.982,
+            "health": 1996.4583
+          }
+        }
+      },
+      {
+        "Czech Republic": {
+          "2001": {
+            "life": 75.17317,
+            "health": 388.54404
+          },
+          "2010": {
+            "life": 77.42439,
+            "health": 1373.9318
+          },
+          "2019": {
+            "life": 79.22927,
+            "health": 1844.2178
+          }
+        }
+      },
+      {
+        "Denmark": {
+          "2001": {
+            "life": 76.79269,
+            "health": 2602.6428
+          },
+          "2010": {
+            "life": 79.1,
+            "health": 6011.538
+          },
+          "2019": {
+            "life": 81.45122,
+            "health": 6003.325
+          }
+        }
+      },
+      {
+        "Djibouti": {
+          "2001": {
+            "life": 57.1,
+            "health": 31.042257
+          },
+          "2010": {
+            "life": 60.062,
+            "health": 56.201412
+          },
+          "2019": {
+            "life": 67.112,
+            "health": 61.809433
+          }
+        }
+      },
+      {
+        "Dominica": {
+          "2001": {
+            "life": null,
+            "health": 226.96007
+          },
+          "2010": {
+            "life": null,
+            "health": 359.22134
+          },
+          "2019": {
+            "life": null,
+            "health": 440.16986
+          }
+        }
+      },
+      {
+        "Dominican Republic": {
+          "2001": {
+            "life": 69.69,
+            "health": 145.35367
+          },
+          "2010": {
+            "life": 72.046,
+            "health": 309.95718
+          },
+          "2019": {
+            "life": 74.081,
+            "health": 491.05936
+          }
+        }
+      },
+      {
+        "Ecuador": {
+          "2001": {
+            "life": 73.078,
+            "health": 71.11089
+          },
+          "2010": {
+            "life": 75.089,
+            "health": 283.41574
+          },
+          "2019": {
+            "life": 77.01,
+            "health": 486.49216
+          }
+        }
+      },
+      {
+        "Egypt, Arab Rep.": {
+          "2001": {
+            "life": 68.796,
+            "health": 73.077835
+          },
+          "2010": {
+            "life": 70.349,
+            "health": 113.2482
+          },
+          "2019": {
+            "life": 71.99,
+            "health": 149.84032
+          }
+        }
+      },
+      {
+        "El Salvador": {
+          "2001": {
+            "life": 69.162,
+            "health": 182.88065
+          },
+          "2010": {
+            "life": 71.21,
+            "health": 245.70859
+          },
+          "2019": {
+            "life": 73.317,
+            "health": 300.05328
+          }
+        }
+      },
+      {
+        "Equatorial Guinea": {
+          "2001": {
+            "life": 53.581,
+            "health": 58.393887
+          },
+          "2010": {
+            "life": 55.622,
+            "health": 314.40918
+          },
+          "2019": {
+            "life": 58.735,
+            "health": 254.8911
+          }
+        }
+      },
+      {
+        "Eritrea": {
+          "2001": {
+            "life": 55.864,
+            "health": 14.513529
+          },
+          "2010": {
+            "life": 62.193,
+            "health": 24.714329
+          },
+          "2019": {
+            "life": 66.321,
+            "health": 25.267935
+          }
+        }
+      },
+      {
+        "Estonia": {
+          "2001": {
+            "life": 70.25854,
+            "health": 214.70415
+          },
+          "2010": {
+            "life": 75.42927,
+            "health": 926.45416
+          },
+          "2019": {
+            "life": 78.64634,
+            "health": 1598.8188
+          }
+        }
+      },
+      {
+        "Eswatini": {
+          "2001": {
+            "life": 45.799,
+            "health": 78.200195
+          },
+          "2010": {
+            "life": 46.601,
+            "health": 358.1239
+          },
+          "2019": {
+            "life": 60.194,
+            "health": 264.05515
+          }
+        }
+      },
+      {
+        "Ethiopia": {
+          "2001": {
+            "life": 52.595,
+            "health": 5.616925
+          },
+          "2010": {
+            "life": 61.627,
+            "health": 16.70585
+          },
+          "2019": {
+            "life": 66.597,
+            "health": 26.742205
+          }
+        }
+      },
+      {
+        "Faroe Islands": {
+          "2001": {
+            "life": 78.641464,
+            "health": null
+          },
+          "2010": {
+            "life": 80.687805,
+            "health": null
+          },
+          "2019": {
+            "life": 82.79269,
+            "health": null
+          }
+        }
+      },
+      {
+        "Fiji": {
+          "2001": {
+            "life": 65.863,
+            "health": 64.19379
+          },
+          "2010": {
+            "life": 66.655,
+            "health": 135.1687
+          },
+          "2019": {
+            "life": 67.444,
+            "health": 235.67502
+          }
+        }
+      },
+      {
+        "Finland": {
+          "2001": {
+            "life": 77.96585,
+            "health": 1806.0502
+          },
+          "2010": {
+            "life": 79.870735,
+            "health": 4249.602
+          },
+          "2019": {
+            "life": 81.982925,
+            "health": 4450.3027
+          }
+        }
+      },
+      {
+        "France": {
+          "2001": {
+            "life": 79.15854,
+            "health": 2192.7158
+          },
+          "2010": {
+            "life": 81.663414,
+            "health": 4592.3833
+          },
+          "2019": {
+            "life": 82.82683,
+            "health": 4491.7354
+          }
+        }
+      },
+      {
+        "French Polynesia": {
+          "2001": {
+            "life": 72.658,
+            "health": null
+          },
+          "2010": {
+            "life": 75.611,
+            "health": null
+          },
+          "2019": {
+            "life": 77.657,
+            "health": null
+          }
+        }
+      },
+      {
+        "Gabon": {
+          "2001": {
+            "life": 57.968,
+            "health": 125.87947
+          },
+          "2010": {
+            "life": 61.4,
+            "health": 219.07191
+          },
+          "2019": {
+            "life": 66.467,
+            "health": 215.01915
+          }
+        }
+      },
+      {
+        "Gambia, The": {
+          "2001": {
+            "life": 56.359,
+            "health": 42.067417
+          },
+          "2010": {
+            "life": 59.637,
+            "health": 43.80533
+          },
+          "2019": {
+            "life": 62.05,
+            "health": 29.725803
+          }
+        }
+      },
+      {
+        "Georgia": {
+          "2001": {
+            "life": 70.065,
+            "health": 55.222275
+          },
+          "2010": {
+            "life": 71.46,
+            "health": 271.01666
+          },
+          "2019": {
+            "life": 73.767,
+            "health": 291.12204
+          }
+        }
+      },
+      {
+        "Germany": {
+          "2001": {
+            "life": 78.32927,
+            "health": 2346.615
+          },
+          "2010": {
+            "life": 79.98781,
+            "health": 4611.276
+          },
+          "2019": {
+            "life": 81.29269,
+            "health": 5440.2515
+          }
+        }
+      },
+      {
+        "Ghana": {
+          "2001": {
+            "life": 57.158,
+            "health": 19.633295
+          },
+          "2010": {
+            "life": 61.03,
+            "health": 73.898506
+          },
+          "2019": {
+            "life": 64.074,
+            "health": 75.28166
+          }
+        }
+      },
+      {
+        "Gibraltar": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": null,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Greece": {
+          "2001": {
+            "life": 78.3878,
+            "health": 1004.8154
+          },
+          "2010": {
+            "life": 80.3878,
+            "health": 2564.3694
+          },
+          "2019": {
+            "life": 81.63902,
+            "health": 1500.595
+          }
+        }
+      },
+      {
+        "Greenland": {
+          "2001": {
+            "life": 66.70927,
+            "health": null
+          },
+          "2010": {
+            "life": 70.291954,
+            "health": null
+          },
+          "2019": {
+            "life": 72.04756,
+            "health": null
+          }
+        }
+      },
+      {
+        "Grenada": {
+          "2001": {
+            "life": 72.805,
+            "health": 283.47583
+          },
+          "2010": {
+            "life": 72.867,
+            "health": 393.3341
+          },
+          "2019": {
+            "life": 72.397,
+            "health": 534.2744
+          }
+        }
+      },
+      {
+        "Guam": {
+          "2001": {
+            "life": 75.373,
+            "health": null
+          },
+          "2010": {
+            "life": 77.941,
+            "health": null
+          },
+          "2019": {
+            "life": 80.074,
+            "health": null
+          }
+        }
+      },
+      {
+        "Guatemala": {
+          "2001": {
+            "life": 68.304,
+            "health": 100.39343
+          },
+          "2010": {
+            "life": 71.481,
+            "health": 173.75179
+          },
+          "2019": {
+            "life": 74.302,
+            "health": 271.02127
+          }
+        }
+      },
+      {
+        "Guinea": {
+          "2001": {
+            "life": 51.255,
+            "health": 22.106821
+          },
+          "2010": {
+            "life": 56.861,
+            "health": 23.04637
+          },
+          "2019": {
+            "life": 61.602,
+            "health": 43.037823
+          }
+        }
+      },
+      {
+        "Guinea-Bissau": {
+          "2001": {
+            "life": 50.744,
+            "health": 22.556522
+          },
+          "2010": {
+            "life": 54.628,
+            "health": 38.658882
+          },
+          "2019": {
+            "life": 58.322,
+            "health": 62.575577
+          }
+        }
+      },
+      {
+        "Guyana": {
+          "2001": {
+            "life": 65.532,
+            "health": 61.653477
+          },
+          "2010": {
+            "life": 68.059,
+            "health": 162.66496
+          },
+          "2019": {
+            "life": 69.906,
+            "health": 325.88516
+          }
+        }
+      },
+      {
+        "Haiti": {
+          "2001": {
+            "life": 57.382,
+            "health": 26.906698
+          },
+          "2010": {
+            "life": 60.511,
+            "health": 54.917152
+          },
+          "2019": {
+            "life": 64.001,
+            "health": 56.9944
+          }
+        }
+      },
+      {
+        "Honduras": {
+          "2001": {
+            "life": 70.976,
+            "health": 67.19782
+          },
+          "2010": {
+            "life": 73.317,
+            "health": 166.16116
+          },
+          "2019": {
+            "life": 75.27,
+            "health": 187.55434
+          }
+        }
+      },
+      {
+        "Hong Kong SAR, China": {
+          "2001": {
+            "life": 81.42439,
+            "health": null
+          },
+          "2010": {
+            "life": 82.97805,
+            "health": null
+          },
+          "2019": {
+            "life": 85.07805,
+            "health": null
+          }
+        }
+      },
+      {
+        "Hungary": {
+          "2001": {
+            "life": 72.24878,
+            "health": 359.69748
+          },
+          "2010": {
+            "life": 74.20731,
+            "health": 983.11084
+          },
+          "2019": {
+            "life": 76.31951,
+            "health": 1062.3942
+          }
+        }
+      },
+      {
+        "Iceland": {
+          "2001": {
+            "life": 80.69025,
+            "health": 2557.2695
+          },
+          "2010": {
+            "life": 81.89756,
+            "health": 3589.5557
+          },
+          "2019": {
+            "life": 83.163414,
+            "health": 6274.9595
+          }
+        }
+      },
+      {
+        "India": {
+          "2001": {
+            "life": 62.907,
+            "health": 19.797678
+          },
+          "2010": {
+            "life": 66.693,
+            "health": 45.129772
+          },
+          "2019": {
+            "life": 69.656,
+            "health": 63.74832
+          }
+        }
+      },
+      {
+        "Indonesia": {
+          "2001": {
+            "life": 66.037,
+            "health": 17.240965
+          },
+          "2010": {
+            "life": 69.205,
+            "health": 87.14134
+          },
+          "2019": {
+            "life": 71.716,
+            "health": 120.12496
+          }
+        }
+      },
+      {
+        "Iran, Islamic Rep.": {
+          "2001": {
+            "life": 70.553,
+            "health": 94.6177
+          },
+          "2010": {
+            "life": 73.905,
+            "health": 445.66364
+          },
+          "2019": {
+            "life": 76.677,
+            "health": 470.4346
+          }
+        }
+      },
+      {
+        "Iraq": {
+          "2001": {
+            "life": 68.983,
+            "health": null
+          },
+          "2010": {
+            "life": 68.567,
+            "health": 150.45607
+          },
+          "2019": {
+            "life": 70.604,
+            "health": 253.31464
+          }
+        }
+      },
+      {
+        "Ireland": {
+          "2001": {
+            "life": 77.13415,
+            "health": 1823.7347
+          },
+          "2010": {
+            "life": 80.743904,
+            "health": 5133.455
+          },
+          "2019": {
+            "life": 82.70244,
+            "health": 5428.589
+          }
+        }
+      },
+      {
+        "Isle of Man": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": null,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Israel": {
+          "2001": {
+            "life": 79.40732,
+            "health": 1559.0833
+          },
+          "2010": {
+            "life": 81.60244,
+            "health": 2234.9497
+          },
+          "2019": {
+            "life": 82.80488,
+            "health": 3456.387
+          }
+        }
+      },
+      {
+        "Italy": {
+          "2001": {
+            "life": 80.12683,
+            "health": 1586.6571
+          },
+          "2010": {
+            "life": 82.03658,
+            "health": 3217.6829
+          },
+          "2019": {
+            "life": 83.49756,
+            "health": 2905.5
+          }
+        }
+      },
+      {
+        "Jamaica": {
+          "2001": {
+            "life": 74.139,
+            "health": 177.26375
+          },
+          "2010": {
+            "life": 74.038,
+            "health": 249.08258
+          },
+          "2019": {
+            "life": 74.475,
+            "health": 327.40353
+          }
+        }
+      },
+      {
+        "Japan": {
+          "2001": {
+            "life": 81.417076,
+            "health": 2479.8115
+          },
+          "2010": {
+            "life": 82.84268,
+            "health": 4060.491
+          },
+          "2019": {
+            "life": 84.35634,
+            "health": 4360.4736
+          }
+        }
+      },
+      {
+        "Jordan": {
+          "2001": {
+            "life": 71.907,
+            "health": 170.0458
+          },
+          "2010": {
+            "life": 73.428,
+            "health": 305.2936
+          },
+          "2019": {
+            "life": 74.526,
+            "health": 334.04422
+          }
+        }
+      },
+      {
+        "Kazakhstan": {
+          "2001": {
+            "life": 65.76,
+            "health": 51.56955
+          },
+          "2010": {
+            "life": 68.45,
+            "health": 249.26892
+          },
+          "2019": {
+            "life": 73.18,
+            "health": 272.96524
+          }
+        }
+      },
+      {
+        "Kenya": {
+          "2001": {
+            "life": 51.101,
+            "health": 21.257555
+          },
+          "2010": {
+            "life": 60.959,
+            "health": 58.21166
+          },
+          "2019": {
+            "life": 66.699,
+            "health": 83.41163
+          }
+        }
+      },
+      {
+        "Kiribati": {
+          "2001": {
+            "life": 63.446,
+            "health": 90.621925
+          },
+          "2010": {
+            "life": 65.769,
+            "health": 139.49522
+          },
+          "2019": {
+            "life": 68.369,
+            "health": 172.30574
+          }
+        }
+      },
+      {
+        "Korea, Dem. People's Rep.": {
+          "2001": {
+            "life": 66.087,
+            "health": null
+          },
+          "2010": {
+            "life": 69.571,
+            "health": null
+          },
+          "2019": {
+            "life": 72.274,
+            "health": null
+          }
+        }
+      },
+      {
+        "Korea, Rep.": {
+          "2001": {
+            "life": 76.41219,
+            "health": 508.36133
+          },
+          "2010": {
+            "life": 80.11707,
+            "health": 1365.9128
+          },
+          "2019": {
+            "life": 83.22683,
+            "health": 2624.5332
+          }
+        }
+      },
+      {
+        "Kosovo": {
+          "2001": {
+            "life": 67.99756,
+            "health": null
+          },
+          "2010": {
+            "life": 69.9,
+            "health": null
+          },
+          "2019": {
+            "life": 73.09268,
+            "health": null
+          }
+        }
+      },
+      {
+        "Kuwait": {
+          "2001": {
+            "life": 73.21,
+            "health": 528.6975
+          },
+          "2010": {
+            "life": 74.358,
+            "health": 1033.3838
+          },
+          "2019": {
+            "life": 75.489,
+            "health": 1758.6742
+          }
+        }
+      },
+      {
+        "Kyrgyz Republic": {
+          "2001": {
+            "life": 68.70731,
+            "health": 13.161617
+          },
+          "2010": {
+            "life": 69.3,
+            "health": 61.453785
+          },
+          "2019": {
+            "life": 71.6,
+            "health": 62.144775
+          }
+        }
+      },
+      {
+        "Lao PDR": {
+          "2001": {
+            "life": 59.372,
+            "health": 14.765901
+          },
+          "2010": {
+            "life": 64.306,
+            "health": 34.994404
+          },
+          "2019": {
+            "life": 67.923,
+            "health": 68.22131
+          }
+        }
+      },
+      {
+        "Latvia": {
+          "2001": {
+            "life": 70.76098,
+            "health": 205.02048
+          },
+          "2010": {
+            "life": 73.482925,
+            "health": 689.0772
+          },
+          "2019": {
+            "life": 75.3878,
+            "health": 1166.7979
+          }
+        }
+      },
+      {
+        "Lebanon": {
+          "2001": {
+            "life": 74.999,
+            "health": 459.4658
+          },
+          "2010": {
+            "life": 78.36,
+            "health": 577.3594
+          },
+          "2019": {
+            "life": 78.93,
+            "health": 663.0511
+          }
+        }
+      },
+      {
+        "Lesotho": {
+          "2001": {
+            "life": 46.197,
+            "health": 27.737806
+          },
+          "2010": {
+            "life": 45.1,
+            "health": 97.6808
+          },
+          "2019": {
+            "life": 54.331,
+            "health": 124.193634
+          }
+        }
+      },
+      {
+        "Liberia": {
+          "2001": {
+            "life": 52.236,
+            "health": 10.754223
+          },
+          "2010": {
+            "life": 59.6,
+            "health": 45.360386
+          },
+          "2019": {
+            "life": 64.104,
+            "health": 52.56287
+          }
+        }
+      },
+      {
+        "Libya": {
+          "2001": {
+            "life": 71.038,
+            "health": 253.90991
+          },
+          "2010": {
+            "life": 72.044,
+            "health": 399.01917
+          },
+          "2019": {
+            "life": 72.913,
+            "health": null
+          }
+        }
+      },
+      {
+        "Liechtenstein": {
+          "2001": {
+            "life": 79.27561,
+            "health": null
+          },
+          "2010": {
+            "life": 81.84146,
+            "health": null
+          },
+          "2019": {
+            "life": 84.16097,
+            "health": null
+          }
+        }
+      },
+      {
+        "Lithuania": {
+          "2001": {
+            "life": 71.65854,
+            "health": 218.81802
+          },
+          "2010": {
+            "life": 73.268295,
+            "health": 805.2245
+          },
+          "2019": {
+            "life": 76.28293,
+            "health": 1369.9795
+          }
+        }
+      },
+      {
+        "Luxembourg": {
+          "2001": {
+            "life": 77.82439,
+            "health": 3109.2014
+          },
+          "2010": {
+            "life": 80.63171,
+            "health": 7459.8354
+          },
+          "2019": {
+            "life": 82.63902,
+            "health": 6220.741
+          }
+        }
+      },
+      {
+        "Macao SAR, China": {
+          "2001": {
+            "life": 80.645,
+            "health": null
+          },
+          "2010": {
+            "life": 82.704,
+            "health": null
+          },
+          "2019": {
+            "life": 84.244,
+            "health": null
+          }
+        }
+      },
+      {
+        "Madagascar": {
+          "2001": {
+            "life": 59.129,
+            "health": 15.910254
+          },
+          "2010": {
+            "life": 63.388,
+            "health": 21.950842
+          },
+          "2019": {
+            "life": 67.041,
+            "health": 19.849976
+          }
+        }
+      },
+      {
+        "Malawi": {
+          "2001": {
+            "life": 45.204,
+            "health": 6.190803
+          },
+          "2010": {
+            "life": 55.564,
+            "health": 34.662567
+          },
+          "2019": {
+            "life": 64.263,
+            "health": 30.400288
+          }
+        }
+      },
+      {
+        "Malaysia": {
+          "2001": {
+            "life": 72.782,
+            "health": 114.03215
+          },
+          "2010": {
+            "life": 74.493,
+            "health": 290.1766
+          },
+          "2019": {
+            "life": 76.156,
+            "health": 436.61203
+          }
+        }
+      },
+      {
+        "Maldives": {
+          "2001": {
+            "life": 70.964,
+            "health": 230.17087
+          },
+          "2010": {
+            "life": 75.905,
+            "health": 600.64435
+          },
+          "2019": {
+            "life": 78.921,
+            "health": 854.3706
+          }
+        }
+      },
+      {
+        "Mali": {
+          "2001": {
+            "life": 48.758,
+            "health": 13.906796
+          },
+          "2010": {
+            "life": 55.251,
+            "health": 33.231255
+          },
+          "2019": {
+            "life": 59.306,
+            "health": 34.281776
+          }
+        }
+      },
+      {
+        "Malta": {
+          "2001": {
+            "life": 78.8439,
+            "health": 685.984
+          },
+          "2010": {
+            "life": 81.39756,
+            "health": 1733.6688
+          },
+          "2019": {
+            "life": 82.858536,
+            "health": 2531.911
+          }
+        }
+      },
+      {
+        "Marshall Islands": {
+          "2001": {
+            "life": null,
+            "health": 387.95535
+          },
+          "2010": {
+            "life": null,
+            "health": 449.94284
+          },
+          "2019": {
+            "life": null,
+            "health": 664.3185
+          }
+        }
+      },
+      {
+        "Mauritania": {
+          "2001": {
+            "life": 60.788,
+            "health": 23.078022
+          },
+          "2010": {
+            "life": 62.527,
+            "health": 42.466923
+          },
+          "2019": {
+            "life": 64.925,
+            "health": 57.884846
+          }
+        }
+      },
+      {
+        "Mauritius": {
+          "2001": {
+            "life": 71.765854,
+            "health": 119.46854
+          },
+          "2010": {
+            "life": 72.967316,
+            "health": 367.1208
+          },
+          "2019": {
+            "life": 74.235855,
+            "health": 685.9456
+          }
+        }
+      },
+      {
+        "Mexico": {
+          "2001": {
+            "life": 74.658,
+            "health": 363.67358
+          },
+          "2010": {
+            "life": 75.065,
+            "health": 531.88947
+          },
+          "2019": {
+            "life": 75.054,
+            "health": 540.3723
+          }
+        }
+      },
+      {
+        "Micronesia, Fed. Sts.": {
+          "2001": {
+            "life": 64.71,
+            "health": 190.07368
+          },
+          "2010": {
+            "life": 66.471,
+            "health": 378.24478
+          },
+          "2019": {
+            "life": 67.883,
+            "health": 415.19827
+          }
+        }
+      },
+      {
+        "Moldova": {
+          "2001": {
+            "life": 67.185,
+            "health": 25.39859
+          },
+          "2010": {
+            "life": 69.616,
+            "health": 198.28894
+          },
+          "2019": {
+            "life": 71.901,
+            "health": 284.30713
+          }
+        }
+      },
+      {
+        "Monaco": {
+          "2001": {
+            "life": null,
+            "health": 1431.1339
+          },
+          "2010": {
+            "life": null,
+            "health": 3509.5662
+          },
+          "2019": {
+            "life": null,
+            "health": 2905.8438
+          }
+        }
+      },
+      {
+        "Mongolia": {
+          "2001": {
+            "life": 63.319,
+            "health": 26.487616
+          },
+          "2010": {
+            "life": 67.38,
+            "health": 98.844795
+          },
+          "2019": {
+            "life": 69.87,
+            "health": 163.44186
+          }
+        }
+      },
+      {
+        "Montenegro": {
+          "2001": {
+            "life": 73.187515,
+            "health": null
+          },
+          "2010": {
+            "life": 75.99024,
+            "health": null
+          },
+          "2019": {
+            "life": 76.68293,
+            "health": 735.1589
+          }
+        }
+      },
+      {
+        "Morocco": {
+          "2001": {
+            "life": 69.193,
+            "health": 55.94983
+          },
+          "2010": {
+            "life": 74.382,
+            "health": 169.00949
+          },
+          "2019": {
+            "life": 76.68,
+            "health": 174.22377
+          }
+        }
+      },
+      {
+        "Mozambique": {
+          "2001": {
+            "life": 49.295,
+            "health": 8.612842
+          },
+          "2010": {
+            "life": 52.31,
+            "health": 25.666542
+          },
+          "2019": {
+            "life": 60.854,
+            "health": 39.46094
+          }
+        }
+      },
+      {
+        "Myanmar": {
+          "2001": {
+            "life": 60.377,
+            "health": 4.4845495
+          },
+          "2010": {
+            "life": 63.525,
+            "health": 19.602367
+          },
+          "2019": {
+            "life": 67.134,
+            "health": 60.015873
+          }
+        }
+      },
+      {
+        "Namibia": {
+          "2001": {
+            "life": 51.399,
+            "health": 185.40504
+          },
+          "2010": {
+            "life": 56.665,
+            "health": 517.3282
+          },
+          "2019": {
+            "life": 63.708,
+            "health": 427.25623
+          }
+        }
+      },
+      {
+        "Nauru": {
+          "2001": {
+            "life": null,
+            "health": 346.12976
+          },
+          "2010": {
+            "life": null,
+            "health": 628.5897
+          },
+          "2019": {
+            "life": null,
+            "health": 1049.447
+          }
+        }
+      },
+      {
+        "Nepal": {
+          "2001": {
+            "life": 62.945,
+            "health": 10.521443
+          },
+          "2010": {
+            "life": 67.611,
+            "health": 29.982807
+          },
+          "2019": {
+            "life": 70.778,
+            "health": 53.246403
+          }
+        }
+      },
+      {
+        "Netherlands": {
+          "2001": {
+            "life": 78.19025,
+            "health": 2175.7327
+          },
+          "2010": {
+            "life": 80.70244,
+            "health": 5191.728
+          },
+          "2019": {
+            "life": 82.1122,
+            "health": 5335.3013
+          }
+        }
+      },
+      {
+        "New Caledonia": {
+          "2001": {
+            "life": 74.83171,
+            "health": null
+          },
+          "2010": {
+            "life": 77.28049,
+            "health": null
+          },
+          "2019": {
+            "life": 77.63415,
+            "health": null
+          }
+        }
+      },
+      {
+        "New Zealand": {
+          "2001": {
+            "life": 78.69268,
+            "health": 1049.3761
+          },
+          "2010": {
+            "life": 80.70244,
+            "health": 3216.2236
+          },
+          "2019": {
+            "life": 81.70731,
+            "health": 4211.0464
+          }
+        }
+      },
+      {
+        "Nicaragua": {
+          "2001": {
+            "life": 69.934,
+            "health": 57.04566
+          },
+          "2010": {
+            "life": 72.428,
+            "health": 115.95103
+          },
+          "2019": {
+            "life": 74.485,
+            "health": 160.75879
+          }
+        }
+      },
+      {
+        "Niger": {
+          "2001": {
+            "life": 50.584,
+            "health": 9.885902
+          },
+          "2010": {
+            "life": 57.333,
+            "health": 23.886559
+          },
+          "2019": {
+            "life": 62.42,
+            "health": 31.397636
+          }
+        }
+      },
+      {
+        "Nigeria": {
+          "2001": {
+            "life": 46.51,
+            "health": 18.600574
+          },
+          "2010": {
+            "life": 50.896,
+            "health": 76.75748
+          },
+          "2019": {
+            "life": 54.687,
+            "health": 71.46573
+          }
+        }
+      },
+      {
+        "North Macedonia": {
+          "2001": {
+            "life": 73.436584,
+            "health": 152.15872
+          },
+          "2010": {
+            "life": 74.99756,
+            "health": 305.2323
+          },
+          "2019": {
+            "life": 76.60244,
+            "health": 436.88718
+          }
+        }
+      },
+      {
+        "Northern Mariana Islands": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": null,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Norway": {
+          "2001": {
+            "life": 78.78536,
+            "health": 3099.0034
+          },
+          "2010": {
+            "life": 80.99756,
+            "health": 7859.516
+          },
+          "2019": {
+            "life": 82.958534,
+            "health": 8007.398
+          }
+        }
+      },
+      {
+        "Oman": {
+          "2001": {
+            "life": 72.58,
+            "health": 261.31638
+          },
+          "2010": {
+            "life": 75.682,
+            "health": 529.08093
+          },
+          "2019": {
+            "life": 77.861,
+            "health": 624.74445
+          }
+        }
+      },
+      {
+        "Pakistan": {
+          "2001": {
+            "life": 63.066,
+            "health": 13.585202
+          },
+          "2010": {
+            "life": 65.264,
+            "health": 25.256002
+          },
+          "2019": {
+            "life": 67.273,
+            "health": 39.499287
+          }
+        }
+      },
+      {
+        "Palau": {
+          "2001": {
+            "life": null,
+            "health": 639.4607
+          },
+          "2010": {
+            "life": null,
+            "health": 1183.1667
+          },
+          "2019": {
+            "life": null,
+            "health": 2355.6958
+          }
+        }
+      },
+      {
+        "Panama": {
+          "2001": {
+            "life": 75.233,
+            "health": 281.00452
+          },
+          "2010": {
+            "life": 76.792,
+            "health": 572.6137
+          },
+          "2019": {
+            "life": 78.506,
+            "health": 1192.8208
+          }
+        }
+      },
+      {
+        "Papua New Guinea": {
+          "2001": {
+            "life": 59.487,
+            "health": 17.448261
+          },
+          "2010": {
+            "life": 62.029,
+            "health": 41.083786
+          },
+          "2019": {
+            "life": 64.501,
+            "health": 65.08072
+          }
+        }
+      },
+      {
+        "Paraguay": {
+          "2001": {
+            "life": 70.786,
+            "health": 87.7708
+          },
+          "2010": {
+            "life": 72.653,
+            "health": 237.33458
+          },
+          "2019": {
+            "life": 74.254,
+            "health": 388.39325
+          }
+        }
+      },
+      {
+        "Peru": {
+          "2001": {
+            "life": 71.505,
+            "health": 89.91749
+          },
+          "2010": {
+            "life": 74.41,
+            "health": 241.9287
+          },
+          "2019": {
+            "life": 76.736,
+            "health": 370.10995
+          }
+        }
+      },
+      {
+        "Philippines": {
+          "2001": {
+            "life": 68.835,
+            "health": 28.20891
+          },
+          "2010": {
+            "life": 69.823,
+            "health": 91.6056
+          },
+          "2019": {
+            "life": 71.231,
+            "health": 142.07877
+          }
+        }
+      },
+      {
+        "Poland": {
+          "2001": {
+            "life": 74.2,
+            "health": 282.82104
+          },
+          "2010": {
+            "life": 76.24634,
+            "health": 809.1994
+          },
+          "2019": {
+            "life": 77.90488,
+            "health": 1014.0382
+          }
+        }
+      },
+      {
+        "Portugal": {
+          "2001": {
+            "life": 76.81464,
+            "health": 1015.5497
+          },
+          "2010": {
+            "life": 79.02683,
+            "health": 2259.3037
+          },
+          "2019": {
+            "life": 81.67561,
+            "health": 2221.4392
+          }
+        }
+      },
+      {
+        "Puerto Rico": {
+          "2001": {
+            "life": 77.066826,
+            "health": null
+          },
+          "2010": {
+            "life": 78.4191,
+            "health": null
+          },
+          "2019": {
+            "life": 79.92851,
+            "health": null
+          }
+        }
+      },
+      {
+        "Qatar": {
+          "2001": {
+            "life": 77.612,
+            "health": 659.9841
+          },
+          "2010": {
+            "life": 79.108,
+            "health": 1206.003
+          },
+          "2019": {
+            "life": 80.227,
+            "health": 1807.1539
+          }
+        }
+      },
+      {
+        "Romania": {
+          "2001": {
+            "life": 71.16097,
+            "health": 78.817535
+          },
+          "2010": {
+            "life": 73.458534,
+            "health": 472.20752
+          },
+          "2019": {
+            "life": 75.607315,
+            "health": 738.55817
+          }
+        }
+      },
+      {
+        "Russian Federation": {
+          "2001": {
+            "life": 65.383415,
+            "health": 118.10949
+          },
+          "2010": {
+            "life": 68.84122,
+            "health": 566.0909
+          },
+          "2019": {
+            "life": 73.0839,
+            "health": 653.41724
+          }
+        }
+      },
+      {
+        "Rwanda": {
+          "2001": {
+            "life": 49.936,
+            "health": 7.920927
+          },
+          "2010": {
+            "life": 63.433,
+            "health": 49.315437
+          },
+          "2019": {
+            "life": 69.024,
+            "health": 51.399124
+          }
+        }
+      },
+      {
+        "Samoa": {
+          "2001": {
+            "life": 69.103,
+            "health": 58.871178
+          },
+          "2010": {
+            "life": 71.663,
+            "health": 192.76791
+          },
+          "2019": {
+            "life": 73.321,
+            "health": 271.91577
+          }
+        }
+      },
+      {
+        "San Marino": {
+          "2001": {
+            "life": null,
+            "health": 2168.8333
+          },
+          "2010": {
+            "life": null,
+            "health": 3983.751
+          },
+          "2019": {
+            "life": null,
+            "health": 3050.9182
+          }
+        }
+      },
+      {
+        "Sao Tome and Principe": {
+          "2001": {
+            "life": 62.017,
+            "health": 53.569183
+          },
+          "2010": {
+            "life": 67.43,
+            "health": 74.93682
+          },
+          "2019": {
+            "life": 70.385,
+            "health": 108.4464
+          }
+        }
+      },
+      {
+        "Saudi Arabia": {
+          "2001": {
+            "life": 72.759,
+            "health": 387.4863
+          },
+          "2010": {
+            "life": 73.917,
+            "health": 702.6711
+          },
+          "2019": {
+            "life": 75.133,
+            "health": 1316.2603
+          }
+        }
+      },
+      {
+        "Senegal": {
+          "2001": {
+            "life": 58.177,
+            "health": 23.857248
+          },
+          "2010": {
+            "life": 64.284,
+            "health": 51.214836
+          },
+          "2019": {
+            "life": 67.941,
+            "health": 59.097584
+          }
+        }
+      },
+      {
+        "Serbia": {
+          "2001": {
+            "life": 72.234146,
+            "health": 112.220634
+          },
+          "2010": {
+            "life": 74.336586,
+            "health": 545.3338
+          },
+          "2019": {
+            "life": 75.936584,
+            "health": 641.025
+          }
+        }
+      },
+      {
+        "Seychelles": {
+          "2001": {
+            "life": 73.25366,
+            "health": 407.45132
+          },
+          "2010": {
+            "life": 73.19756,
+            "health": 513.228
+          },
+          "2019": {
+            "life": 74.04634,
+            "health": 839.7733
+          }
+        }
+      },
+      {
+        "Sierra Leone": {
+          "2001": {
+            "life": 40.369,
+            "health": 25.172243
+          },
+          "2010": {
+            "life": 49.382,
+            "health": 43.974323
+          },
+          "2019": {
+            "life": 54.696,
+            "health": 46.157955
+          }
+        }
+      },
+      {
+        "Singapore": {
+          "2001": {
+            "life": 78.25122,
+            "health": 696.6172
+          },
+          "2010": {
+            "life": 81.541466,
+            "health": 1496.776
+          },
+          "2019": {
+            "life": 83.59512,
+            "health": 2632.7139
+          }
+        }
+      },
+      {
+        "Sint Maarten (Dutch part)": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": null,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Slovak Republic": {
+          "2001": {
+            "life": 73.402435,
+            "health": 212.22208
+          },
+          "2010": {
+            "life": 75.1122,
+            "health": 1296.5428
+          },
+          "2019": {
+            "life": 77.665855,
+            "health": 1342.0748
+          }
+        }
+      },
+      {
+        "Slovenia": {
+          "2001": {
+            "life": 75.75854,
+            "health": 826.22577
+          },
+          "2010": {
+            "life": 79.42195,
+            "health": 2017.1466
+          },
+          "2019": {
+            "life": 81.52927,
+            "health": 2219.1006
+          }
+        }
+      },
+      {
+        "Solomon Islands": {
+          "2001": {
+            "life": 67.816,
+            "health": 63.79349
+          },
+          "2010": {
+            "life": 70.674,
+            "health": 134.58466
+          },
+          "2019": {
+            "life": 72.996,
+            "health": 111.90449
+          }
+        }
+      },
+      {
+        "Somalia": {
+          "2001": {
+            "life": 51.213,
+            "health": null
+          },
+          "2010": {
+            "life": 53.99,
+            "health": null
+          },
+          "2019": {
+            "life": 57.397,
+            "health": null
+          }
+        }
+      },
+      {
+        "South Africa": {
+          "2001": {
+            "life": 55.089,
+            "health": 211.69156
+          },
+          "2010": {
+            "life": 57.669,
+            "health": 635.0941
+          },
+          "2019": {
+            "life": 64.131,
+            "health": 546.6884
+          }
+        }
+      },
+      {
+        "South Sudan": {
+          "2001": {
+            "life": 49.592,
+            "health": null
+          },
+          "2010": {
+            "life": 54.8,
+            "health": null
+          },
+          "2019": {
+            "life": 57.846,
+            "health": 22.638187
+          }
+        }
+      },
+      {
+        "Spain": {
+          "2001": {
+            "life": 79.36829,
+            "health": 1045.0507
+          },
+          "2010": {
+            "life": 81.62683,
+            "health": 2789.534
+          },
+          "2019": {
+            "life": 83.83171,
+            "health": 2711.1929
+          }
+        }
+      },
+      {
+        "Sri Lanka": {
+          "2001": {
+            "life": 72.233,
+            "health": 41.323704
+          },
+          "2010": {
+            "life": 75.439,
+            "health": 108.275185
+          },
+          "2019": {
+            "life": 76.978,
+            "health": 160.69696
+          }
+        }
+      },
+      {
+        "St. Kitts and Nevis": {
+          "2001": {
+            "life": null,
+            "health": 451.68024
+          },
+          "2010": {
+            "life": null,
+            "health": 828.48224
+          },
+          "2019": {
+            "life": null,
+            "health": 1087.801
+          }
+        }
+      },
+      {
+        "St. Lucia": {
+          "2001": {
+            "life": 73.486,
+            "health": 288.75674
+          },
+          "2010": {
+            "life": 74.852,
+            "health": 430.23776
+          },
+          "2019": {
+            "life": 76.203,
+            "health": 502.1817
+          }
+        }
+      },
+      {
+        "St. Martin (French part)": {
+          "2001": {
+            "life": 76.97317,
+            "health": null
+          },
+          "2010": {
+            "life": 78.52195,
+            "health": null
+          },
+          "2019": {
+            "life": 79.97317,
+            "health": null
+          }
+        }
+      },
+      {
+        "St. Vincent and the Grenadines": {
+          "2001": {
+            "life": 70.882,
+            "health": 171.39845
+          },
+          "2010": {
+            "life": 71.776,
+            "health": 286.35498
+          },
+          "2019": {
+            "life": 72.534,
+            "health": 354.80865
+          }
+        }
+      },
+      {
+        "Sudan": {
+          "2001": {
+            "life": 58.859,
+            "health": 16.5766
+          },
+          "2010": {
+            "life": 62.764,
+            "health": 93.453156
+          },
+          "2019": {
+            "life": 65.311,
+            "health": 46.92884
+          }
+        }
+      },
+      {
+        "Suriname": {
+          "2001": {
+            "life": 67.913,
+            "health": 93.65899
+          },
+          "2010": {
+            "life": 70.465,
+            "health": 415.2991
+          },
+          "2019": {
+            "life": 71.682,
+            "health": 619.24713
+          }
+        }
+      },
+      {
+        "Sweden": {
+          "2001": {
+            "life": 79.79512,
+            "health": 2155.8542
+          },
+          "2010": {
+            "life": 81.45122,
+            "health": 4416.1455
+          },
+          "2019": {
+            "life": 83.10976,
+            "health": 5671.3857
+          }
+        }
+      },
+      {
+        "Switzerland": {
+          "2001": {
+            "life": 80.18049,
+            "health": 3763.3845
+          },
+          "2010": {
+            "life": 82.24634,
+            "health": 7705.176
+          },
+          "2019": {
+            "life": 83.90488,
+            "health": 9666.338
+          }
+        }
+      },
+      {
+        "Syrian Arab Republic": {
+          "2001": {
+            "life": 73.371,
+            "health": 58.473927
+          },
+          "2010": {
+            "life": 72.108,
+            "health": 92.7375
+          },
+          "2019": {
+            "life": 72.697,
+            "health": null
+          }
+        }
+      },
+      {
+        "Tajikistan": {
+          "2001": {
+            "life": 62.807,
+            "health": 7.6724076
+          },
+          "2010": {
+            "life": 68.736,
+            "health": 42.98645
+          },
+          "2019": {
+            "life": 71.097,
+            "health": 61.872253
+          }
+        }
+      },
+      {
+        "Tanzania": {
+          "2001": {
+            "life": 51.444,
+            "health": 15.532048
+          },
+          "2010": {
+            "life": 58.584,
+            "health": 37.53248
+          },
+          "2019": {
+            "life": 65.456,
+            "health": 40.343304
+          }
+        }
+      },
+      {
+        "Thailand": {
+          "2001": {
+            "life": 70.832,
+            "health": 57.29466
+          },
+          "2010": {
+            "life": 74.184,
+            "health": 172.09297
+          },
+          "2019": {
+            "life": 77.15,
+            "health": 296.1651
+          }
+        }
+      },
+      {
+        "Timor-Leste": {
+          "2001": {
+            "life": 59.945,
+            "health": null
+          },
+          "2010": {
+            "life": 67.186,
+            "health": 52.189655
+          },
+          "2019": {
+            "life": 69.495,
+            "health": 92.670044
+          }
+        }
+      },
+      {
+        "Togo": {
+          "2001": {
+            "life": 53.554,
+            "health": 11.397036
+          },
+          "2010": {
+            "life": 57.468,
+            "health": 32.09547
+          },
+          "2019": {
+            "life": 61.042,
+            "health": 51.15503
+          }
+        }
+      },
+      {
+        "Tonga": {
+          "2001": {
+            "life": 69.725,
+            "health": 59.96764
+          },
+          "2010": {
+            "life": 70.059,
+            "health": 177.96895
+          },
+          "2019": {
+            "life": 70.907,
+            "health": 242.37277
+          }
+        }
+      },
+      {
+        "Trinidad and Tobago": {
+          "2001": {
+            "life": 69.65,
+            "health": 284.29602
+          },
+          "2010": {
+            "life": 71.946,
+            "health": 861.51056
+          },
+          "2019": {
+            "life": 73.507,
+            "health": 1167.9331
+          }
+        }
+      },
+      {
+        "Tunisia": {
+          "2001": {
+            "life": 73.415,
+            "health": 114.88659
+          },
+          "2010": {
+            "life": 75.041,
+            "health": 243.71402
+          },
+          "2019": {
+            "life": 76.699,
+            "health": 233.05931
+          }
+        }
+      },
+      {
+        "Turkey": {
+          "2001": {
+            "life": 70.56,
+            "health": 153.62274
+          },
+          "2010": {
+            "life": 74.507,
+            "health": 539.32715
+          },
+          "2019": {
+            "life": 77.691,
+            "health": 396.46683
+          }
+        }
+      },
+      {
+        "Turkmenistan": {
+          "2001": {
+            "life": 63.842,
+            "health": 123.79407
+          },
+          "2010": {
+            "life": 66.657,
+            "health": 221.79845
+          },
+          "2019": {
+            "life": 68.191,
+            "health": 500.00644
+          }
+        }
+      },
+      {
+        "Turks and Caicos Islands": {
+          "2001": {
+            "life": null,
+            "health": null
+          },
+          "2010": {
+            "life": null,
+            "health": null
+          },
+          "2019": {
+            "life": null,
+            "health": null
+          }
+        }
+      },
+      {
+        "Tuvalu": {
+          "2001": {
+            "life": null,
+            "health": 272.08038
+          },
+          "2010": {
+            "life": null,
+            "health": 500.05597
+          },
+          "2019": {
+            "life": null,
+            "health": 972.6124
+          }
+        }
+      },
+      {
+        "Uganda": {
+          "2001": {
+            "life": 47.22,
+            "health": 16.189337
+          },
+          "2010": {
+            "life": 57.099,
+            "health": 51.82596
+          },
+          "2019": {
+            "life": 63.368,
+            "health": 32.408443
+          }
+        }
+      },
+      {
+        "Ukraine": {
+          "2001": {
+            "life": 67.837074,
+            "health": 44.78644
+          },
+          "2010": {
+            "life": 70.265366,
+            "health": 202.34087
+          },
+          "2019": {
+            "life": 71.82732,
+            "health": 248.13348
+          }
+        }
+      },
+      {
+        "United Arab Emirates": {
+          "2001": {
+            "life": 74.544,
+            "health": 777.1306
+          },
+          "2010": {
+            "life": 76.332,
+            "health": 1314.63
+          },
+          "2019": {
+            "life": 77.972,
+            "health": 1842.6945
+          }
+        }
+      },
+      {
+        "United Kingdom": {
+          "2001": {
+            "life": 77.99268,
+            "health": 2101.8364
+          },
+          "2010": {
+            "life": 80.402435,
+            "health": 3904.507
+          },
+          "2019": {
+            "life": 81.20488,
+            "health": 4312.889
+          }
+        }
+      },
+      {
+        "United States": {
+          "2001": {
+            "life": 76.836586,
+            "health": 4894.281
+          },
+          "2010": {
+            "life": 78.541466,
+            "health": 7888.352
+          },
+          "2019": {
+            "life": 78.7878,
+            "health": 10921.013
+          }
+        }
+      },
+      {
+        "Uruguay": {
+          "2001": {
+            "life": 74.939,
+            "health": 668.95795
+          },
+          "2010": {
+            "life": 76.75,
+            "health": 1030.6217
+          },
+          "2019": {
+            "life": 77.911,
+            "health": 1660.9529
+          }
+        }
+      },
+      {
+        "Uzbekistan": {
+          "2001": {
+            "life": 67.374,
+            "health": 30.44023
+          },
+          "2010": {
+            "life": 69.672,
+            "health": 85.44558
+          },
+          "2019": {
+            "life": 71.725,
+            "health": 98.573166
+          }
+        }
+      },
+      {
+        "Vanuatu": {
+          "2001": {
+            "life": 67.583,
+            "health": 46.25572
+          },
+          "2010": {
+            "life": 69.123,
+            "health": 100.13548
+          },
+          "2019": {
+            "life": 70.474,
+            "health": 104.24961
+          }
+        }
+      },
+      {
+        "Venezuela, RB": {
+          "2001": {
+            "life": 72.294,
+            "health": 391.32364
+          },
+          "2010": {
+            "life": 73.134,
+            "health": 945.9151
+          },
+          "2019": {
+            "life": 72.064,
+            "health": 338.82538
+          }
+        }
+      },
+      {
+        "Vietnam": {
+          "2001": {
+            "life": 73.228,
+            "health": 23.187826
+          },
+          "2010": {
+            "life": 74.837,
+            "health": 78.63556
+          },
+          "2019": {
+            "life": 75.4,
+            "health": 180.71819
+          }
+        }
+      },
+      {
+        "Virgin Islands (U.S.)": {
+          "2001": {
+            "life": 77.62195,
+            "health": null
+          },
+          "2010": {
+            "life": 77.86585,
+            "health": null
+          },
+          "2019": {
+            "life": 79.66829,
+            "health": null
+          }
+        }
+      },
+      {
+        "West Bank and Gaza": {
+          "2001": {
+            "life": 71.239,
+            "health": null
+          },
+          "2010": {
+            "life": 72.788,
+            "health": null
+          },
+          "2019": {
+            "life": 74.053,
+            "health": null
+          }
+        }
+      },
+      {
+        "Yemen, Rep.": {
+          "2001": {
+            "life": 61.216,
+            "health": 27.195436
+          },
+          "2010": {
+            "life": 65.549,
+            "health": 68.86594
+          },
+          "2019": {
+            "life": 66.125,
+            "health": null
+          }
+        }
+      },
+      {
+        "Zambia": {
+          "2001": {
+            "life": 44.615,
+            "health": 25.092323
+          },
+          "2010": {
+            "life": 55.655,
+            "health": 55.39283
+          },
+          "2019": {
+            "life": 63.886,
+            "health": 69.32438
+          }
+        }
+      },
+      {
+        "Zimbabwe": {
+          "2001": {
+            "life": 44.01,
+            "health": null
+          },
+          "2010": {
+            "life": 50.64,
+            "health": 99.34856
+          },
+          "2019": {
+            "life": 61.49,
+            "health": 103.028275
+          }
+        }
+      }
+    ]
+
+    const low_health = 100
+    const mid_health = 1500
+    ndata.forEach((obj, index) => {
+      var d = obj[Object.keys(obj)[0]]
+      const health2001 = d["2001"]['health']
+      if (health2001 <low_health) {
+        d["type"] = "low"
+      } else if (health2001 <mid_health) {
+        d["type"] = "mid"
+      } else {
+        d["type"] = "high"
+      }
+    });
+    var map_dict = {}
+    ndata.forEach((obj, index) => {
+      var country_name = Object.keys(obj)[0]
+      var d = obj[country_name]
+      map_dict[`${country_name}`] = d['type']
+    });
+
     function hide(arr) {
       for (var i = 0; i < arr.length; i++) {
         arr[i].style.visibility = 'hidden';
@@ -4014,47 +7542,114 @@
       }
     }
 
+    // Code adapted from http://bl.ocks.org/fryford/2925ecf70ac9d9b51031
+    // and https://observablehq.com/@d3/connected-scatterplot
+    function animatelines(lineset) {
+      d3.selectAll("." + lineset).each(function (d, i) {
+        var totalLength = d3.select("#" + lineset + i).node().getTotalLength();
+        if (totalLength > 0) {
+          d3.selectAll("#" + lineset + i).attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(2000)
+            .delay(10 * i)
+            .ease(d3.easeLinear)
+            .attr("stroke-dashoffset", 0)
+            .style("stroke-width", 3)
+        }
+      })
+    }
+
+    var cur_type = ""
+    var cur_year = "2001"
+    
+    function handleType(type) {
+      cur_type = type
+      handleSelects()
+    }
+
     function handleClick(myRadio) {
-      var el2001 = document.getElementsByClassName("year2001");
-      var el2010 = document.getElementsByClassName("year2010");
-      var el2019 = document.getElementsByClassName("year2019");
       if (myRadio.value === "0") {
-        showels(el2001);
-        hide(el2010);
-        hide(el2019);
+        cur_year = "2001"
+        cur_type = ""
       }
       else if (myRadio.value === "1") {
-        showels(el2001);
-        showels(el2010);
-        hide(el2019);
+        cur_year = "2010"
+        cur_type = ""
       }
       else if (myRadio.value === "2") {
-        showels(el2001);
-        showels(el2010);
-        showels(el2019);
+        cur_year = "2019"
+        cur_type = ""
       }
+      handleSelects()
+    }
+
+    function handleSelects() {
+      // var el2001 = document.getElementsByClassName("year2001");
+      // var el2010 = document.getElementsByClassName("year2010");
+      // var el2019 = document.getElementsByClassName("year2019");
+      var text2001 = document.getElementsByClassName("text2001");
+      var text2010 = document.getElementsByClassName("text2010");
+      var text2019 = document.getElementsByClassName("text2019");
+     
+      
+      const all_classes = ".year2009, .year2010, .year2019, .low, .mid, .high,.text2009, .text2010, .text2019, .lines2010, .lines2019"
+      var all_els = document.querySelectorAll(all_classes);
+
+      // var elclasses = `year${cur_year} ${cur_type}`
+      // var new_els = document.getElementsByClassName(elclasses);
+      const fixed_type = `${cur_type != '' ? '.' + cur_type : ''}`
+      const hilighted = `${fixed_type}.hilight`
+      
+      const elclasses= `.year${cur_year}${fixed_type}, .lines${cur_year}${fixed_type}${cur_year == "2019" ? ', .lines2010'+fixed_type : ""}, ${hilighted}`;
+
+      var new_els = document.querySelectorAll(elclasses);
+      
+      // console.log(new_els)
+      // console.log(elclasses)
+
+      var textyear = document.getElementsByClassName(`text${cur_year}`);
+      
+      hide(all_els);
+      showels(new_els);
+
+      if (cur_year == "2001") {
+        showels(text2001);
+        hide(text2010);
+        hide(text2019);
+      }
+      else if (cur_year == "2010") {
+        hide(text2001);
+        showels(text2010);
+        hide(text2019);
+        // animatelines("lines2010");
+      }
+      else if (cur_year == "2019") {
+        hide(text2001);
+        hide(text2010);
+        showels(text2019);
+        // animatelines("lines2019");
+      }
+        animatelines("lines2010");
+        animatelines("lines2019");
     }
 
     async function init() {
       // const data = await d3.csv("https://djoldman.github.io/data.csv");
       // const data = await d3.csv("https://djoldman.github.io/life.csv");
       // const data = await d3.csv("https://djoldman.github.io/flat.csv");
-      console.log(typeof (data))
-      console.log(data)
+      // console.log(typeof (data))
+      // console.log(data)
 
       const width = 600;
       const height = 600;
-      const margin = 20;
-      // var xdomain = [3.846088036, 15979.5925737]
-      // var ydomain = [42.573461677, 87.231241220]
+      const margin = 50;
 
-      // var x = d3.scaleLog().domain(xdomain).range([0, width - 2 * margin]);
-      // var y = d3.scaleLog().domain(ydomain).range([height - 2 * margin, 0]);
       var xdomain = [3.036340309, 16160.4995247]
-      var ydomain = [38.822061302, 87.622867623]
+      var ydomain = [38.077760631, 86.647580832]
 
       var xs = d3.scaleLog().domain(xdomain).range([0, width - 2 * margin]);
-      var ys = d3.scaleLog().domain(ydomain).range([height - 2 * margin, 0]);
+      var ys = d3.scaleLinear().domain(ydomain).range([height - 2 * margin, 0]);
 
       var svg = d3.select("svg")
         .attr("width", width + 2 * margin)
@@ -4078,11 +7673,117 @@
         })
         .attr("display", "initial")
         .attr("class", function (d, i) {
+          var classes = ""
           const year = d['Year']
           if (year !== null) {
-            return `year${year}`
+            classes += `year${year}`
           }
+          const type = map_dict[d['Country Name']]
+          classes += ` ${type}`
+          return classes
         });
+
+      var lines = svg.append("g")
+        .attr("transform", "translate(" + margin + "," + margin + ")")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", "5")
+
+      lines.selectAll("path")
+        .data(ndata)
+        .join("path")
+        .attr("d", function (obj) {
+          d = obj[Object.keys(obj)[0]]
+          const health2001 = d["2001"]['health']
+          const life2001 = d["2001"]['life']
+          const health2010 = d["2010"]['health']
+          const life2010 = d["2010"]['life']
+          if ((health2001 !== null) & (life2001 !== null) &
+            (health2010 !== null) & (life2010 !== null)
+          ) {
+            return `M${xs(health2001)} ${ys(life2001)} L${xs(health2010)} ${ys(life2010)}`
+          }
+        })
+        // .attr("class", "year2010 lines2010")
+        .attr("class", function (d, i) {
+          var classes = "year2010 lines2010"
+          const type = map_dict[Object.keys(d)[0]]
+          classes += ` ${type}`
+          return classes
+        })
+        .attr("id", (d, i) => "lines2010" + i)
+
+      var lines2 = svg.append("g")
+        .attr("transform", "translate(" + margin + "," + margin + ")")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", "5")
+
+      lines2.selectAll("path")
+        .data(ndata)
+        .join("path")
+        .attr("d", function (obj) {
+          d = obj[Object.keys(obj)[0]]
+          const health2010 = d["2010"]['health']
+          const life2010 = d["2010"]['life']
+          const health2019 = d["2019"]['health']
+          const life2019 = d["2019"]['life']
+          if ((health2010 !== null) & (life2010 !== null) &
+            (health2019 !== null) & (life2019 !== null)) {
+            return `M${xs(health2010)} ${ys(life2010)} L${xs(health2019)} ${ys(life2019)}`
+          }
+        })
+        // .attr("class", "year2019 lines2019")
+        .attr("class", function (d, i) {
+          var classes = "year2019 lines2019"
+          const type = map_dict[Object.keys(d)[0]]
+          classes += ` ${type}`
+          return classes
+        })
+        .attr("id", (d, i) => "lines2019" + i)
+      
+      var points_hi = svg.append("g")
+        .attr("transform", "translate(" + margin + "," + margin + ")")
+        .attr("fill", "none")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", "13");
+
+      points_hi.selectAll("path")
+        .data(data)
+        .join("path")
+        .attr("d", function (d, i) {
+          const country = d['Country Name']
+          if (
+            ((country == 'United States') | 
+            (country == 'Zambia') | 
+            (country == 'Tunisia')) & 
+          (d['Year'] == "2001")){
+            const health = d['health']
+            const life = d['life']
+            if ((health !== null) & (life !== null)) {
+              return `M${xs(health)},${ys(life)}h0`
+            }
+          }
+        })
+        .attr("display", "initial")
+        .attr("class", function (d, i) {
+          var classes = ""
+          // const year = d['Year']
+          // if (year !== null) {
+          //   classes += `year${year}`
+          // }
+          const type = map_dict[d['Country Name']]
+          classes += ` ${type}`
+          classes += " hilight"
+          return classes
+        });
+
+      var texts = svg.selectAll("text")
+        .data(['2001', '2010', '2019'])
+        .enter()
+        .append("text")
+        .attr("transform", "translate(" + (margin + 20) + "," + (margin + 40) + ")")
+        .text(function (d) { return d; })
+        .attr("style", "font-size: 2em;")
+        .attr("class", d => "text" + d)
 
       svg.append("g")
         .attr("transform", "translate(" + margin + "," + margin + ")")
@@ -4091,16 +7792,30 @@
       svg.append("g")
         .attr("transform", "translate(" + margin + "," + (height - margin) + ")").call(d3.axisBottom(xs));
 
+      svg.append('g')
+        .attr('transform', 'translate(' + (margin - 30) + ', ' + height / 2 + ')')
+        .append('text')
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'rotate(-90)')
+        .text('Life Expectancy at Birth (years)');
+
+      svg.append('g')
+        .attr('transform', 'translate(' + (width / 2) + ', ' + (height - 15) + ')')
+        .append('text')
+        .attr('text-anchor', 'middle')
+        .text('Health Expenditure per Capita (current US$)');
+
       //Add annotations
       var labels2 = data.map(function (l) {
-        l.data = { "health": l.health, "life": l.life }
-        l.dx = 20
-        l.dy = 20
-        l.note = Object.assign({}, l.note, {
-          title: l["Country Name"],
-          label: `Year: ${l.Year}\nLife Expectancy: ${l.life}\nHealth Expenditure per capita: ${l.health}`,
-          wrapSplitter: "\n"
-        });
+        l.data = { "health": l.health, "life": l.life },
+          l.dx = l.health < 300 ? 20 : -300,
+          l.dy = l.life > 47 ? 20 : -20,
+          l.note = Object.assign({}, l.note, {
+            title: l["Country Name"],
+            label: `Year: ${l.Year}\nLife Expectancy: ${Math.round(l.life * 100) / 100}\nHealth Expenditure per capita: ${Math.round(l.health * 100) / 100}`,
+            wrapSplitter: "\n",
+            align: "left",
+          });
         l.subject = { radius: 4 };
 
         return l;
@@ -4109,8 +7824,6 @@
       labels2 = labels2.filter(function (obj) {
         return (obj.data.health !== null) & (obj.data.life !== null)
       });
-
-      console.log(labels2)
 
       window.makeAnnotations = d3.annotation().annotations(labels2).type(d3.annotationCalloutCircle).accessors({
         x: function x(d) {
